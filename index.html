@@ -42,7 +42,7 @@
       padding-bottom: 64px;
     }
 
-    /* 1. Header (시원하게 키운 로고 & 탭 밑줄 지원) */
+    /* 1. Header */
     .site-header {
       position: sticky;
       top: 0;
@@ -60,7 +60,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 68px; /* 헤더 높이 확장 */
+      height: 68px;
     }
 
     .logo-wrap {
@@ -70,13 +70,11 @@
       height: 100%;
     }
 
-    /* 로고 크기 밸런스 확대 (44px) */
     .logo-img {
       height: 44px;
       width: auto;
       object-fit: contain;
       display: block;
-      transition: height 0.2s ease;
     }
 
     .nav-links {
@@ -135,49 +133,51 @@
       margin-left: 6px;
     }
 
-    /* 햄버거 <-> X 변환 애니메이션 버튼 (회색 배경 없음, 최상위 z-index) */
+    /* Google Sites형 삼선 ➔ X 모핑 버튼 */
     .btn-hamburger {
       display: none;
-      background: none;
+      background: transparent;
       border: none;
       cursor: pointer;
-      width: 28px;
+      width: 26px;
       height: 22px;
       position: relative;
       padding: 0;
       z-index: 3000;
       outline: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn-hamburger span {
       display: block;
       position: absolute;
-      height: 3px;
+      height: 2.5px;
       width: 100%;
       background: #1E293B;
-      border-radius: 3px;
+      border-radius: 2px;
       left: 0;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, top 0.3s ease, background-color 0.2s;
+      transform-origin: center;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  top 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.2s ease;
     }
 
     .btn-hamburger span:nth-child(1) { top: 2px; }
-    .btn-hamburger span:nth-child(2) { top: 9.5px; }
-    .btn-hamburger span:nth-child(3) { top: 17px; }
+    .btn-hamburger span:nth-child(2) { top: 9.75px; }
+    .btn-hamburger span:nth-child(3) { top: 17.5px; }
 
-    /* Open 시 회전하며 완전한 X자로 변신 */
+    /* 활성화 시 정밀 X자 모핑 */
     .btn-hamburger.open span:nth-child(1) {
-      top: 9.5px;
+      top: 9.75px;
       transform: rotate(45deg);
-      background: #122844;
     }
     .btn-hamburger.open span:nth-child(2) {
       opacity: 0;
-      transform: scale(0);
+      transform: scaleX(0);
     }
     .btn-hamburger.open span:nth-child(3) {
-      top: 9.5px;
+      top: 9.75px;
       transform: rotate(-45deg);
-      background: #122844;
     }
 
     /* 모바일 우측 드로어 */
@@ -443,7 +443,7 @@
       box-shadow: 0 2px 6px rgba(6, 199, 85, 0.25);
     }
 
-    /* 4. 담임목사 소개 및 인사말 */
+    /* 4. 담임목사 소개 */
     .pastor-section {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -492,7 +492,7 @@
       line-height: 1.65;
     }
 
-    /* 5. 회당 시설 및 모임 안내 */
+    /* 5. 회당 시설 안내 */
     .facility-section {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -571,7 +571,7 @@
       line-height: 1.4;
     }
 
-    /* 7. FAQ Section & 정밀 보정된 Q/A 뱃지 (첫 줄 텍스트와 완벽 일직선 정렬) */
+    /* 7. FAQ Section */
     .faq-container {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -600,7 +600,6 @@
       margin-bottom: 10px;
     }
 
-    /* Q 뱃지: 26x26 균일 박스, 완벽 중앙 배치 및 첫 줄 글자 높이와 수평 정렬 */
     .badge-q {
       width: 26px;
       height: 26px;
@@ -614,7 +613,7 @@
       justify-content: center;
       flex-shrink: 0;
       line-height: 1;
-      margin-top: -1px; /* 첫 줄 텍스트와 정밀 수평 보정 */
+      margin-top: -1px;
     }
     .faq-question {
       font-size: 0.95rem;
@@ -629,7 +628,6 @@
       gap: 10px;
     }
 
-    /* A 뱃지: 26x26 균일 박스, 완벽 중앙 배치 및 첫 줄 글자 높이와 수평 정렬 */
     .badge-a {
       width: 26px;
       height: 26px;
@@ -643,7 +641,7 @@
       justify-content: center;
       flex-shrink: 0;
       line-height: 1;
-      margin-top: -1px; /* 첫 줄 텍스트와 정밀 수평 보정 */
+      margin-top: -1px;
     }
     .faq-answer {
       font-size: 0.88rem;
@@ -651,7 +649,6 @@
       line-height: 1.6;
     }
 
-    /* 기타 질문 대응 박스 */
     .faq-contact-assist {
       margin-top: 24px;
       background: #F8FAFC;
@@ -784,7 +781,7 @@
     .contact-row { display: flex; justify-content: space-between; color: #334155; }
     .contact-row a { color: var(--primary-blue); text-decoration: none; font-weight: 700; }
 
-    /* 9. 주보 5주간 모달 */
+    /* 9. 주보 모달 */
     .bulletin-modal {
       display: none;
       position: fixed;
@@ -841,7 +838,7 @@
       margin-right: 6px;
     }
 
-    /* 10. 모바일 하단 플로팅 바 */
+    /* 10. 모바일 하단 바 */
     .mobile-floating-bar {
       display: none;
       position: fixed;
@@ -899,7 +896,7 @@
     @media (max-width: 768px) {
       .btn-hamburger { display: block; }
       .nav-links { display: none; }
-      .logo-img { height: 38px; } /* 모바일에서도 시원한 로고 크기 유지 */
+      .logo-img { height: 38px; }
       .nav-container { height: 60px; padding: 0 16px; }
       .drawer-header { height: 60px; }
       .hero-section { min-height: 360px; padding: 36px 14px; }
@@ -920,7 +917,7 @@
 </head>
 <body>
 
-  <!-- 1. Header (키운 로고 & 햄버거 <-> X 변환 애니메이션) -->
+  <!-- 1. Header -->
   <header class="site-header">
     <div class="nav-container">
       <a href="index.html" class="logo-wrap">
@@ -938,7 +935,7 @@
         <li class="nav-item"><a href="access.html" class="btn-nav-cta">アクセス</a></li>
       </ul>
 
-      <!-- 모바일 햄버거 버튼 (클릭 시 제자리에서 X로 회전 변형) -->
+      <!-- Google Sites형 모핑 햄버거 버튼 (우측 상단 위치) -->
       <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
         <span></span>
         <span></span>
@@ -1111,7 +1108,7 @@
       </div>
     </div>
 
-    <!-- 7. FAQ 섹션 (정밀 수평 보정된 26x26 Q/A 뱃지) -->
+    <!-- 7. FAQ 섹션 -->
     <div class="faq-container" id="faq">
       <div class="faq-header">
         <h2 class="faq-title">初めての方へ（よくある質問）</h2>
@@ -1206,7 +1203,7 @@
 
   </main>
 
-  <!-- 9. 주보 5주간 팝업 모달 -->
+  <!-- 9. 주보 모달 -->
   <div class="bulletin-modal" id="bulletinModal">
     <div class="bulletin-modal-card">
       <div class="b-modal-header">
@@ -1244,7 +1241,7 @@
     </div>
   </footer>
 
-  <!-- 스크립트 (삼선 <-> X 양방향 모핑 토글) -->
+  <!-- 토글 스크립트 -->
   <script>
     const btnHamburger = document.getElementById('btnHamburger');
     const drawerOverlay = document.getElementById('drawerOverlay');
