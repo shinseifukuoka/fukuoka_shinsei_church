@@ -33,9 +33,10 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      padding-bottom: 60px; /* 하단 플로팅바 공간 확보 */
     }
 
-    /* 1. Header */
+    /* 1. Header (좌측 로고, 우측 햄버거) */
     .site-header {
       position: sticky;
       top: 0;
@@ -48,60 +49,11 @@
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 8px 16px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 56px;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* 햄버거 <-> X 변형 애니메이션 버튼 */
-    .btn-hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      width: 24px;
-      height: 20px;
-      position: relative;
-      padding: 0;
-      z-index: 2200;
-    }
-
-    .btn-hamburger span {
-      display: block;
-      position: absolute;
-      height: 2.5px;
-      width: 100%;
-      background: #1E293B;
-      border-radius: 2px;
-      opacity: 1;
-      left: 0;
-      transform: rotate(0deg);
-      transition: .25s ease-in-out;
-    }
-
-    .btn-hamburger span:nth-child(1) { top: 0px; }
-    .btn-hamburger span:nth-child(2) { top: 8px; }
-    .btn-hamburger span:nth-child(3) { top: 16px; }
-
-    .btn-hamburger.open span:nth-child(1) {
-      top: 8px;
-      transform: rotate(135deg);
-    }
-    .btn-hamburger.open span:nth-child(2) {
-      opacity: 0;
-      left: -20px;
-    }
-    .btn-hamburger.open span:nth-child(3) {
-      top: 8px;
-      transform: rotate(-135deg);
+      min-height: 58px;
     }
 
     .logo-wrap {
@@ -143,7 +95,50 @@
       font-size: 0.85rem !important;
     }
 
-    /* 모바일 슬라이드 드로어 */
+    /* 우측 햄버거 <-> X 변형 애니메이션 버튼 */
+    .btn-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 24px;
+      height: 20px;
+      position: relative;
+      padding: 0;
+      z-index: 2200;
+    }
+
+    .btn-hamburger span {
+      display: block;
+      position: absolute;
+      height: 2.5px;
+      width: 100%;
+      background: #1E293B;
+      border-radius: 2px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: .25s ease-in-out;
+    }
+
+    .btn-hamburger span:nth-child(1) { top: 0px; }
+    .btn-hamburger span:nth-child(2) { top: 8px; }
+    .btn-hamburger span:nth-child(3) { top: 16px; }
+
+    .btn-hamburger.open span:nth-child(1) {
+      top: 8px;
+      transform: rotate(135deg);
+    }
+    .btn-hamburger.open span:nth-child(2) {
+      opacity: 0;
+      left: 20px;
+    }
+    .btn-hamburger.open span:nth-child(3) {
+      top: 8px;
+      transform: rotate(-135deg);
+    }
+
+    /* 모바일 우측 슬라이드 드로어 */
     .drawer-overlay {
       position: fixed;
       top: 0;
@@ -162,17 +157,17 @@
     .mobile-drawer {
       position: fixed;
       top: 0;
-      left: -280px;
+      right: -280px;
       width: 260px;
       height: 100vh;
       background: #ffffff;
       z-index: 2100;
-      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.12);
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.12);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .mobile-drawer.active { transform: translateX(280px); }
+    .mobile-drawer.active { transform: translateX(-280px); }
 
     .drawer-header {
       padding: 18px 16px;
@@ -401,7 +396,97 @@
       text-decoration: none;
     }
 
-    /* 4. 세계선교 섹션 */
+    /* 4. 담임목사 인사말 섹션 */
+    .pastor-section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 20px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 14px rgba(30, 58, 95, 0.04);
+      margin-top: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .pastor-img-wrap {
+      width: 140px;
+      height: 180px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      border: 1px solid #E2E8F0;
+    }
+    .pastor-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pastor-content {
+      flex: 1;
+    }
+    .pastor-title-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .pastor-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .pastor-message {
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* 5. 회당 시설 안내 (회당 갤러리) */
+    .facility-section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 20px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 14px rgba(30, 58, 95, 0.04);
+      margin-top: 24px;
+    }
+    .facility-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .facility-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .facility-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+    .facility-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .facility-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .facility-card .f-icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .facility-card h4 { font-size: 0.92rem; color: var(--primary); margin-bottom: 4px; }
+    .facility-card p { font-size: 0.8rem; color: #64748B; line-height: 1.45; }
+
+    /* 6. 세계선교 섹션 */
     .mission-section {
       background: #ffffff;
       border-radius: 12px;
@@ -446,7 +531,7 @@
       font-weight: 600;
     }
 
-    /* 5. FAQ Section */
+    /* 7. FAQ Section */
     .faq-container {
       background: #ffffff;
       border-radius: 12px;
@@ -469,7 +554,7 @@
     .badge-a { background: #EBF3F0; color: var(--secondary); font-weight: 700; font-size: 0.7rem; padding: 2px 5px; border-radius: 4px; flex-shrink: 0; }
     .faq-answer { font-size: 0.84rem; color: #475569; line-height: 1.5; }
 
-    /* 6. アクセス (Access / Google Maps) Section */
+    /* 8. アクセス (Google Map + 교통안내 카드) */
     .access-container {
       background: #ffffff;
       border-radius: 12px;
@@ -495,7 +580,6 @@
       color: var(--text-sub);
     }
 
-    /* 반응형 2열 레이아웃: 지도 + 길안내 가이드 */
     .access-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -509,44 +593,58 @@
       border: 1px solid #E2E8F0;
       min-height: 280px;
       height: 100%;
+      display: flex;
+      flex-direction: column;
     }
     .map-frame-box iframe {
       width: 100%;
-      height: 100%;
-      min-height: 280px;
+      flex: 1;
+      min-height: 240px;
       border: 0;
       display: block;
+    }
+    .btn-open-gmap {
+      display: block;
+      background: #F1F5F9;
+      color: var(--primary-blue);
+      text-align: center;
+      padding: 9px 0;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.84rem;
+      border-top: 1px solid #E2E8F0;
+      transition: background 0.2s;
+    }
+    .btn-open-gmap:hover {
+      background: #E2E8F0;
     }
 
     .access-info {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .access-card {
       background: #F8FAFC;
       border: 1px solid #E2E8F0;
       border-radius: 8px;
-      padding: 12px 14px;
+      padding: 11px 13px;
     }
-
     .access-card-head {
       display: flex;
       align-items: center;
       gap: 6px;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--primary);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
-
     .access-card-body {
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       color: #475569;
-      line-height: 1.5;
+      line-height: 1.45;
     }
-
     .access-highlight {
       color: var(--primary-blue);
       font-weight: 700;
@@ -559,7 +657,7 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
     }
     .contact-row {
       display: flex;
@@ -572,7 +670,44 @@
       font-weight: 700;
     }
 
-    /* 7. Footer */
+    /* 9. 모바일 하단 플로팅 퀵 액션 바 (Sticky Floating Bar) */
+    .mobile-floating-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #E2E8F0;
+      box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.06);
+      z-index: 1500;
+      padding: 8px 12px;
+    }
+    .floating-bar-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .btn-float {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 0;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .btn-float-map { background: #EEF2F6; color: var(--primary); }
+    .btn-float-line { background: #06C755; color: #ffffff; }
+    .btn-float-yt { background: #FFF1F0; color: #E11D48; }
+
+    /* 10. Footer */
     .site-footer {
       background: #111827;
       color: #9CA3AF;
@@ -602,50 +737,57 @@
       .hero-buttons { width: 100%; flex-direction: column; }
       .btn-hero { width: 100%; text-align: center; }
       .card-grid { grid-template-columns: 1fr; }
+      .pastor-section { flex-direction: column; text-align: center; }
+      .pastor-img-wrap { width: 120px; height: 155px; margin: 0 auto; }
+      .facility-grid { grid-template-columns: 1fr 1fr; }
       .mission-grid { grid-template-columns: 1fr; }
       .access-grid { grid-template-columns: 1fr; }
       .map-frame-box { min-height: 240px; }
+      .mobile-floating-bar { display: block; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. Header -->
+  <!-- 1. Header (좌측 로고, 우측 햄버거 토글) -->
   <header class="site-header">
     <div class="nav-container">
-      <div class="header-left">
-        <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <a href="#" class="logo-wrap">
-          <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
-        </a>
-      </div>
+      <a href="#" class="logo-wrap">
+        <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
+      </a>
 
       <!-- 데스크톱 네비게이션 -->
       <ul class="nav-links">
         <li><a href="#about">教会紹介</a></li>
         <li><a href="#worship">聖日礼拝案内</a></li>
+        <li><a href="#pastor">牧師挨拶</a></li>
+        <li><a href="#facility">会堂案内</a></li>
         <li><a href="#mission">世界宣教</a></li>
-        <li><a href="#media">動画・週報</a></li>
         <li><a href="#faq">よくある質問</a></li>
         <li><a href="#access" class="btn-nav-cta">アクセス</a></li>
       </ul>
+
+      <!-- 모바일 우측 햄버거 버튼 -->
+      <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
-  <!-- 모바일 슬라이드 드로어 메뉴 -->
+  <!-- 모바일 우측 슬라이드 드로어 메뉴 -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header">
       福岡新生キリスト教会
     </div>
     <ul class="drawer-menu-list">
-      <li><a href="#faq" class="drawer-link">初めての方へ</a></li>
-      <li><a href="#about" class="drawer-link">教会紹介</a></li>
+      <li><a href="#faq" class="drawer-link">初めての方へ（Q&A）</a></li>
+      <li><a href="#about" class="drawer-link">教会について</a></li>
       <li><a href="#worship" class="drawer-link">聖日礼拝・集会案内</a></li>
+      <li><a href="#pastor" class="drawer-link">牧師挨拶</a></li>
+      <li><a href="#facility" class="drawer-link">会堂施設のご案内</a></li>
       <li><a href="#mission" class="drawer-link">世界宣教のご紹介</a></li>
       <li><a href="#media" class="drawer-link">動画・週報</a></li>
       <li><a href="#access" class="drawer-link">アクセス・地図</a></li>
@@ -668,23 +810,25 @@
     </div>
   </section>
 
-  <!-- 3. Main Content -->
+  <!-- 3. Main Content Area -->
   <main class="section-wrap">
 
-    <!-- 3단 액션 카드 -->
+    <!-- 3단 액션 카드 (예배 안내 + 평일 기도회 포함) -->
     <div class="card-grid" id="worship">
       <!-- 聖日礼拝のご案内 -->
       <div class="modern-card">
         <div>
           <div class="card-header">
             <span class="icon-box">📖</span>
-            <div class="card-title">聖日礼拝のご案内</div>
+            <div class="card-title">聖日礼拝・集会案内</div>
           </div>
           <div class="schedule-list">
-            <div class="schedule-row"><span><span class="tag-badge">合同</span>聖日礼拝</span><span class="time-val">10:30〜</span></div>
-            <div class="schedule-row"><span><span class="tag-badge">CS</span>教会学校</span><span class="time-val">09:00〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge">聖日</span>合同 聖日礼拝</span><span class="time-val">10:30〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge">CS</span>教会学校 (日曜)</span><span class="time-val">09:00〜</span></div>
             <div class="schedule-row"><span><span class="tag-badge">多文化</span>ネパール語礼拝</span><span class="time-val">14:30〜</span></div>
-            <div class="schedule-row"><span><span class="tag-badge">夕方</span>夕礼拝</span><span class="time-val">19:00〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge">夕方</span>夕礼拝 (日曜)</span><span class="time-val">19:00〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge" style="background:#E0E7FF;color:#3730A3;">平日</span>水曜 祈祷会</span><span class="time-val">19:30〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge" style="background:#E0E7FF;color:#3730A3;">早天</span>朝のお祈り会</span><span class="time-val">06:00〜</span></div>
           </div>
         </div>
       </div>
@@ -726,7 +870,52 @@
       </div>
     </div>
 
-    <!-- 4. 세계선교 섹션 -->
+    <!-- 4. 담임목사 소개 및 인사말 섹션 -->
+    <div class="pastor-section" id="pastor">
+      <div class="pastor-img-wrap">
+        <img src="Pastor_Takeda.jpg" alt="主任牧師 竹田 殉聖" class="pastor-img">
+      </div>
+      <div class="pastor-content">
+        <div class="pastor-title-tag">日本バプテスト連盟 福岡新生キリスト教会</div>
+        <h3 class="pastor-name">主任牧師 竹田 殉聖</h3>
+        <p class="pastor-message">
+          福岡新生キリスト教会のホームページへようこそお越しくださいました。<br>
+          私たちは聖書を神のことばとして信じる、伝統あるプロテスタント教会です。日々の歩みの中で安らぎや希望を求めておられる方、聖書について知りたい方、どなたでも心よりお待ちしております。
+        </p>
+      </div>
+    </div>
+
+    <!-- 5. 회당 시설 안내 (会堂案内) -->
+    <div class="facility-section" id="facility">
+      <div class="facility-header">
+        <h2 class="facility-title">会堂施設のご案内</h2>
+        <p class="facility-subtitle">安心してお過ごしいただける環境を整えています</p>
+      </div>
+      <div class="facility-grid">
+        <div class="facility-card">
+          <div class="f-icon">⛪</div>
+          <h4>礼拝堂（本堂）</h4>
+          <p>明るい自然光が差し込む落ち着いた礼拝空間です。</p>
+        </div>
+        <div class="facility-card">
+          <div class="f-icon">👶</div>
+          <h4>母子室・CS教室</h4>
+          <p>小さなお子様連れでも安心して礼拝にご参加いただけます。</p>
+        </div>
+        <div class="facility-card">
+          <div class="f-icon">☕</div>
+          <h4>交流ロビー・階段</h4>
+          <p>礼拝前後に聖徒たちが温かく交わるコミュニケーションスペースです。</p>
+        </div>
+        <div class="facility-card">
+          <div class="f-icon">🅿️</div>
+          <h4>専用駐車場完備</h4>
+          <p>敷地内にお車でお越しの方のための駐車スペースがございます。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 세계선교 섹션 -->
     <div class="mission-section" id="mission">
       <div class="mission-title">🌏 世界宣教への歩み</div>
       <p class="mission-desc">当教会は「世界伝道のアンテオケ教会」のビジョンを抱き、国内外の宣教地へ宣教師を派遣・支援しています。</p>
@@ -754,7 +943,7 @@
       </div>
     </div>
 
-    <!-- 5. FAQ 섹션 -->
+    <!-- 7. FAQ 섹션 -->
     <div class="faq-container" id="faq">
       <div class="faq-header">
         <h2 class="faq-title">初めての方へ（よくある質問）</h2>
@@ -779,12 +968,12 @@
 
         <div class="faq-item">
           <div class="faq-q-wrap"><span class="badge-q">Q</span><div class="faq-question">子ども連れでも参加できますか？</div></div>
-          <div class="faq-a-wrap"><span class="badge-a">A</span><div class="faq-answer">もちろんです。毎週日曜日AM9:00より教会学校（CS）があり、礼拝中も親子で過ごせるスペースがございます。</div></div>
+          <div class="faq-a-wrap"><span class="badge-a">A</span><div class="faq-answer">もちろんです。毎週日曜日AM9:00より教会学校（CS）があり、礼拝中も親子で過ごせる母子スペースがございます。</div></div>
         </div>
       </div>
     </div>
 
-    <!-- 6. アクセス (Google Map + 교통안내 카드) -->
+    <!-- 8. アクセス (Google Map + 교통안내 카드) -->
     <div class="access-container" id="access">
       <div class="access-header">
         <h2 class="access-title">交通アクセス・地図</h2>
@@ -792,13 +981,16 @@
       </div>
 
       <div class="access-grid">
-        <!-- 구글 지도 임베드 -->
+        <!-- 구글 지도 임베드 & 바로가기 버튼 -->
         <div class="map-frame-box">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.789123891456!2d130.42828387630737!3d33.55883204362142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191c9535e5e77%3A0xe543c7b8be75c88!2z56aP5bKh5paw55Sf44Kt44Oq44K544OI5pWZ5Lya!5e0!3m2!1sja!2sjp!4v1710000000000!5m2!1sja!2sjp" 
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
+          <a href="https://maps.app.goo.gl/bSomrzCEZq1gkn8bA" target="_blank" class="btn-open-gmap">
+            📍 Google マップアプリで経路を開く →
+          </a>
         </div>
 
         <!-- 알기 쉬운 교통편 안내 -->
@@ -842,7 +1034,25 @@
 
   </main>
 
-  <!-- 7. Footer -->
+  <!-- 9. 모바일 하단 플로팅 퀵 액션 바 -->
+  <div class="mobile-floating-bar">
+    <div class="floating-bar-grid">
+      <a href="#access" class="btn-float btn-float-map">
+        <span>📍</span>
+        <span>アクセス</span>
+      </a>
+      <a href="#" target="_blank" class="btn-float btn-float-line">
+        <span>💬</span>
+        <span>LINE相談</span>
+      </a>
+      <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-float btn-float-yt">
+        <span>🔴</span>
+        <span>礼拝中継</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- 10. Footer -->
   <footer class="site-footer">
     <div class="footer-content">
       <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
@@ -851,7 +1061,7 @@
     </div>
   </footer>
 
-  <!-- 햄버거 토글 스크립트 -->
+  <!-- 햄버거 & 드로어 스크립트 -->
   <script>
     const btnHamburger = document.getElementById('btnHamburger');
     const drawerOverlay = document.getElementById('drawerOverlay');
