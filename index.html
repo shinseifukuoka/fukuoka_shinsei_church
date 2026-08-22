@@ -42,7 +42,7 @@
       padding-bottom: 64px;
     }
 
-    /* 1. Header */
+    /* 1. Header (Active Underline 지원) */
     .site-header {
       position: sticky;
       top: 0;
@@ -56,17 +56,18 @@
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 10px 20px;
+      padding: 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 60px;
+      height: 64px;
     }
 
     .logo-wrap {
       display: flex;
       align-items: center;
       text-decoration: none;
+      height: 100%;
     }
 
     .logo-img {
@@ -79,19 +80,48 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 18px;
       list-style: none;
+      height: 100%;
     }
 
-    .nav-links a {
+    .nav-item {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      position: relative;
+    }
+
+    .nav-link {
       text-decoration: none;
       color: #334155;
       font-size: 0.92rem;
       font-weight: 500;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 6px;
       transition: color 0.2s;
+      position: relative;
     }
 
-    .nav-links a:hover { color: var(--primary-blue); }
+    .nav-link:hover { color: var(--primary-blue); }
+
+    /* 활성화된 카테고리 밑줄 스타일 (Active Indicator) */
+    .nav-link.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      width: 100%;
+      height: 3.5px;
+      background: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
 
     .btn-nav-cta {
       background: var(--primary-blue) !important;
@@ -101,9 +131,11 @@
       font-weight: 700 !important;
       font-size: 0.86rem !important;
       box-shadow: 0 2px 8px rgba(22, 82, 162, 0.25);
+      margin-left: 6px;
     }
+    .btn-nav-cta.active::after { display: none; }
 
-    /* 햄버거 버튼 (헤더) */
+    /* 햄버거 토글 버튼 */
     .btn-hamburger {
       display: none;
       background: none;
@@ -131,7 +163,7 @@
     .btn-hamburger span:nth-child(2) { top: 9.5px; }
     .btn-hamburger span:nth-child(3) { top: 18px; }
 
-    /* 모바일 우측 슬라이드 드로어 */
+    /* 모바일 드로어 */
     .drawer-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -156,14 +188,13 @@
     }
     .mobile-drawer.active { transform: translateX(-300px); }
 
-    /* 드로어 상단 헤더 & 선명한 닫기(X) 버튼 */
     .drawer-header {
       padding: 16px 20px;
       border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 60px;
+      min-height: 64px;
     }
     .drawer-title {
       font-size: 0.96rem;
@@ -183,12 +214,7 @@
       font-weight: 700;
       color: #1E293B;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .btn-drawer-close:hover,
-    .btn-drawer-close:active {
-      background: #E2E8F0;
-      transform: scale(1.05);
+      transition: background 0.2s;
     }
 
     .drawer-menu-list { list-style: none; padding: 14px 0; flex: 1; overflow-y: auto; }
@@ -201,13 +227,13 @@
       color: #1E293B;
       font-size: 0.94rem;
       font-weight: 600;
-      border-left: 3px solid transparent;
+      border-left: 4px solid transparent;
     }
-    .drawer-menu-list li a:active,
-    .drawer-menu-list li a:hover {
+    .drawer-menu-list li a.active {
       background: #F8FAFC;
       color: var(--primary-blue);
-      border-left-color: var(--primary-blue);
+      border-left-color: var(--primary);
+      font-weight: 700;
     }
 
     .drawer-footer {
@@ -544,7 +570,7 @@
       line-height: 1.4;
     }
 
-    /* 7. FAQ Section & 추가 질문 대응 */
+    /* 7. FAQ Section & 정밀 보정된 Q/A 뱃지 (가로세로 일정한 라운드 스퀘어) */
     .faq-container {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -558,16 +584,73 @@
     .faq-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
     .faq-subtitle { font-size: 0.86rem; color: var(--text-sub); }
 
-    .faq-list { display: flex; flex-direction: column; gap: 12px; }
-    .faq-item { border: 1px solid #F1F5F9; background: #FAFCFE; border-radius: 10px; padding: 14px 16px; }
-    .faq-q-wrap { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
-    .badge-q { background: var(--primary-blue); color: #fff; font-weight: 700; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
-    .faq-question { font-size: 0.94rem; font-weight: 700; color: #1E293B; }
-    .faq-a-wrap { display: flex; align-items: flex-start; gap: 8px; }
-    .badge-a { background: #EBF3F0; color: var(--secondary); font-weight: 700; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
-    .faq-answer { font-size: 0.88rem; color: #475569; line-height: 1.55; }
+    .faq-list { display: flex; flex-direction: column; gap: 14px; }
+    .faq-item {
+      border: 1px solid #F1F5F9;
+      background: #FAFCFE;
+      border-radius: 10px;
+      padding: 16px;
+    }
 
-    /* 추가 질문 대응 박스 */
+    .faq-q-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Q 뱃지: 28x28 균일 박스, 완벽 중앙 정렬 */
+    .badge-q {
+      width: 28px;
+      height: 28px;
+      background: var(--primary-blue);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .faq-question {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.45;
+    }
+
+    .faq-a-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    /* A 뱃지: 28x28 균일 박스, 완벽 중앙 정렬 */
+    .badge-a {
+      width: 28px;
+      height: 28px;
+      background: #EBF3F0;
+      color: var(--secondary);
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .faq-answer {
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* 기타 질문 대응 박스 */
     .faq-contact-assist {
       margin-top: 24px;
       background: #F8FAFC;
@@ -834,25 +917,25 @@
 </head>
 <body>
 
-  <!-- 1. Header -->
+  <!-- 1. Header (메인 페이지 활성화 밑줄) -->
   <header class="site-header">
     <div class="nav-container">
-      <a href="#" class="logo-wrap">
+      <a href="index.html" class="logo-wrap">
         <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
       </a>
 
-      <!-- 데스크톱 메뉴 -->
+      <!-- 데스크톱 메뉴 (Active 밑줄) -->
       <ul class="nav-links">
-        <li><a href="#about">教会紹介</a></li>
-        <li><a href="#worship">聖日礼拝・集会</a></li>
-        <li><a href="#pastor">牧師挨拶</a></li>
-        <li><a href="#facility">会堂案内</a></li>
-        <li><a href="#mission">世界宣教</a></li>
-        <li><a href="#faq">よくある質問</a></li>
-        <li><a href="#access" class="btn-nav-cta">アクセス</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
+        <li class="nav-item"><a href="worship.html" class="nav-link">聖日礼拝・集会</a></li>
+        <li class="nav-item"><a href="pastor.html" class="nav-link">牧師挨拶</a></li>
+        <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
+        <li class="nav-item"><a href="mission.html" class="nav-link">世界宣教</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
+        <li class="nav-item"><a href="access.html" class="btn-nav-cta">アクセス</a></li>
       </ul>
 
-      <!-- 모바일 햄버거 버튼 -->
+      <!-- 모바일 햄버거 토글 -->
       <button class="btn-hamburger" id="btnHamburger" aria-label="メニューを開く">
         <span></span>
         <span></span>
@@ -861,7 +944,7 @@
     </div>
   </header>
 
-  <!-- 모바일 우측 드로어 메뉴 (상단 닫기 X 버튼 내장) -->
+  <!-- 모바일 우측 드로어 메뉴 -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header">
@@ -869,13 +952,13 @@
       <button class="btn-drawer-close" id="btnDrawerClose" aria-label="メニューを閉じる">✕</button>
     </div>
     <ul class="drawer-menu-list">
-      <li><a href="#faq" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
-      <li><a href="#about" class="drawer-link">⛪ 教会について</a></li>
-      <li><a href="#worship" class="drawer-link">📖 聖日礼拝・集会案内</a></li>
-      <li><a href="#pastor" class="drawer-link">👔 牧師挨拶</a></li>
-      <li><a href="#facility" class="drawer-link">🏛️ 会堂施設のご案内</a></li>
-      <li><a href="#mission" class="drawer-link">🌏 世界宣教のご紹介</a></li>
-      <li><a href="#access" class="drawer-link">📍 アクセス・地図</a></li>
+      <li><a href="faq.html" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
+      <li><a href="about.html" class="drawer-link">⛪ 教会について</a></li>
+      <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会案内</a></li>
+      <li><a href="pastor.html" class="drawer-link">👔 牧師挨拶</a></li>
+      <li><a href="facility.html" class="drawer-link">🏛️ 会堂施設のご案内</a></li>
+      <li><a href="mission.html" class="drawer-link">🌏 世界宣教のご紹介</a></li>
+      <li><a href="access.html" class="drawer-link">📍 アクセス・地図</a></li>
     </ul>
     <div class="drawer-footer">
       <a href="#" class="btn-line-drawer">LINE友だち追加・相談</a>
@@ -890,7 +973,7 @@
       <div class="hero-subtag">聖霊充満・世界伝道のアンテオケ教会</div>
       <div class="hero-buttons">
         <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-hero btn-hero-primary">🔴 YouTube オンライン礼拝</a>
-        <a href="#faq" class="btn-hero btn-hero-secondary">初めての方へのご案内</a>
+        <a href="faq.html" class="btn-hero btn-hero-secondary">初めての方へのご案内</a>
       </div>
     </div>
   </section>
@@ -898,9 +981,8 @@
   <!-- 3. Main Content Area -->
   <main class="section-wrap">
 
-    <!-- 3단 액션 카드 -->
+    <!-- 3단 액션 카드 (금요기도회 '平日' 태그 적용) -->
     <div class="card-grid" id="worship">
-      <!-- 예배 및 기도회 안내 -->
       <div class="modern-card">
         <div>
           <div class="card-header">
@@ -913,13 +995,12 @@
             <div class="schedule-row"><span><span class="tag-badge">多文化</span>ネパール語礼拝</span><span class="time-val">14:30〜</span></div>
             <div class="schedule-row"><span><span class="tag-badge">夕方</span>夕礼拝 (日曜)</span><span class="time-val">19:00〜</span></div>
             <div class="schedule-row"><span><span class="tag-badge" style="background:#E0E7FF;color:#3730A3;">平日</span>水曜 祈祷会</span><span class="time-val">19:15〜</span></div>
-            <div class="schedule-row"><span><span class="tag-badge" style="background:#FEE2E2;color:#991B1B;">金曜</span>金曜リバイバル祈祷会</span><span class="time-val">19:00〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge" style="background:#E0E7FF;color:#3730A3;">平日</span>金曜リバイバル祈祷会</span><span class="time-val">19:00〜</span></div>
             <div class="schedule-row"><span><span class="tag-badge" style="background:#FEF3C7;color:#92400E;">早朝</span>早朝祈祷会 (月〜土)</span><span class="time-val">05:00〜</span></div>
           </div>
         </div>
       </div>
 
-      <!-- 미디어·5주간 주보 모달 -->
       <div class="modern-card" id="media">
         <div>
           <div class="card-header">
@@ -940,7 +1021,6 @@
         </div>
       </div>
 
-      <!-- 문의·LINE 상담 -->
       <div class="modern-card">
         <div>
           <div class="card-header">
@@ -956,7 +1036,7 @@
       </div>
     </div>
 
-    <!-- 4. 담임목사 소개 및 인사말 -->
+    <!-- 4. 담임목사 소개 -->
     <div class="pastor-section" id="pastor">
       <div class="pastor-img-wrap">
         <img src="Pastor_Takeda.jpg" alt="主任牧師 竹田 殉聖" class="pastor-img">
@@ -1029,7 +1109,7 @@
       </div>
     </div>
 
-    <!-- 7. FAQ 섹션 & 추가 질문 대응 -->
+    <!-- 7. FAQ 섹션 (28x28 정밀 Q/A 뱃지 적용) -->
     <div class="faq-container" id="faq">
       <div class="faq-header">
         <h2 class="faq-title">初めての方へ（よくある質問）</h2>
@@ -1058,7 +1138,6 @@
         </div>
       </div>
 
-      <!-- 기타 질문 대응 박스 -->
       <div class="faq-contact-assist">
         <h4>その他のご質問やご相談について</h4>
         <p>「自分のような状況でも礼拝に参加できるか」「信仰について聞いてみたい」など、気になることがございましたら公式LINEまたはお電話にていつでもお気軽にお尋ねください。</p>
@@ -1077,7 +1156,6 @@
       </div>
 
       <div class="access-grid">
-        <!-- 구글 지도 임베드 -->
         <div class="map-frame-box">
           <iframe 
             src="https://maps.google.com/maps?q=33.5473298042147,130.43094711450982&hl=ja&z=17&output=embed" 
@@ -1089,9 +1167,7 @@
           </a>
         </div>
 
-        <!-- 알기 쉬운 교통편 안내 -->
         <div class="access-info">
-          <!-- 버스 안내 -->
           <div class="access-card">
             <div class="access-card-head">🚌 西鉄バスでお越しの方</div>
             <div class="access-card-body">
@@ -1100,7 +1176,6 @@
             </div>
           </div>
 
-          <!-- 자가용 안내 -->
           <div class="access-card">
             <div class="access-card-head">🚗 お車でお越しの方（都市高速）</div>
             <div class="access-card-body">
@@ -1109,7 +1184,6 @@
             </div>
           </div>
 
-          <!-- 주소 및 연락처 -->
           <div class="contact-badge-box">
             <div class="contact-row">
               <span>📍 所在地</span>
@@ -1137,16 +1211,14 @@
         <div class="b-modal-title">📄 週報アーカイブ（過去5週分）</div>
         <button class="b-modal-close" id="btnCloseBulletin">&times;</button>
       </div>
-      <div class="bulletin-list" id="bulletinListContainer">
-        <!-- JS로 주보 5개 렌더링 -->
-      </div>
+      <div class="bulletin-list" id="bulletinListContainer"></div>
     </div>
   </div>
 
-  <!-- 10. 모바일 하단 플로팅 퀵 액션 바 -->
+  <!-- 10. 모바일 하단 플로팅 바 -->
   <div class="mobile-floating-bar">
     <div class="floating-bar-grid">
-      <a href="#access" class="btn-float btn-float-map">
+      <a href="access.html" class="btn-float btn-float-map">
         <span>📍</span>
         <span>アクセス</span>
       </a>
@@ -1172,7 +1244,6 @@
 
   <!-- 스크립트 -->
   <script>
-    // 1. 모바일 드로어 열기 / 닫기
     const btnHamburger = document.getElementById('btnHamburger');
     const btnDrawerClose = document.getElementById('btnDrawerClose');
     const drawerOverlay = document.getElementById('drawerOverlay');
@@ -1196,7 +1267,6 @@
     drawerOverlay.addEventListener('click', closeMenu);
     drawerLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-    // 2. 5주간 주보 데이터 갱신 시스템
     const weeklyReports = [
       { date: "2026年 8月 23日 聖日週報", link: "#", isLatest: true },
       { date: "2026年 8月 16日 聖日週報", link: "#", isLatest: false },
@@ -1213,7 +1283,6 @@
       </a>
     `).join('');
 
-    // 주보 모달
     const btnOpenBulletin = document.getElementById('btnOpenBulletin');
     const btnCloseBulletin = document.getElementById('btnCloseBulletin');
     const bulletinModal = document.getElementById('bulletinModal');
