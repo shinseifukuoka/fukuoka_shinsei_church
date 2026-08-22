@@ -42,7 +42,7 @@
       padding-bottom: 64px;
     }
 
-    /* 1. Header */
+    /* 1. Header (모든 카테고리 동일한 밑줄 디자인) */
     .site-header {
       position: sticky;
       top: 0;
@@ -80,7 +80,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 20px;
       list-style: none;
       height: 100%;
     }
@@ -95,7 +95,7 @@
     .nav-link {
       text-decoration: none;
       color: #334155;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 500;
       height: 100%;
       display: flex;
@@ -107,6 +107,7 @@
 
     .nav-link:hover { color: var(--primary-blue); }
 
+    /* 활성화된 탭 밑줄 */
     .nav-link.active {
       color: var(--primary);
       font-weight: 700;
@@ -114,7 +115,7 @@
     .nav-link.active::after {
       content: '';
       position: absolute;
-      bottom: 0px;
+      bottom: 0;
       left: 0;
       width: 100%;
       height: 3.5px;
@@ -122,18 +123,7 @@
       border-radius: 2px 2px 0 0;
     }
 
-    .btn-nav-cta {
-      background: var(--primary-blue) !important;
-      color: #ffffff !important;
-      padding: 7px 18px;
-      border-radius: 20px;
-      font-weight: 700 !important;
-      font-size: 0.86rem !important;
-      box-shadow: 0 2px 8px rgba(22, 82, 162, 0.25);
-      margin-left: 6px;
-    }
-
-    /* Google Sites형 삼선 ➔ X 모핑 버튼 */
+    /* 우측 상단 햄버거 <-> X 변환 버튼 */
     .btn-hamburger {
       display: none;
       background: transparent;
@@ -153,7 +143,7 @@
       position: absolute;
       height: 2.5px;
       width: 100%;
-      background: #1E293B;
+      background: #122844;
       border-radius: 2px;
       left: 0;
       transform-origin: center;
@@ -917,7 +907,7 @@
 </head>
 <body>
 
-  <!-- 1. Header -->
+  <!-- 1. Header (アクセス 포함 전체 카테고리 동일 스타일 적용) -->
   <header class="site-header">
     <div class="nav-container">
       <a href="index.html" class="logo-wrap">
@@ -932,10 +922,10 @@
         <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
         <li class="nav-item"><a href="mission.html" class="nav-link">世界宣教</a></li>
         <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
-        <li class="nav-item"><a href="access.html" class="btn-nav-cta">アクセス</a></li>
+        <li class="nav-item"><a href="access.html" class="nav-link">アクセス</a></li>
       </ul>
 
-      <!-- Google Sites형 모핑 햄버거 버튼 (우측 상단 위치) -->
+      <!-- Google Sites형 모핑 햄버거 버튼 -->
       <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
         <span></span>
         <span></span>
@@ -1214,7 +1204,7 @@
     </div>
   </div>
 
-  <!-- 10. 모바일 하단 플로팅 바 -->
+  <!-- 10. 모바일 하단 바 -->
   <div class="mobile-floating-bar">
     <div class="floating-bar-grid">
       <a href="access.html" class="btn-float btn-float-map">
