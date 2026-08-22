@@ -23,7 +23,6 @@
       --shadow-md: 0 8px 24px rgba(18, 40, 68, 0.08);
       --radius-sm: 8px;
       --radius-md: 14px;
-      --radius-lg: 20px;
     }
 
     * {
@@ -40,10 +39,10 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      padding-bottom: 64px; /* 모바일 하단바 공간 */
+      padding-bottom: 64px;
     }
 
-    /* 1. Header (좌측 로고, 우측 메뉴) */
+    /* 1. Header (좌측 로고, 우측 햄버거) */
     .site-header {
       position: sticky;
       top: 0;
@@ -104,14 +103,14 @@
       box-shadow: 0 2px 8px rgba(22, 82, 162, 0.25);
     }
 
-    /* 우측 햄버거 토글 버튼 */
+    /* 햄버거 <-> X 변환 애니메이션 버튼 (선명한 X 형태 구현) */
     .btn-hamburger {
       display: none;
       background: none;
       border: none;
       cursor: pointer;
-      width: 24px;
-      height: 20px;
+      width: 28px;
+      height: 22px;
       position: relative;
       padding: 0;
       z-index: 2200;
@@ -120,21 +119,34 @@
     .btn-hamburger span {
       display: block;
       position: absolute;
-      height: 2.5px;
+      height: 3px;
       width: 100%;
       background: #1E293B;
-      border-radius: 2px;
+      border-radius: 3px;
       left: 0;
-      transition: .25s ease-in-out;
+      transform-origin: center;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, top 0.3s ease;
     }
 
-    .btn-hamburger span:nth-child(1) { top: 0px; }
-    .btn-hamburger span:nth-child(2) { top: 8px; }
-    .btn-hamburger span:nth-child(3) { top: 16px; }
+    .btn-hamburger span:nth-child(1) { top: 1px; }
+    .btn-hamburger span:nth-child(2) { top: 9.5px; }
+    .btn-hamburger span:nth-child(3) { top: 18px; }
 
-    .btn-hamburger.open span:nth-child(1) { top: 8px; transform: rotate(135deg); }
-    .btn-hamburger.open span:nth-child(2) { opacity: 0; left: 20px; }
-    .btn-hamburger.open span:nth-child(3) { top: 8px; transform: rotate(-135deg); }
+    /* Open 시 완전한 X자 교차 */
+    .btn-hamburger.open span:nth-child(1) {
+      top: 9.5px;
+      transform: rotate(45deg);
+      background: #122844;
+    }
+    .btn-hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+    .btn-hamburger.open span:nth-child(3) {
+      top: 9.5px;
+      transform: rotate(-45deg);
+      background: #122844;
+    }
 
     /* 모바일 우측 슬라이드 드로어 */
     .drawer-overlay {
@@ -204,7 +216,7 @@
       font-size: 0.88rem;
     }
 
-    /* 2. Hero Section (건물 배경과 세련된 오버레이) */
+    /* 2. Hero Section */
     .hero-section {
       position: relative;
       min-height: 460px;
@@ -289,7 +301,7 @@
       padding: 38px 20px 50px;
     }
 
-    /* 3. 3단 Quick Cards (정확한 시간표 반영) */
+    /* 3. 3단 Quick Cards (금요 리바이벌 기도회 반영) */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -326,7 +338,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6.5px 0;
+      padding: 6px 0;
       border-bottom: 1px dashed #EEF2F6;
       font-size: 0.88rem;
     }
@@ -443,7 +455,7 @@
       line-height: 1.65;
     }
 
-    /* 5. 회당 시설 및 모임 안내 (会堂案内) */
+    /* 5. 회당 시설 및 모임 안내 */
     .facility-section {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -474,7 +486,7 @@
     .facility-card h4 { font-size: 0.96rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
     .facility-card p { font-size: 0.84rem; color: #5F7188; line-height: 1.5; }
 
-    /* 6. 세계선교 섹션 */
+    /* 6. 세계선교 섹션 (노구치 선교사님 인도네시아 선교 반영) */
     .mission-section {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -522,7 +534,7 @@
       line-height: 1.4;
     }
 
-    /* 7. FAQ Section */
+    /* 7. FAQ Section & 추가 질문 대응 */
     .faq-container {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -545,7 +557,59 @@
     .badge-a { background: #EBF3F0; color: var(--secondary); font-weight: 700; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
     .faq-answer { font-size: 0.88rem; color: #475569; line-height: 1.55; }
 
-    /* 8. アクセス (Google Map 정확한 교회 좌표) */
+    /* 추가 질문 대응 박스 (Contact Assist Box) */
+    .faq-contact-assist {
+      margin-top: 24px;
+      background: #F8FAFC;
+      border: 1px dashed #CBD5E1;
+      border-radius: 10px;
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .faq-contact-assist h4 {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .faq-contact-assist p {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      margin-bottom: 14px;
+    }
+    .faq-assist-btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-assist-line {
+      background: var(--line-green);
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-assist-tel {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--primary);
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 8. アクセス (정밀 좌표 반영 Google Map) */
     .access-container {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -760,7 +824,7 @@
 </head>
 <body>
 
-  <!-- 1. Header (좌측 로고, 우측 햄버거) -->
+  <!-- 1. Header -->
   <header class="site-header">
     <div class="nav-container">
       <a href="#" class="logo-wrap">
@@ -778,7 +842,7 @@
         <li><a href="#access" class="btn-nav-cta">アクセス</a></li>
       </ul>
 
-      <!-- 모바일 햄버거 토글 -->
+      <!-- 모바일 햄버거 토글 (선명한 X 변환 버튼) -->
       <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
         <span></span>
         <span></span>
@@ -823,7 +887,7 @@
   <!-- 3. Main Content Area -->
   <main class="section-wrap">
 
-    <!-- 3단 액션 카드 (정확한 시간표 & 주보 팝업 연동) -->
+    <!-- 3단 액션 카드 (금요 리바이벌 기도회 포함) -->
     <div class="card-grid" id="worship">
       <!-- 예배 및 기도회 안내 -->
       <div class="modern-card">
@@ -838,6 +902,7 @@
             <div class="schedule-row"><span><span class="tag-badge">多文化</span>ネパール語礼拝</span><span class="time-val">14:30〜</span></div>
             <div class="schedule-row"><span><span class="tag-badge">夕方</span>夕礼拝 (日曜)</span><span class="time-val">19:00〜</span></div>
             <div class="schedule-row"><span><span class="tag-badge" style="background:#E0E7FF;color:#3730A3;">平日</span>水曜 祈祷会</span><span class="time-val">19:15〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge" style="background:#FEE2E2;color:#991B1B;">金曜</span>金曜リバイバル祈祷会</span><span class="time-val">19:00〜</span></div>
             <div class="schedule-row"><span><span class="tag-badge" style="background:#FEF3C7;color:#92400E;">早朝</span>早朝祈祷会 (月〜土)</span><span class="time-val">05:00〜</span></div>
           </div>
         </div>
@@ -925,7 +990,7 @@
       </div>
     </div>
 
-    <!-- 6. 세계선교 섹션 (정확한 선교사님 정보 반영) -->
+    <!-- 6. 세계선교 섹션 (노구치 선교사님 인도네시아 선교 반영) -->
     <div class="mission-section" id="mission">
       <div class="mission-title">🌏 世界宣教への歩み</div>
       <p class="mission-desc">当教会は「世界伝道のアンテオケ教会」のビジョンを抱き、国内外の宣教地へ宣教師を派遣・支援しています。</p>
@@ -948,12 +1013,12 @@
         </div>
         <div class="mission-item">
           <strong>野口 日宇満 宣教師</strong>
-          <span>インドネシア（神学校神学教育・チャンディ教会形成）</span>
+          <span>インドネシア宣教（神学校教育・教会形成）</span>
         </div>
       </div>
     </div>
 
-    <!-- 7. FAQ 섹션 -->
+    <!-- 7. FAQ 섹션 & 추가 질문 대응 (Contact Assist) -->
     <div class="faq-container" id="faq">
       <div class="faq-header">
         <h2 class="faq-title">初めての方へ（よくある質問）</h2>
@@ -981,9 +1046,19 @@
           <div class="faq-a-wrap"><span class="badge-a">A</span><div class="faq-answer">はい、敷地内に専用の無料駐車場がございますので、お車でも安心してお越しください。</div></div>
         </div>
       </div>
+
+      <!-- 기타 질문 대응 박스 -->
+      <div class="faq-contact-assist">
+        <h4>その他のご質問やご相談について</h4>
+        <p>「自分のような状況でも礼拝に参加できるか」「信仰について聞いてみたい」など、気になることがございましたら公式LINEまたはお電話にていつでもお気軽にお尋ねください。</p>
+        <div class="faq-assist-btns">
+          <a href="#" target="_blank" class="btn-assist-line">💬 LINEで質問・相談する</a>
+          <a href="tel:092-561-4233" class="btn-assist-tel">📞 お電話でお問い合わせ</a>
+        </div>
+      </div>
     </div>
 
-    <!-- 8. アクセス (Google Map 정확한 교회 위치 핀) -->
+    <!-- 8. アクセス (33.5473298042147, 130.43094711450982 정밀 좌표 반영) -->
     <div class="access-container" id="access">
       <div class="access-header">
         <h2 class="access-title">交通アクセス・地図</h2>
@@ -991,10 +1066,10 @@
       </div>
 
       <div class="access-grid">
-        <!-- 구글 지도 임베드 (교회 중심 좌표) -->
+        <!-- 구글 지도 임베드 (정확한 핀포인트 좌표) -->
         <div class="map-frame-box">
           <iframe 
-            src="https://maps.google.com/maps?q=33.5480746,130.4223292+(%E7%A6%8F%E5%B2%A1%E6%96%B0%E7%94%9F%E3%82%AD%E3%83%AA%E3%82%B9%E3%83%88%E6%95%99%E4%BC%9A)&z=16&output=embed" 
+            src="https://maps.google.com/maps?q=33.5473298042147,130.43094711450982&hl=ja&z=17&output=embed" 
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
@@ -1084,9 +1159,9 @@
     </div>
   </footer>
 
-  <!-- 스크립트 (메뉴 & 주보 갱신 시스템) -->
+  <!-- 스크립트 (메뉴 토글 & 주보 갱신 시스템) -->
   <script>
-    // 1. 햄버거 메뉴 토글
+    // 1. 햄버거 <-> X 버튼 및 드로어 토글
     const btnHamburger = document.getElementById('btnHamburger');
     const drawerOverlay = document.getElementById('drawerOverlay');
     const mobileDrawer = document.getElementById('mobileDrawer');
@@ -1110,14 +1185,13 @@
     drawerOverlay.addEventListener('click', closeMenu);
     drawerLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-    // 2. 담당자가 매주 쉽게 갱신할 수 있는 5주간 주보 데이터 시스템
-    // (매주 맨 위에 새로운 주보 날짜와 링크를 추가하고, 맨 아래를 지우면 끝납니다!)
+    // 2. 5주간 주보 데이터 갱신 시스템
     const weeklyReports = [
-      { date: "2026年 8月 23日 主日週報", link: "#", isLatest: true },
-      { date: "2026年 8月 16日 主日週報", link: "#", isLatest: false },
-      { date: "2026年 8月 9日 主日週報", link: "#", isLatest: false },
-      { date: "2026年 8月 2日 主日週報", link: "#", isLatest: false },
-      { date: "2026年 7月 26日 主日週報", link: "#", isLatest: false }
+      { date: "2026年 8月 23日 聖日週報", link: "#", isLatest: true },
+      { date: "2026年 8月 16日 聖日週報", link: "#", isLatest: false },
+      { date: "2026年 8月 9日 聖日週報", link: "#", isLatest: false },
+      { date: "2026年 8月 2日 聖日週報", link: "#", isLatest: false },
+      { date: "2026年 7月 26日 聖日週報", link: "#", isLatest: false }
     ];
 
     const bulletinContainer = document.getElementById('bulletinListContainer');
