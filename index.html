@@ -42,7 +42,7 @@
       padding-bottom: 64px;
     }
 
-    /* 1. Header (좌측 로고, 우측 햄버거) */
+    /* 1. Header */
     .site-header {
       position: sticky;
       top: 0;
@@ -103,7 +103,7 @@
       box-shadow: 0 2px 8px rgba(22, 82, 162, 0.25);
     }
 
-    /* 햄버거 <-> X 변환 애니메이션 버튼 (선명한 X 형태 구현) */
+    /* 햄버거 버튼 (헤더) */
     .btn-hamburger {
       display: none;
       background: none;
@@ -113,7 +113,7 @@
       height: 22px;
       position: relative;
       padding: 0;
-      z-index: 2200;
+      z-index: 1100;
     }
 
     .btn-hamburger span {
@@ -124,7 +124,6 @@
       background: #1E293B;
       border-radius: 3px;
       left: 0;
-      transform-origin: center;
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, top 0.3s ease;
     }
 
@@ -132,62 +131,75 @@
     .btn-hamburger span:nth-child(2) { top: 9.5px; }
     .btn-hamburger span:nth-child(3) { top: 18px; }
 
-    /* Open 시 완전한 X자 교차 */
-    .btn-hamburger.open span:nth-child(1) {
-      top: 9.5px;
-      transform: rotate(45deg);
-      background: #122844;
-    }
-    .btn-hamburger.open span:nth-child(2) {
-      opacity: 0;
-      transform: scale(0);
-    }
-    .btn-hamburger.open span:nth-child(3) {
-      top: 9.5px;
-      transform: rotate(-45deg);
-      background: #122844;
-    }
-
     /* 모바일 우측 슬라이드 드로어 */
     .drawer-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(15, 23, 42, 0.5);
+      background: rgba(15, 23, 42, 0.55);
       backdrop-filter: blur(4px);
       z-index: 2000;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
     .drawer-overlay.active { opacity: 1; visibility: visible; }
 
     .mobile-drawer {
       position: fixed;
-      top: 0; right: -280px; width: 260px; height: 100vh;
+      top: 0; right: -300px; width: 280px; height: 100vh;
       background: #ffffff;
       z-index: 2100;
-      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+      box-shadow: -6px 0 28px rgba(0, 0, 0, 0.16);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .mobile-drawer.active { transform: translateX(-280px); }
+    .mobile-drawer.active { transform: translateX(-300px); }
 
+    /* 드로어 상단 헤더 & 선명한 닫기(X) 버튼 */
     .drawer-header {
-      padding: 20px 18px;
-      border-bottom: 1px solid #F1F5F9;
-      font-size: 0.95rem;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+    }
+    .drawer-title {
+      font-size: 0.96rem;
       font-weight: 700;
       color: var(--primary);
     }
+    .btn-drawer-close {
+      background: #F1F5F9;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1E293B;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-drawer-close:hover,
+    .btn-drawer-close:active {
+      background: #E2E8F0;
+      transform: scale(1.05);
+    }
 
-    .drawer-menu-list { list-style: none; padding: 12px 0; flex: 1; }
+    .drawer-menu-list { list-style: none; padding: 14px 0; flex: 1; overflow-y: auto; }
     .drawer-menu-list li a {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       padding: 13px 22px;
       text-decoration: none;
       color: #1E293B;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 600;
       border-left: 3px solid transparent;
     }
@@ -199,8 +211,8 @@
     }
 
     .drawer-footer {
-      padding: 18px;
-      border-top: 1px solid #F1F5F9;
+      padding: 18px 20px;
+      border-top: 1px solid var(--border-color);
       background: #FAFCFE;
     }
     .drawer-footer .btn-line-drawer {
@@ -209,7 +221,7 @@
       background: var(--line-green);
       color: #ffffff;
       text-align: center;
-      padding: 10px 0;
+      padding: 11px 0;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 700;
@@ -301,7 +313,7 @@
       padding: 38px 20px 50px;
     }
 
-    /* 3. 3단 Quick Cards (금요 리바이벌 기도회 반영) */
+    /* 3. 3단 Quick Cards */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -320,9 +332,7 @@
       justify-content: space-between;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .modern-card:hover {
-      box-shadow: var(--shadow-md);
-    }
+    .modern-card:hover { box-shadow: var(--shadow-md); }
 
     .card-header {
       display: flex;
@@ -486,7 +496,7 @@
     .facility-card h4 { font-size: 0.96rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
     .facility-card p { font-size: 0.84rem; color: #5F7188; line-height: 1.5; }
 
-    /* 6. 세계선교 섹션 (노구치 선교사님 인도네시아 선교 반영) */
+    /* 6. 세계선교 섹션 */
     .mission-section {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -557,7 +567,7 @@
     .badge-a { background: #EBF3F0; color: var(--secondary); font-weight: 700; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
     .faq-answer { font-size: 0.88rem; color: #475569; line-height: 1.55; }
 
-    /* 추가 질문 대응 박스 (Contact Assist Box) */
+    /* 추가 질문 대응 박스 */
     .faq-contact-assist {
       margin-top: 24px;
       background: #F8FAFC;
@@ -609,7 +619,7 @@
       gap: 6px;
     }
 
-    /* 8. アクセス (정밀 좌표 반영 Google Map) */
+    /* 8. アクセス */
     .access-container {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -690,7 +700,7 @@
     .contact-row { display: flex; justify-content: space-between; color: #334155; }
     .contact-row a { color: var(--primary-blue); text-decoration: none; font-weight: 700; }
 
-    /* 9. 주보 5주간 모달 팝업 */
+    /* 9. 주보 5주간 모달 */
     .bulletin-modal {
       display: none;
       position: fixed;
@@ -842,8 +852,8 @@
         <li><a href="#access" class="btn-nav-cta">アクセス</a></li>
       </ul>
 
-      <!-- 모바일 햄버거 토글 (선명한 X 변환 버튼) -->
-      <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
+      <!-- 모바일 햄버거 버튼 -->
+      <button class="btn-hamburger" id="btnHamburger" aria-label="メニューを開く">
         <span></span>
         <span></span>
         <span></span>
@@ -851,20 +861,21 @@
     </div>
   </header>
 
-  <!-- 모바일 우측 드로어 메뉴 -->
+  <!-- 모바일 우측 드로어 메뉴 (상단 닫기 X 버튼 내장) -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header">
-      福岡新生キリスト教会
+      <span class="drawer-title">福岡新生キリスト教会</span>
+      <button class="btn-drawer-close" id="btnDrawerClose" aria-label="メニューを閉じる">✕</button>
     </div>
     <ul class="drawer-menu-list">
-      <li><a href="#faq" class="drawer-link">初めての方へ（Q&A）</a></li>
-      <li><a href="#about" class="drawer-link">教会について</a></li>
-      <li><a href="#worship" class="drawer-link">聖日礼拝・集会案内</a></li>
-      <li><a href="#pastor" class="drawer-link">牧師挨拶</a></li>
-      <li><a href="#facility" class="drawer-link">会堂施設のご案内</a></li>
-      <li><a href="#mission" class="drawer-link">世界宣教のご紹介</a></li>
-      <li><a href="#access" class="drawer-link">アクセス・地図</a></li>
+      <li><a href="#faq" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
+      <li><a href="#about" class="drawer-link">⛪ 教会について</a></li>
+      <li><a href="#worship" class="drawer-link">📖 聖日礼拝・集会案内</a></li>
+      <li><a href="#pastor" class="drawer-link">👔 牧師挨拶</a></li>
+      <li><a href="#facility" class="drawer-link">🏛️ 会堂施設のご案内</a></li>
+      <li><a href="#mission" class="drawer-link">🌏 世界宣教のご紹介</a></li>
+      <li><a href="#access" class="drawer-link">📍 アクセス・地図</a></li>
     </ul>
     <div class="drawer-footer">
       <a href="#" class="btn-line-drawer">LINE友だち追加・相談</a>
@@ -887,7 +898,7 @@
   <!-- 3. Main Content Area -->
   <main class="section-wrap">
 
-    <!-- 3단 액션 카드 (금요 리바이벌 기도회 포함) -->
+    <!-- 3단 액션 카드 -->
     <div class="card-grid" id="worship">
       <!-- 예배 및 기도회 안내 -->
       <div class="modern-card">
@@ -960,7 +971,7 @@
       </div>
     </div>
 
-    <!-- 5. 회당 시설 안내 (会堂案内) -->
+    <!-- 5. 회당 시설 안내 -->
     <div class="facility-section" id="facility">
       <div class="facility-header">
         <h2 class="facility-title">会堂施設・交わりのご案内</h2>
@@ -990,7 +1001,7 @@
       </div>
     </div>
 
-    <!-- 6. 세계선교 섹션 (노구치 선교사님 인도네시아 선교 반영) -->
+    <!-- 6. 세계선교 섹션 -->
     <div class="mission-section" id="mission">
       <div class="mission-title">🌏 世界宣教への歩み</div>
       <p class="mission-desc">当教会は「世界伝道のアンテオケ教会」のビジョンを抱き、国内外の宣教地へ宣教師を派遣・支援しています。</p>
@@ -1018,7 +1029,7 @@
       </div>
     </div>
 
-    <!-- 7. FAQ 섹션 & 추가 질문 대응 (Contact Assist) -->
+    <!-- 7. FAQ 섹션 & 추가 질문 대응 -->
     <div class="faq-container" id="faq">
       <div class="faq-header">
         <h2 class="faq-title">初めての方へ（よくある質問）</h2>
@@ -1058,7 +1069,7 @@
       </div>
     </div>
 
-    <!-- 8. アクセス (33.5473298042147, 130.43094711450982 정밀 좌표 반영) -->
+    <!-- 8. アクセス -->
     <div class="access-container" id="access">
       <div class="access-header">
         <h2 class="access-title">交通アクセス・地図</h2>
@@ -1066,7 +1077,7 @@
       </div>
 
       <div class="access-grid">
-        <!-- 구글 지도 임베드 (정확한 핀포인트 좌표) -->
+        <!-- 구글 지도 임베드 -->
         <div class="map-frame-box">
           <iframe 
             src="https://maps.google.com/maps?q=33.5473298042147,130.43094711450982&hl=ja&z=17&output=embed" 
@@ -1159,29 +1170,29 @@
     </div>
   </footer>
 
-  <!-- 스크립트 (메뉴 토글 & 주보 갱신 시스템) -->
+  <!-- 스크립트 -->
   <script>
-    // 1. 햄버거 <-> X 버튼 및 드로어 토글
+    // 1. 모바일 드로어 열기 / 닫기
     const btnHamburger = document.getElementById('btnHamburger');
+    const btnDrawerClose = document.getElementById('btnDrawerClose');
     const drawerOverlay = document.getElementById('drawerOverlay');
     const mobileDrawer = document.getElementById('mobileDrawer');
     const drawerLinks = document.querySelectorAll('.drawer-link');
 
-    function toggleMenu() {
-      const isOpen = mobileDrawer.classList.toggle('active');
-      drawerOverlay.classList.toggle('active');
-      btnHamburger.classList.toggle('open');
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+    function openMenu() {
+      mobileDrawer.classList.add('active');
+      drawerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeMenu() {
       mobileDrawer.classList.remove('active');
       drawerOverlay.classList.remove('active');
-      btnHamburger.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    btnHamburger.addEventListener('click', toggleMenu);
+    btnHamburger.addEventListener('click', openMenu);
+    btnDrawerClose.addEventListener('click', closeMenu);
     drawerOverlay.addEventListener('click', closeMenu);
     drawerLinks.forEach(link => link.addEventListener('click', closeMenu));
 
@@ -1202,7 +1213,7 @@
       </a>
     `).join('');
 
-    // 주보 모달 열기/닫기
+    // 주보 모달
     const btnOpenBulletin = document.getElementById('btnOpenBulletin');
     const btnCloseBulletin = document.getElementById('btnCloseBulletin');
     const bulletinModal = document.getElementById('bulletinModal');
