@@ -42,7 +42,7 @@
       padding-bottom: 64px;
     }
 
-    /* 1. Header (Active Underline 지원) */
+    /* 1. Header (시원하게 키운 로고 & 탭 밑줄 지원) */
     .site-header {
       position: sticky;
       top: 0;
@@ -60,7 +60,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 68px; /* 헤더 높이 확장 */
     }
 
     .logo-wrap {
@@ -70,11 +70,13 @@
       height: 100%;
     }
 
+    /* 로고 크기 밸런스 확대 (44px) */
     .logo-img {
-      height: 38px;
+      height: 44px;
       width: auto;
       object-fit: contain;
       display: block;
+      transition: height 0.2s ease;
     }
 
     .nav-links {
@@ -107,7 +109,6 @@
 
     .nav-link:hover { color: var(--primary-blue); }
 
-    /* 활성화된 카테고리 밑줄 스타일 (Active Indicator) */
     .nav-link.active {
       color: var(--primary);
       font-weight: 700;
@@ -133,9 +134,8 @@
       box-shadow: 0 2px 8px rgba(22, 82, 162, 0.25);
       margin-left: 6px;
     }
-    .btn-nav-cta.active::after { display: none; }
 
-    /* 햄버거 토글 버튼 */
+    /* 햄버거 <-> X 변환 애니메이션 버튼 (회색 배경 없음, 최상위 z-index) */
     .btn-hamburger {
       display: none;
       background: none;
@@ -145,7 +145,8 @@
       height: 22px;
       position: relative;
       padding: 0;
-      z-index: 1100;
+      z-index: 3000;
+      outline: none;
     }
 
     .btn-hamburger span {
@@ -156,14 +157,30 @@
       background: #1E293B;
       border-radius: 3px;
       left: 0;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, top 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, top 0.3s ease, background-color 0.2s;
     }
 
-    .btn-hamburger span:nth-child(1) { top: 1px; }
+    .btn-hamburger span:nth-child(1) { top: 2px; }
     .btn-hamburger span:nth-child(2) { top: 9.5px; }
-    .btn-hamburger span:nth-child(3) { top: 18px; }
+    .btn-hamburger span:nth-child(3) { top: 17px; }
 
-    /* 모바일 드로어 */
+    /* Open 시 회전하며 완전한 X자로 변신 */
+    .btn-hamburger.open span:nth-child(1) {
+      top: 9.5px;
+      transform: rotate(45deg);
+      background: #122844;
+    }
+    .btn-hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+    .btn-hamburger.open span:nth-child(3) {
+      top: 9.5px;
+      transform: rotate(-45deg);
+      background: #122844;
+    }
+
+    /* 모바일 우측 드로어 */
     .drawer-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -189,32 +206,16 @@
     .mobile-drawer.active { transform: translateX(-300px); }
 
     .drawer-header {
-      padding: 16px 20px;
+      padding: 0 20px;
       border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      min-height: 64px;
+      height: 68px;
     }
     .drawer-title {
       font-size: 0.96rem;
       font-weight: 700;
       color: var(--primary);
-    }
-    .btn-drawer-close {
-      background: #F1F5F9;
-      border: none;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #1E293B;
-      cursor: pointer;
-      transition: background 0.2s;
     }
 
     .drawer-menu-list { list-style: none; padding: 14px 0; flex: 1; overflow-y: auto; }
@@ -570,7 +571,7 @@
       line-height: 1.4;
     }
 
-    /* 7. FAQ Section & 정밀 보정된 Q/A 뱃지 (가로세로 일정한 라운드 스퀘어) */
+    /* 7. FAQ Section & 정밀 보정된 Q/A 뱃지 (첫 줄 텍스트와 완벽 일직선 정렬) */
     .faq-container {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -599,27 +600,27 @@
       margin-bottom: 10px;
     }
 
-    /* Q 뱃지: 28x28 균일 박스, 완벽 중앙 정렬 */
+    /* Q 뱃지: 26x26 균일 박스, 완벽 중앙 배치 및 첫 줄 글자 높이와 수평 정렬 */
     .badge-q {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       background: var(--primary-blue);
       color: #ffffff;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       border-radius: 6px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       line-height: 1;
-      margin-top: 1px;
+      margin-top: -1px; /* 첫 줄 텍스트와 정밀 수평 보정 */
     }
     .faq-question {
       font-size: 0.95rem;
       font-weight: 700;
       color: #1E293B;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     .faq-a-wrap {
@@ -628,21 +629,21 @@
       gap: 10px;
     }
 
-    /* A 뱃지: 28x28 균일 박스, 완벽 중앙 정렬 */
+    /* A 뱃지: 26x26 균일 박스, 완벽 중앙 배치 및 첫 줄 글자 높이와 수평 정렬 */
     .badge-a {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       background: #EBF3F0;
       color: var(--secondary);
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       border-radius: 6px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       line-height: 1;
-      margin-top: 1px;
+      margin-top: -1px; /* 첫 줄 텍스트와 정밀 수평 보정 */
     }
     .faq-answer {
       font-size: 0.88rem;
@@ -790,7 +791,7 @@
       top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(15, 23, 42, 0.6);
       backdrop-filter: blur(4px);
-      z-index: 3000;
+      z-index: 4000;
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -898,7 +899,9 @@
     @media (max-width: 768px) {
       .btn-hamburger { display: block; }
       .nav-links { display: none; }
-      .logo-img { height: 32px; }
+      .logo-img { height: 38px; } /* 모바일에서도 시원한 로고 크기 유지 */
+      .nav-container { height: 60px; padding: 0 16px; }
+      .drawer-header { height: 60px; }
       .hero-section { min-height: 360px; padding: 36px 14px; }
       .hero-title { font-size: 1.55rem; }
       .hero-subtag { font-size: 0.9rem; margin-bottom: 20px; }
@@ -917,14 +920,14 @@
 </head>
 <body>
 
-  <!-- 1. Header (메인 페이지 활성화 밑줄) -->
+  <!-- 1. Header (키운 로고 & 햄버거 <-> X 변환 애니메이션) -->
   <header class="site-header">
     <div class="nav-container">
       <a href="index.html" class="logo-wrap">
         <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
       </a>
 
-      <!-- 데스크톱 메뉴 (Active 밑줄) -->
+      <!-- 데스크톱 메뉴 -->
       <ul class="nav-links">
         <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
         <li class="nav-item"><a href="worship.html" class="nav-link">聖日礼拝・集会</a></li>
@@ -935,8 +938,8 @@
         <li class="nav-item"><a href="access.html" class="btn-nav-cta">アクセス</a></li>
       </ul>
 
-      <!-- 모바일 햄버거 토글 -->
-      <button class="btn-hamburger" id="btnHamburger" aria-label="メニューを開く">
+      <!-- 모바일 햄버거 버튼 (클릭 시 제자리에서 X로 회전 변형) -->
+      <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
         <span></span>
         <span></span>
         <span></span>
@@ -949,7 +952,6 @@
   <aside class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header">
       <span class="drawer-title">福岡新生キリスト教会</span>
-      <button class="btn-drawer-close" id="btnDrawerClose" aria-label="メニューを閉じる">✕</button>
     </div>
     <ul class="drawer-menu-list">
       <li><a href="faq.html" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
@@ -981,7 +983,7 @@
   <!-- 3. Main Content Area -->
   <main class="section-wrap">
 
-    <!-- 3단 액션 카드 (금요기도회 '平日' 태그 적용) -->
+    <!-- 3단 액션 카드 -->
     <div class="card-grid" id="worship">
       <div class="modern-card">
         <div>
@@ -1109,7 +1111,7 @@
       </div>
     </div>
 
-    <!-- 7. FAQ 섹션 (28x28 정밀 Q/A 뱃지 적용) -->
+    <!-- 7. FAQ 섹션 (정밀 수평 보정된 26x26 Q/A 뱃지) -->
     <div class="faq-container" id="faq">
       <div class="faq-header">
         <h2 class="faq-title">初めての方へ（よくある質問）</h2>
@@ -1242,28 +1244,28 @@
     </div>
   </footer>
 
-  <!-- 스크립트 -->
+  <!-- 스크립트 (삼선 <-> X 양방향 모핑 토글) -->
   <script>
     const btnHamburger = document.getElementById('btnHamburger');
-    const btnDrawerClose = document.getElementById('btnDrawerClose');
     const drawerOverlay = document.getElementById('drawerOverlay');
     const mobileDrawer = document.getElementById('mobileDrawer');
     const drawerLinks = document.querySelectorAll('.drawer-link');
 
-    function openMenu() {
-      mobileDrawer.classList.add('active');
-      drawerOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
+    function toggleMenu() {
+      const isOpen = mobileDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
+      btnHamburger.classList.toggle('open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     }
 
     function closeMenu() {
       mobileDrawer.classList.remove('active');
       drawerOverlay.classList.remove('active');
+      btnHamburger.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    btnHamburger.addEventListener('click', openMenu);
-    btnDrawerClose.addEventListener('click', closeMenu);
+    btnHamburger.addEventListener('click', toggleMenu);
     drawerOverlay.addEventListener('click', closeMenu);
     drawerLinks.forEach(link => link.addEventListener('click', closeMenu));
 
