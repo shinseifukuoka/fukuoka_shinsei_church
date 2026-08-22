@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>福岡新生キリスト教会 | 日本バプテスト連盟</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1E3A5F;
+      --primary-blue: #1C58B8;
+      --secondary: #2D5A4C;
+      --accent: #C89B3C;
+      --bg-light: #F8FAFC;
+      --text-main: #1E293B;
+      --text-sub: #64748B;
+      --line-green: #06C755;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 1. Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #E2E8F0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #334155;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-blue);
+    }
+
+    .btn-nav-cta {
+      background: var(--primary-blue) !important;
+      color: #ffffff !important;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 700 !important;
+      font-size: 0.9rem !important;
+      transition: opacity 0.2s;
+    }
+
+    .btn-nav-cta:hover {
+      opacity: 0.9;
+    }
+
+    /* 2. Hero Section */
+    .hero-section {
+      position: relative;
+      min-height: 520px;
+      background-image: url('c.png');
+      background-size: cover;
+      background-position: center center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      color: #ffffff;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 30, 54, 0.72) 0%, rgba(30, 58, 95, 0.85) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-title {
+      font-size: 2.3rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+      word-break: keep-all;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 30px;
+      word-break: keep-all;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero {
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-hero-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(200, 155, 60, 0.35);
+    }
+    .btn-hero-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
+
+    .btn-hero-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .btn-hero-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Common Wrapper */
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* 3. Quick Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+      margin-top: -60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .modern-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px 20px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 10px 25px -5px rgba(30, 58, 95, 0.07);
+      border-top: 4px solid var(--primary-blue);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: #EEF2F6;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .schedule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px dashed #F1F5F9;
+      font-size: 0.9rem;
+    }
+    .schedule-row:last-child { border-bottom: none; }
+
+    .tag-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #E2E8F0;
+      color: #475569;
+      margin-right: 6px;
+    }
+
+    .time-val {
+      color: var(--primary-blue);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-yt {
+      background: #FFF1F0;
+      color: #E11D48;
+      border: 1px solid rgba(225, 29, 72, 0.15);
+    }
+    .btn-yt:hover { background: #FFE4E6; }
+
+    .btn-pdf {
+      background: #F8FAFC;
+      color: var(--primary);
+      border: 1px solid #E2E8F0;
+    }
+    .btn-pdf:hover { background: #EDF2F7; }
+
+    .line-card-box {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .line-card-box p {
+      font-size: 0.82rem;
+      color: #166534;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .btn-line-cta {
+      display: block;
+      width: 100%;
+      background: var(--line-green);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 9px 0;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(6, 199, 85, 0.2);
+    }
+
+    /* 4. Multilingual Banner */
+    .multi-banner {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px;
+      border-left: 5px solid var(--secondary);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      margin-top: 30px;
+    }
+    .multi-banner h3 {
+      font-size: 1.15rem;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    .multi-banner p {
+      font-size: 0.92rem;
+      color: #475569;
+    }
+
+    /* 5. FAQ Section */
+    .faq-container {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 30px 24px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 14px rgba(30, 58, 95, 0.04);
+      margin-top: 30px;
+      border-top: 4px solid var(--primary-blue);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .faq-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .faq-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border: 1px solid #F1F5F9;
+      background: #FAFCFE;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .faq-q-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .badge-q {
+      background: var(--primary-blue);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .faq-question {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1E293B;
+    }
+
+    .faq-a-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .badge-a {
+      background: #EBF3F0;
+      color: var(--secondary);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .faq-answer {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* 6. Footer */
+    .site-footer {
+      background: #111827;
+      color: #9CA3AF;
+      padding: 40px 20px;
+      margin-top: 50px;
+      font-size: 0.88rem;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+    .footer-content strong {
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .logo-img { height: 36px; }
+      .hero-section { min-height: 420px; padding: 40px 16px; }
+      .hero-title { font-size: 1.6rem; }
+      .hero-subtitle { font-size: 0.9rem; }
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .btn-hero { width: 100%; text-align: center; }
+      .card-grid { grid-template-columns: 1fr; margin-top: 20px; }
+      .modern-card { padding: 18px 14px; }
+      .faq-container { padding: 20px 14px; }
+      .faq-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="#" class="logo-wrap">
+        <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">教会紹介</a></li>
+        <li><a href="#worship">礼拝案内</a></li>
+        <li><a href="#media">動画・週報</a></li>
+        <li><a href="#access">アクセス</a></li>
+        <li><a href="#faq" class="btn-nav-cta">初めての方へ</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">聖霊充満・世界伝道のアンテオケ教会</span>
+      <h1 class="hero-title">あなたの歩みに、<br>温かい光と平安を。</h1>
+      <p class="hero-subtitle">福岡新生キリスト教会へようこそ。神様の愛の中で、共に安らぎと希望を見出しませんか？</p>
+      <div class="hero-buttons">
+        <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-hero btn-hero-primary">🔴 YouTube オンライン礼拝</a>
+        <a href="#faq" class="btn-hero btn-hero-secondary">初めての方へのご案内</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="section-wrap">
+
+    <!-- 3단 액션 카드 -->
+    <div class="card-grid" id="worship">
+      <div class="modern-card">
+        <div>
+          <div class="card-header">
+            <div class="icon-box">📖</div>
+            <div class="card-title">主日礼拝のご案内</div>
+          </div>
+          <div class="schedule-list">
+            <div class="schedule-row"><span><span class="tag-badge">合同</span>主日礼拝</span><span class="time-val">10:30〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge">CS</span>教会学校</span><span class="time-val">09:00〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge">多文化</span>ネパール語礼拝</span><span class="time-val">14:30〜</span></div>
+            <div class="schedule-row"><span><span class="tag-badge">夕方</span>夕礼拝</span><span class="time-val">19:00〜</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modern-card" id="media">
+        <div>
+          <div class="card-header">
+            <div class="icon-box" style="background:#EBF3F0; color:var(--secondary);">🎥</div>
+            <div class="card-title">メディア・週報</div>
+          </div>
+          <p class="card-desc">オンラインで礼拝にご参加いただけます。最新のメッセージや教会週報をご覧ください。</p>
+        </div>
+        <div class="btn-group">
+          <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="action-btn btn-yt">
+            <span>🔴 YouTube 配信を見る</span>
+            <span>→</span>
+          </a>
+          <a href="#" class="action-btn btn-pdf">
+            <span>📄 今週の週報 (PDF)</span>
+            <span>↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="modern-card">
+        <div>
+          <div class="card-header">
+            <div class="icon-box" style="background:#FDF6E9; color:var(--accent);">💬</div>
+            <div class="card-title">初めての方・ご相談</div>
+          </div>
+          <p class="card-desc">礼拝に関するご質問や祈りのリクエストなど、LINE公式アカウントでどうぞお気軽にご相談ください。</p>
+        </div>
+        <div class="line-card-box">
+          <p>公式LINEで気軽にご相談いただけます</p>
+          <a href="#" target="_blank" class="btn-line-cta">LINE友だち追加・相談</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 다문화 배너 -->
+    <div class="multi-banner">
+      <h3>🌏 多文化・多言語のコミュニティ</h3>
+      <p>当教会では、日本語のほかネパール語・英語・韓国語など、多様な背景を持つ方々が共に集い神様を賛美しています。国籍を問わずどなたでも歓迎いたします。</p>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-container" id="faq">
+      <div class="faq-header">
+        <h2 class="faq-title">初めての方へ（よくある質問）</h2>
+        <p class="faq-subtitle">安心して教会へお越しいただけるよう、よくいただくご質問にお答えします。</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q-wrap"><span class="badge-q">Q</span><div class="faq-question">初めて礼拝に参加しても大丈夫ですか？</div></div>
+          <div class="faq-a-wrap"><span class="badge-a">A</span><div class="faq-answer">はい、どなたでも心から歓迎いたします。クリスチャンでない方や、教会が初めての方もお気軽にお越しください。</div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q-wrap"><span class="badge-q">Q</span><div class="faq-question">服装や持ち物に決まりはありますか？</div></div>
+          <div class="faq-a-wrap"><span class="badge-a">A</span><div class="faq-answer">普段着で問題ございません。聖書や讃美歌は教会でお貸出いたしますので手ぶらでお越しいただけます。</div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q-wrap"><span class="badge-q">Q</span><div class="faq-question">献金は必ず捧げなければなりませんか？</div></div>
+          <div class="faq-a-wrap"><span class="badge-a">A</span><div class="faq-answer">献金は神様への感謝のしるしであり、強制ではございません。準備のない方はそのままお過ごしください。</div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q-wrap"><span class="badge-q">Q</span><div class="faq-question">子ども連れでも参加できますか？</div></div>
+          <div class="faq-a-wrap"><span class="badge-a">A</span><div class="faq-answer">もちろんです。毎週日曜日AM9:00より教会学校（CS）があり、礼拝中も親子で過ごせるスペースがございます。</div></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" id="access">
+    <div class="footer-content">
+      <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
+      <p>〒811-1344 福岡県福岡市南区三宅3-33-1 | TEL: 092-561-2486</p>
+      <p style="font-size:0.8rem; color:#6B7280; margin-top:8px;">© Fukuoka Shinsei Baptist Church. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
