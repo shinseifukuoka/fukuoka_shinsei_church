@@ -26,31 +26,56 @@
       font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--bg-light);
       color: var(--text-main);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* 1. Header */
+    /* 1. Header (Navigation) */
     .site-header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(8px);
+      background: #ffffff;
       border-bottom: 1px solid #E2E8F0;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 12px 20px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    /* 모바일 햄버거 버튼 */
+    .btn-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-right: 8px;
+      color: #1E293B;
+    }
+    .btn-hamburger svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
     }
 
     .logo-wrap {
@@ -60,7 +85,7 @@
     }
 
     .logo-img {
-      height: 44px;
+      height: 40px;
       width: auto;
       object-fit: contain;
     }
@@ -68,14 +93,14 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 22px;
       list-style: none;
     }
 
     .nav-links a {
       text-decoration: none;
       color: #334155;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 500;
       transition: color 0.2s;
     }
@@ -87,21 +112,120 @@
     .btn-nav-cta {
       background: var(--primary-blue) !important;
       color: #ffffff !important;
-      padding: 8px 18px;
+      padding: 7px 16px;
       border-radius: 20px;
       font-weight: 700 !important;
-      font-size: 0.9rem !important;
-      transition: opacity 0.2s;
+      font-size: 0.88rem !important;
     }
 
-    .btn-nav-cta:hover {
-      opacity: 0.9;
+    /* 모바일 슬라이드 드로어 메뉴 (Off-canvas Drawer) */
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    /* 2. Hero Section */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 280px;
+      max-width: 80%;
+      height: 100vh;
+      background: #ffffff;
+      z-index: 2100;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(0);
+    }
+    .mobile-drawer.active {
+      transform: translateX(300px);
+    }
+
+    .drawer-header {
+      padding: 20px 18px;
+      border-bottom: 1px solid #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .drawer-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .btn-close-drawer {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #64748B;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+
+    .drawer-menu-list {
+      list-style: none;
+      padding: 16px 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .drawer-menu-list li a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      text-decoration: none;
+      color: #1E293B;
+      font-size: 0.98rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .drawer-menu-list li a:active,
+    .drawer-menu-list li a:hover {
+      background: #F8FAFC;
+      color: var(--primary-blue);
+    }
+    .drawer-menu-list li a .menu-icon {
+      font-size: 1.1rem;
+    }
+
+    .drawer-footer {
+      padding: 18px;
+      border-top: 1px solid #F1F5F9;
+      background: #FAFCFE;
+    }
+    .drawer-footer .btn-line-drawer {
+      display: block;
+      width: 100%;
+      background: var(--line-green);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* 2. Hero Section (선명하고 밝은 교회 전경 오버레이) */
     .hero-section {
       position: relative;
-      min-height: 520px;
+      min-height: 480px;
       background-image: url('c.png');
       background-size: cover;
       background-position: center center;
@@ -109,17 +233,22 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 20px;
+      padding: 50px 16px;
       color: #ffffff;
     }
 
+    /* 이미지의 선명함을 유지하면서 글자 가독성을 살리는 소프트 비네팅 그라디언트 */
     .hero-overlay {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(180deg, rgba(15, 30, 54, 0.72) 0%, rgba(30, 58, 95, 0.85) 100%);
+      background: linear-gradient(180deg, 
+        rgba(15, 30, 54, 0.35) 0%, 
+        rgba(15, 30, 54, 0.45) 50%, 
+        rgba(15, 30, 54, 0.70) 100%
+      );
     }
 
     .hero-content {
@@ -128,47 +257,36 @@
       max-width: 800px;
     }
 
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      letter-spacing: 0.03em;
-    }
-
     .hero-title {
-      font-size: 2.3rem;
+      font-size: 2.2rem;
       font-weight: 700;
       line-height: 1.35;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       letter-spacing: -0.01em;
-      word-break: keep-all;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
     }
 
-    .hero-subtitle {
+    .hero-subtag {
       font-size: 1.05rem;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.92);
-      margin-bottom: 30px;
-      word-break: keep-all;
+      font-weight: 600;
+      color: #F8FAFC;
+      margin-bottom: 24px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+      letter-spacing: 0.02em;
     }
 
     .hero-buttons {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
     }
 
     .btn-hero {
-      padding: 13px 26px;
-      border-radius: 10px;
+      padding: 12px 24px;
+      border-radius: 8px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       text-decoration: none;
       transition: all 0.2s;
     }
@@ -176,45 +294,38 @@
     .btn-hero-primary {
       background: var(--accent);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(200, 155, 60, 0.35);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
-    .btn-hero-primary:hover {
-      filter: brightness(1.08);
-      transform: translateY(-2px);
-    }
-
     .btn-hero-secondary {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.2);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-    }
-    .btn-hero-secondary:hover {
-      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
     }
 
     /* Common Wrapper */
     .section-wrap {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 30px 16px 50px;
     }
 
-    /* 3. Quick Cards */
+    /* 3. 3단 Quick Cards */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 22px;
-      margin-top: -60px;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 16px;
+      margin-top: -40px;
       position: relative;
       z-index: 10;
     }
 
     .modern-card {
       background: #ffffff;
-      border-radius: 14px;
-      padding: 24px 20px;
+      border-radius: 12px;
+      padding: 20px 16px;
       border: 1px solid rgba(226, 232, 240, 0.9);
-      box-shadow: 0 10px 25px -5px rgba(30, 58, 95, 0.07);
+      box-shadow: 0 6px 16px rgba(30, 58, 95, 0.06);
       border-top: 4px solid var(--primary-blue);
       display: flex;
       flex-direction: column;
@@ -224,23 +335,16 @@
     .card-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
     .icon-box {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      background: #EEF2F6;
+      font-size: 1.15rem;
     }
 
     .card-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--primary);
     }
@@ -249,14 +353,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 7px 0;
+      padding: 6px 0;
       border-bottom: 1px dashed #F1F5F9;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
     .schedule-row:last-child { border-bottom: none; }
 
     .tag-badge {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       padding: 2px 6px;
       border-radius: 4px;
@@ -268,190 +372,98 @@
     .time-val {
       color: var(--primary-blue);
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .card-desc {
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       color: var(--text-sub);
-      line-height: 1.55;
-      margin-bottom: 16px;
+      line-height: 1.5;
+      margin-bottom: 14px;
     }
 
     .btn-group {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .action-btn {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.88rem;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 0.84rem;
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s;
     }
 
-    .btn-yt {
-      background: #FFF1F0;
-      color: #E11D48;
-      border: 1px solid rgba(225, 29, 72, 0.15);
-    }
-    .btn-yt:hover { background: #FFE4E6; }
-
-    .btn-pdf {
-      background: #F8FAFC;
-      color: var(--primary);
-      border: 1px solid #E2E8F0;
-    }
-    .btn-pdf:hover { background: #EDF2F7; }
+    .btn-yt { background: #FFF1F0; color: #E11D48; border: 1px solid rgba(225, 29, 72, 0.15); }
+    .btn-pdf { background: #F8FAFC; color: var(--primary); border: 1px solid #E2E8F0; }
 
     .line-card-box {
       background: #F0FDF4;
       border: 1px solid #BBF7D0;
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 8px;
+      padding: 10px;
       text-align: center;
     }
-
-    .line-card-box p {
-      font-size: 0.82rem;
-      color: #166534;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
+    .line-card-box p { font-size: 0.78rem; color: #166534; margin-bottom: 6px; font-weight: 600; }
     .btn-line-cta {
       display: block;
       width: 100%;
       background: var(--line-green);
       color: #ffffff;
       font-weight: 700;
-      font-size: 0.88rem;
-      padding: 9px 0;
-      border-radius: 6px;
+      font-size: 0.84rem;
+      padding: 8px 0;
+      border-radius: 5px;
       text-decoration: none;
-      box-shadow: 0 3px 8px rgba(6, 199, 85, 0.2);
     }
 
     /* 4. Multilingual Banner */
     .multi-banner {
       background: #ffffff;
-      border-radius: 14px;
-      padding: 24px;
-      border-left: 5px solid var(--secondary);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-      margin-top: 30px;
+      border-radius: 12px;
+      padding: 18px 16px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      margin-top: 20px;
     }
-    .multi-banner h3 {
-      font-size: 1.15rem;
-      color: var(--secondary);
-      margin-bottom: 8px;
-    }
-    .multi-banner p {
-      font-size: 0.92rem;
-      color: #475569;
-    }
+    .multi-banner h3 { font-size: 1rem; color: var(--secondary); margin-bottom: 6px; }
+    .multi-banner p { font-size: 0.86rem; color: #475569; }
 
     /* 5. FAQ Section */
     .faq-container {
       background: #ffffff;
-      border-radius: 14px;
-      padding: 30px 24px;
+      border-radius: 12px;
+      padding: 22px 16px;
       border: 1px solid #E2E8F0;
-      box-shadow: 0 4px 14px rgba(30, 58, 95, 0.04);
-      margin-top: 30px;
+      box-shadow: 0 4px 12px rgba(30, 58, 95, 0.04);
+      margin-top: 20px;
       border-top: 4px solid var(--primary-blue);
     }
+    .faq-header { text-align: center; margin-bottom: 18px; }
+    .faq-title { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .faq-subtitle { font-size: 0.82rem; color: var(--text-sub); }
 
-    .faq-header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .faq-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-
-    .faq-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-    }
-
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .faq-item {
-      border: 1px solid #F1F5F9;
-      background: #FAFCFE;
-      border-radius: 10px;
-      padding: 16px;
-    }
-
-    .faq-q-wrap {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .badge-q {
-      background: var(--primary-blue);
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.75rem;
-      padding: 2px 7px;
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .faq-question {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #1E293B;
-    }
-
-    .faq-a-wrap {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .badge-a {
-      background: #EBF3F0;
-      color: var(--secondary);
-      font-weight: 700;
-      font-size: 0.75rem;
-      padding: 2px 7px;
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .faq-answer {
-      font-size: 0.9rem;
-      color: #475569;
-      line-height: 1.6;
-    }
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-item { border: 1px solid #F1F5F9; background: #FAFCFE; border-radius: 8px; padding: 12px; }
+    .faq-q-wrap { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 6px; }
+    .badge-q { background: var(--primary-blue); color: #fff; font-weight: 700; font-size: 0.7rem; padding: 2px 5px; border-radius: 4px; flex-shrink: 0; }
+    .faq-question { font-size: 0.9rem; font-weight: 700; color: #1E293B; }
+    .faq-a-wrap { display: flex; align-items: flex-start; gap: 6px; }
+    .badge-a { background: #EBF3F0; color: var(--secondary); font-weight: 700; font-size: 0.7rem; padding: 2px 5px; border-radius: 4px; flex-shrink: 0; }
+    .faq-answer { font-size: 0.84rem; color: #475569; line-height: 1.5; }
 
     /* 6. Footer */
     .site-footer {
       background: #111827;
       color: #9CA3AF;
-      padding: 40px 20px;
-      margin-top: 50px;
-      font-size: 0.88rem;
+      padding: 30px 16px;
+      margin-top: 40px;
+      font-size: 0.82rem;
     }
     .footer-content {
       max-width: 1200px;
@@ -460,40 +472,45 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 14px;
+      gap: 10px;
     }
-    .footer-content strong {
-      color: #ffffff;
-      font-size: 1rem;
-    }
+    .footer-content strong { color: #ffffff; font-size: 0.92rem; }
 
-    /* Responsive */
+    /* 모바일 화면 전용 미디어 쿼리 */
     @media (max-width: 768px) {
+      .btn-hamburger { display: block; }
       .nav-links { display: none; }
-      .logo-img { height: 36px; }
-      .hero-section { min-height: 420px; padding: 40px 16px; }
-      .hero-title { font-size: 1.6rem; }
-      .hero-subtitle { font-size: 0.9rem; }
-      .hero-buttons { flex-direction: column; width: 100%; }
+      .logo-img { height: 32px; }
+      .hero-section { min-height: 380px; padding: 40px 14px; }
+      .hero-title { font-size: 1.5rem; }
+      .hero-subtag { font-size: 0.92rem; margin-bottom: 20px; }
+      .hero-buttons { width: 100%; flex-direction: column; }
       .btn-hero { width: 100%; text-align: center; }
-      .card-grid { grid-template-columns: 1fr; margin-top: 20px; }
-      .modern-card { padding: 18px 14px; }
-      .faq-container { padding: 20px 14px; }
-      .faq-title { font-size: 1.2rem; }
+      .card-grid { grid-template-columns: 1fr; margin-top: 16px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- 1. Header with Hamburger Toggle -->
   <header class="site-header">
     <div class="nav-container">
-      <a href="#" class="logo-wrap">
-        <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
-      </a>
+      <div class="header-left">
+        <!-- 햄버거 버튼 -->
+        <button class="btn-hamburger" id="btnHamburger" aria-label="メニューを開く">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <a href="#" class="logo-wrap">
+          <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
+        </a>
+      </div>
+
+      <!-- 데스크톱 네비게이션 -->
       <ul class="nav-links">
         <li><a href="#about">教会紹介</a></li>
-        <li><a href="#worship">礼拝案内</a></li>
+        <li><a href="#worship">礼拝・集会案内</a></li>
         <li><a href="#media">動画・週報</a></li>
         <li><a href="#access">アクセス</a></li>
         <li><a href="#faq" class="btn-nav-cta">初めての方へ</a></li>
@@ -501,13 +518,31 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
+  <!-- 모바일 슬라이드 드로어 메뉴 & 오버레이 -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">福岡新生キリスト教会</div>
+      <button class="btn-close-drawer" id="btnCloseDrawer">&times;</button>
+    </div>
+    <ul class="drawer-menu-list">
+      <li><a href="#faq" class="drawer-link"><span class="menu-icon">🌱</span>初めての方へ</a></li>
+      <li><a href="#about" class="drawer-link"><span class="menu-icon">⛪</span>教会紹介</a></li>
+      <li><a href="#worship" class="drawer-link"><span class="menu-icon">📖</span>礼拝・集会案内</a></li>
+      <li><a href="#media" class="drawer-link"><span class="menu-icon">🎥</span>動画・週報</a></li>
+      <li><a href="#access" class="drawer-link"><span class="menu-icon">📍</span>アクセス</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="#" class="btn-line-drawer">LINE公式アカウント・相談</a>
+    </div>
+  </aside>
+
+  <!-- 2. Hero Section -->
+  <section class="hero-section" id="about">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <span class="hero-badge">聖霊充満・世界伝道のアンテオケ教会</span>
-      <h1 class="hero-title">あなたの歩みに、<br>温かい光と平安を。</h1>
-      <p class="hero-subtitle">福岡新生キリスト教会へようこそ。神様の愛の中で、共に安らぎと希望を見出しませんか？</p>
+      <h1 class="hero-title">福岡新生キリスト教会</h1>
+      <div class="hero-subtag">聖霊充満・世界伝道のアンテオケ教会</div>
       <div class="hero-buttons">
         <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-hero btn-hero-primary">🔴 YouTube オンライン礼拝</a>
         <a href="#faq" class="btn-hero btn-hero-secondary">初めての方へのご案内</a>
@@ -515,15 +550,16 @@
     </div>
   </section>
 
-  <!-- Main Container -->
+  <!-- 3. Main Content -->
   <main class="section-wrap">
 
     <!-- 3단 액션 카드 -->
     <div class="card-grid" id="worship">
+      <!-- 예배 안내 -->
       <div class="modern-card">
         <div>
           <div class="card-header">
-            <div class="icon-box">📖</div>
+            <span class="icon-box">📖</span>
             <div class="card-title">主日礼拝のご案内</div>
           </div>
           <div class="schedule-list">
@@ -535,11 +571,12 @@
         </div>
       </div>
 
+      <!-- 미디어·주보 -->
       <div class="modern-card" id="media">
         <div>
           <div class="card-header">
-            <div class="icon-box" style="background:#EBF3F0; color:var(--secondary);">🎥</div>
-            <div class="card-title">メディア・週報</div>
+            <span class="icon-box">🎥</span>
+            <div class="card-title">動画・週報</div>
           </div>
           <p class="card-desc">オンラインで礼拝にご参加いただけます。最新のメッセージや教会週報をご覧ください。</p>
         </div>
@@ -555,13 +592,14 @@
         </div>
       </div>
 
+      <!-- 문의·LINE -->
       <div class="modern-card">
         <div>
           <div class="card-header">
-            <div class="icon-box" style="background:#FDF6E9; color:var(--accent);">💬</div>
+            <span class="icon-box">💬</span>
             <div class="card-title">初めての方・ご相談</div>
           </div>
-          <p class="card-desc">礼拝に関するご質問や祈りのリクエストなど、LINE公式アカウントでどうぞお気軽にご相談ください。</p>
+          <p class="card-desc">礼拝に関するご質問や祈りのリクエストなど、公式LINEでどうぞお気軽にご相談ください。</p>
         </div>
         <div class="line-card-box">
           <p>公式LINEで気軽にご相談いただけます</p>
@@ -576,7 +614,7 @@
       <p>当教会では、日本語のほかネパール語・英語・韓国語など、多様な背景を持つ方々が共に集い神様を賛美しています。国籍を問わずどなたでも歓迎いたします。</p>
     </div>
 
-    <!-- FAQ Section -->
+    <!-- FAQ 섹션 -->
     <div class="faq-container" id="faq">
       <div class="faq-header">
         <h2 class="faq-title">初めての方へ（よくある質問）</h2>
@@ -613,9 +651,38 @@
     <div class="footer-content">
       <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
       <p>〒811-1344 福岡県福岡市南区三宅3-33-1 | TEL: 092-561-2486</p>
-      <p style="font-size:0.8rem; color:#6B7280; margin-top:8px;">© Fukuoka Shinsei Baptist Church. All Rights Reserved.</p>
+      <p style="font-size:0.75rem; color:#6B7280; margin-top:4px;">© Fukuoka Shinsei Baptist Church. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- Drawer Script -->
+  <script>
+    const btnHamburger = document.getElementById('btnHamburger');
+    const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerLinks = document.querySelectorAll('.drawer-link');
+
+    function openDrawer() {
+      mobileDrawer.classList.add('active');
+      drawerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      mobileDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    btnHamburger.addEventListener('click', openDrawer);
+    btnCloseDrawer.addEventListener('click', closeDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+  </script>
 
 </body>
 </html>
