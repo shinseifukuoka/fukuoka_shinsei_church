@@ -314,7 +314,7 @@
     .facility-card h4 { font-size: 0.96rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
     .facility-card p { font-size: 0.84rem; color: #5F7188; line-height: 1.5; }
 
-    /* 6. 세계선교 섹션 */
+    /* 6. 世界宣教 セクション */
     .mission-section { background: var(--surface); border-radius: var(--radius-md); padding: 28px 24px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); margin-top: 28px; border-left: 5px solid var(--secondary); }
     .mission-title { font-size: 1.25rem; font-weight: 700; color: var(--secondary); margin-bottom: 6px; }
     .mission-desc { font-size: 0.88rem; color: var(--text-sub); line-height: 1.6; }
@@ -388,7 +388,7 @@
     .btn-scroll-top:hover { background: var(--primary-blue); transform: translateY(-2px); }
 
     /* 12. Footer */
-    .site-footer { background: #111827; color: #9CA3AF; padding: 34px 20px; margin-top: 48px; font-size: 0.84rem; }
+    .site-footer { background: #111827; color: #9CA3AF; padding: 34px 20px; margin-top: 48px; font-size: 0.84rem; text-align: center; }
     .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
     .footer-content strong { color: #ffffff; font-size: 0.94rem; }
 
@@ -417,25 +417,25 @@
 </head>
 <body>
 
-  <!-- 1. Header (실제 HTML 파일로 링크 연결됨) -->
+  <!-- 1. Header (메뉴 이름 '牧師・スタッフ'로 통일) -->
   <header class="site-header">
     <div class="nav-container">
       <a href="index.html" class="logo-wrap">
         <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
       </a>
 
-      <!-- 데스크톱 메뉴 (이제 스크롤 앵커가 아니라 실제 파일로 넘어갑니다) -->
+      <!-- 데스크톱 메뉴 -->
       <ul class="nav-links">
         <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
         <li class="nav-item"><a href="worship.html" class="nav-link">聖日礼拝・集会</a></li>
-        <li class="nav-item"><a href="pastor.html" class="nav-link">牧師挨拶</a></li>
+        <li class="nav-item"><a href="staff.html" class="nav-link">牧師・スタッフ</a></li>
         <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
         <li class="nav-item"><a href="mission.html" class="nav-link">世界宣教</a></li>
         <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
         <li class="nav-item"><a href="access.html" class="nav-link">アクセス</a></li>
       </ul>
 
-      <!-- 모바일 햄버거 버튼 -->
+      <!-- 햄버거 버튼 -->
       <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
         <span></span>
         <span></span>
@@ -444,7 +444,7 @@
     </div>
   </header>
 
-  <!-- 모바일 우측 드로어 메뉴 (여기도 실제 파일 링크로 변경) -->
+  <!-- 모바일 우측 드로어 메뉴 -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header">
@@ -453,7 +453,7 @@
     <ul class="drawer-menu-list">
       <li><a href="about.html" class="drawer-link">⛪ 教会について</a></li>
       <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会案内</a></li>
-      <li><a href="pastor.html" class="drawer-link">👔 牧師挨拶</a></li>
+      <li><a href="staff.html" class="drawer-link">👔 牧師・スタッフ紹介</a></li>
       <li><a href="facility.html" class="drawer-link">🏛️ 会堂施設のご案内</a></li>
       <li><a href="mission.html" class="drawer-link">🌏 世界宣教のご紹介</a></li>
       <li><a href="faq.html" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
@@ -538,7 +538,7 @@
     <!-- 4. 담임목사 소개 -->
     <div class="pastor-section" id="pastor">
       <div class="pastor-img-wrap">
-        <img src="Pastor_Takeda.jpg" alt="主任牧師 竹田 殉聖" class="pastor-img">
+        <img src="Pastor_Takeda.jpg" alt="主任牧師 竹田 殉聖" onerror="this.src='staff_placeholder.jpg'">
       </div>
       <div class="pastor-content">
         <div class="pastor-title-tag">日本バプテスト連盟 福岡新生キリスト教会</div>
@@ -753,9 +753,8 @@
     </div>
   </footer>
 
-  <!-- 토글 & Top 스크립트 -->
+  <!-- 토글 스크립트 -->
   <script>
-    // 모바일 햄버거 토글
     const btnHamburger = document.getElementById('btnHamburger');
     const drawerOverlay = document.getElementById('drawerOverlay');
     const mobileDrawer = document.getElementById('mobileDrawer');
@@ -779,7 +778,6 @@
     drawerOverlay.addEventListener('click', closeMenu);
     drawerLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-    // 주보 데이터
     const weeklyReports = [
       { date: "2026年 8月 23日 聖日週報", link: "#", isLatest: true },
       { date: "2026年 8月 16日 聖日週報", link: "#", isLatest: false },
@@ -796,7 +794,6 @@
       </a>
     `).join('');
 
-    // 주보 모달
     const btnOpenBulletin = document.getElementById('btnOpenBulletin');
     const btnCloseBulletin = document.getElementById('btnCloseBulletin');
     const bulletinModal = document.getElementById('bulletinModal');
@@ -807,7 +804,6 @@
       if (e.target === bulletinModal) bulletinModal.classList.remove('active');
     });
 
-    // Top 버튼 표시 제어 (Scrollspy 로직은 삭제, 메인 홈이므로 필요시 추가 복구 가능)
     const btnScrollTop = document.getElementById('btnScrollTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 400) {
