@@ -62,32 +62,40 @@
     .drawer-footer { padding: 18px 20px; border-top: 1px solid var(--border-color); background: #FAFCFE; }
     .btn-line-drawer { display: block; width: 100%; background: var(--line-green); color: #ffffff; text-align: center; padding: 11px 0; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem; }
 
-    /* Subpage Hero */
-    .subpage-hero { background: linear-gradient(135deg, var(--primary) 0%, #1c3d69 100%); color: #ffffff; padding: 60px 20px; text-align: center; position: relative; }
-    .subpage-hero h1 { font-size: 2.2rem; margin-bottom: 12px; letter-spacing: 0.05em; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-    .subpage-hero p { font-size: 0.95rem; color: #E2E8F0; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+    /* Subpage Hero (선교 게시판 사진 배경 적용) */
+    .subpage-hero { 
+      background-image: url('mission_wall.jpg'); 
+      background-size: cover; 
+      background-position: center center; 
+      color: #ffffff; 
+      padding: 80px 20px; 
+      text-align: center; 
+      position: relative; 
+    }
+    .subpage-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(18, 40, 68, 0.75); /* 가독성을 위한 네이비 반투명 오버레이 */
+    }
+    .subpage-hero h1, .subpage-hero p {
+      position: relative;
+      z-index: 1;
+    }
+    .subpage-hero h1 { font-size: 2.3rem; margin-bottom: 12px; letter-spacing: 0.05em; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+    .subpage-hero p { font-size: 1.05rem; color: #E2E8F0; opacity: 0.95; max-width: 600px; margin: 0 auto; line-height: 1.6; font-weight: 500; }
 
     /* Content Area */
     .subpage-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
 
-    /* Mission Vision Banner (Photo) */
-    .mission-vision-card {
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 32px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-    }
-    .mission-vision-card img {
-      width: 100%;
-      display: block;
-      max-height: 400px;
-      object-fit: cover;
-      object-position: center 20%;
-    }
+    /* Mission Vision Info */
     .mission-vision-body {
       background: var(--surface);
-      padding: 32px 36px;
+      padding: 36px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
     }
     .mission-vision-body h2 {
       font-size: 1.45rem;
@@ -101,6 +109,7 @@
       line-height: 1.7;
     }
     .mission-vision-body p:last-child { margin-bottom: 0; }
+    
     .mission-verse {
       background: #F8FAFC;
       border-left: 4px solid var(--primary-blue);
@@ -217,7 +226,7 @@
       .nav-container { height: 60px; padding: 0 16px; }
       .drawer-header { height: 60px; }
       .mobile-floating-bar { display: block; }
-      .subpage-hero { padding: 40px 20px; }
+      .subpage-hero { padding: 50px 20px; }
       .subpage-hero h1 { font-size: 1.8rem; }
       
       .mission-vision-body { padding: 24px 20px; }
@@ -229,7 +238,6 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header class="site-header">
     <div class="nav-container">
       <a href="index.html" class="logo-wrap">
@@ -250,12 +258,11 @@
     </div>
   </header>
 
-  <!-- Mobile Drawer -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header"><span class="drawer-title">福岡新生キリスト教会</span></div>
     <ul class="drawer-menu-list">
-      <li><a href="about.html" class="drawer-link">⛪ 教会について</a></li>
+      <li><a href="about.html" class="drawer-link">⛪ 教会紹介</a></li>
       <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会</a></li>
       <li><a href="staff.html" class="drawer-link">👔 牧師・スタッフ</a></li>
       <li><a href="facility.html" class="drawer-link">🏛️ 会堂案内</a></li>
@@ -268,39 +275,31 @@
     </div>
   </aside>
 
-  <!-- Subpage Hero -->
   <section class="subpage-hero">
     <h1 class="font-serif">世界宣教への歩み</h1>
     <p>全世界に出て行って、すべての造られたものに福音を宣べ伝えよ</p>
   </section>
 
-  <!-- Main Content -->
   <main class="subpage-content">
 
-    <!-- 1. 비전 및 기도 게시판 영역 -->
-    <article class="mission-vision-card">
-      <img src="231286.jpg" alt="世界地図と祈りのカード" onerror="this.src='https://via.placeholder.com/900x400?text=Mission+Board'">
-      <div class="mission-vision-body">
-        <h2 class="font-serif">「世界伝道のアンテオケ教会」のビジョン</h2>
-        <p>
-          福岡新生キリスト教会は、初代教会のアンテオケ教会のように、自らの地域を越えて地の果てまで福音を届けることを使命としています。教会の壁には大きな世界地図が掲げられ、派遣された宣教師たちの祈りのカードが貼られています。
-        </p>
-        <p>
-          私たちは単に宣教資金を支援するだけでなく、全聖徒が毎日の祈りの祭壇において、霊的な最前線で戦う宣教師たちのために涙をもってとりなし祈っています。
-        </p>
-        <p>
-          また、毎月最終主日は「世界伝道の日」として守られており、世界宣教祈祷会が持たれ、世界宣教献金の報告が行われます。
-        </p>
-        <div class="mission-verse font-serif">
-          『全世界に出て行って、すべての造られたものに福音を宣べ伝えよ。』（マルコの福音書 16:15）
-        </div>
+    <div class="mission-vision-body">
+      <h2 class="font-serif">「世界伝道のアンテオケ教会」のビジョン</h2>
+      <p>
+        福岡新生キリスト教会は、初代教会のアンテオケ教会のように、自らの地域を越えて地の果てまで福音を届けることを使命としています。教会の壁には大きな世界地図が掲げられ、派遣された宣教師たちの祈りのカードが貼られています。
+      </p>
+      <p>
+        私たちは単に宣教資金を支援するだけでなく、全聖徒が毎日の祈りの祭壇において、霊的な最前線で戦う宣教師たちのために涙をもってとりなし祈っています。
+      </p>
+      <p>
+        また、毎月最終主日は「世界伝道の日」として守られており、世界宣教祈祷会が持たれ、世界宣教献金の報告が行われます。
+      </p>
+      <div class="mission-verse font-serif">
+        『全世界に出て行って、すべての造られたものに福音を宣べ伝えよ。』（マルコの福音書 16:15）
       </div>
-    </article>
+    </div>
 
-    <!-- 2. 파송 선교사 리스트 -->
     <h2 class="missionary-list-header font-serif">当教会より派遣・支援している宣教師</h2>
 
-    <!-- 이성덕 선교사 -->
     <div class="missionary-card">
       <div class="missionary-img-wrap">
         <img src="Missionary_Lee.jpg" alt="李 聖徳 宣教師" onerror="this.src='staff_placeholder.jpg'">
@@ -320,7 +319,6 @@
       </div>
     </div>
 
-    <!-- 쵸우라이 선교사 -->
     <div class="missionary-card">
       <div class="missionary-img-wrap">
         <img src="Missionary_Chou.jpg" alt="チョウライ 宣教師" onerror="this.src='staff_placeholder.jpg'">
@@ -340,7 +338,6 @@
       </div>
     </div>
 
-    <!-- 카와바타 마리코 선교사 -->
     <div class="missionary-card">
       <div class="missionary-img-wrap">
         <img src="Missionary_Kawabata.jpg" alt="河端 真理子 宣教師" onerror="this.src='staff_placeholder.jpg'">
@@ -362,7 +359,6 @@
       </div>
     </div>
 
-    <!-- 자나크 칸델 선교사 -->
     <div class="missionary-card">
       <div class="missionary-img-wrap">
         <img src="Missionary_Janak.jpg" alt="ジャナク・カンデル 宣教師" onerror="this.src='staff_placeholder.jpg'">
@@ -384,7 +380,6 @@
       </div>
     </div>
 
-    <!-- 노구치 휴마 선교사 -->
     <div class="missionary-card">
       <div class="missionary-img-wrap">
         <img src="Missionary_Noguchi.jpg" alt="野口 日宇満 宣教師" onerror="this.src='staff_placeholder.jpg'">
@@ -406,7 +401,6 @@
 
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-content">
       <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
@@ -415,10 +409,8 @@
     </div>
   </footer>
 
-  <!-- Scroll Top Button -->
   <a href="#" class="btn-scroll-top" id="btnScrollTop" aria-label="ページ上部へ戻る">↑</a>
 
-  <!-- Mobile Floating Bar -->
   <div class="mobile-floating-bar">
     <div class="floating-bar-grid">
       <a href="access.html" class="btn-float btn-float-map"><span>📍</span><span>アクセス</span></a>
