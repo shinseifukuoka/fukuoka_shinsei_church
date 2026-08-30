@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>世界宣教 | 福岡新生キリスト教会</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #122844;
+      --primary-blue: #1652A2;
+      --secondary: #245645;
+      --accent: #C49332;
+      --bg-page: #F8FAFC;
+      --surface: #FFFFFF;
+      --text-main: #1E293B;
+      --text-sub: #5F7188;
+      --line-green: #06C755;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 8px rgba(18, 40, 68, 0.04);
+      --shadow-md: 0 8px 24px rgba(18, 40, 68, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans JP', sans-serif; }
+    body { background-color: var(--bg-page); color: var(--text-main); line-height: 1.7; padding-bottom: 64px; overflow-x: hidden; }
+    .font-serif { font-family: 'Noto Serif JP', serif; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo-wrap { display: flex; align-items: center; text-decoration: none; height: 100%; }
+    .logo-img { height: 44px; width: auto; object-fit: contain; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; height: 100%; }
+    .nav-item { display: flex; align-items: center; height: 100%; position: relative; }
+    .nav-link { text-decoration: none; color: #334155; font-size: 0.94rem; font-weight: 500; height: 100%; display: flex; align-items: center; padding: 0 6px; transition: color 0.2s; position: relative; }
+    .nav-link:hover { color: var(--primary-blue); }
+    .nav-link.active { color: var(--primary); font-weight: 700; }
+    .nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: var(--primary); border-radius: 2px 2px 0 0; }
+
+    /* Hamburger */
+    .btn-hamburger { display: none; background: transparent; border: none; cursor: pointer; width: 26px; height: 22px; position: relative; z-index: 3000; outline: none; }
+    .btn-hamburger span { display: block; position: absolute; height: 2.5px; width: 100%; background: #122844; border-radius: 2px; left: 0; transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), top 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease; }
+    .btn-hamburger span:nth-child(1) { top: 2px; }
+    .btn-hamburger span:nth-child(2) { top: 9.75px; }
+    .btn-hamburger span:nth-child(3) { top: 17.5px; }
+    .btn-hamburger.open span:nth-child(1) { top: 9.75px; transform: rotate(45deg); }
+    .btn-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .btn-hamburger.open span:nth-child(3) { top: 9.75px; transform: rotate(-45deg); }
+
+    /* Drawer */
+    .drawer-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(4px); z-index: 2000; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: #ffffff; z-index: 2100; box-shadow: -6px 0 28px rgba(0, 0, 0, 0.16); display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .mobile-drawer.active { transform: translateX(-300px); }
+    .drawer-header { padding: 0 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; height: 68px; font-weight: 700; color: var(--primary); font-size: 0.96rem; }
+    .drawer-menu-list { list-style: none; padding: 14px 0; flex: 1; overflow-y: auto; }
+    .drawer-menu-list li a { display: flex; align-items: center; gap: 12px; padding: 13px 22px; text-decoration: none; color: #1E293B; font-size: 0.94rem; font-weight: 600; border-left: 4px solid transparent; }
+    .drawer-menu-list li a.active { background: #F8FAFC; color: var(--primary-blue); border-left-color: var(--primary); font-weight: 700; }
+    .drawer-footer { padding: 18px 20px; border-top: 1px solid var(--border-color); background: #FAFCFE; }
+    .btn-line-drawer { display: block; width: 100%; background: var(--line-green); color: #ffffff; text-align: center; padding: 11px 0; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem; }
+
+    /* Subpage Hero */
+    .subpage-hero { background: linear-gradient(135deg, var(--primary) 0%, #1c3d69 100%); color: #ffffff; padding: 60px 20px; text-align: center; position: relative; }
+    .subpage-hero h1 { font-size: 2.2rem; margin-bottom: 12px; letter-spacing: 0.05em; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .subpage-hero p { font-size: 0.95rem; color: #E2E8F0; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+    /* Content Area */
+    .subpage-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+    /* Mission Vision Banner (Photo) */
+    .mission-vision-card {
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+    .mission-vision-card img {
+      width: 100%;
+      display: block;
+      max-height: 400px;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+    .mission-vision-body {
+      background: var(--surface);
+      padding: 32px 36px;
+    }
+    .mission-vision-body h2 {
+      font-size: 1.45rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .mission-vision-body p {
+      font-size: 0.96rem;
+      color: #334155;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .mission-vision-body p:last-child { margin-bottom: 0; }
+    .mission-verse {
+      background: #F8FAFC;
+      border-left: 4px solid var(--primary-blue);
+      padding: 16px 20px;
+      margin-top: 24px;
+      font-weight: 600;
+      color: var(--primary);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Missionaries Grid */
+    .missionary-list-header {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-top: 48px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .missionary-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+    .missionary-card:hover { box-shadow: var(--shadow-md); border-color: #CBD5E1; }
+    
+    .missionary-img-wrap {
+      width: 120px;
+      height: 150px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #E2E8F0;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94A3B8;
+      font-size: 0.8rem;
+    }
+    .missionary-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    .missionary-info { flex: 1; }
+    .missionary-name-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .m-role { font-size: 0.84rem; font-weight: 700; color: var(--secondary); background: #EBF3F0; padding: 2px 8px; border-radius: 4px; }
+    .m-name { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin: 0; }
+    
+    .m-field {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary-blue);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .m-history {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0;
+    }
+    .m-history li {
+      font-size: 0.9rem;
+      color: #475569;
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 14px;
+      line-height: 1.5;
+    }
+    .m-history li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary-blue);
+      font-weight: bold;
+    }
+
+    /* Mobile Floating Bar & Scroll Top */
+    .mobile-floating-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-top: 1px solid #E2E8F0; z-index: 1500; padding: 8px 12px; }
+    .floating-bar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; max-width: 480px; margin: 0 auto; }
+    .btn-float { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 0.72rem; font-weight: 700; }
+    .btn-float-map { background: #EEF2F6; color: var(--primary); }
+    .btn-float-line { background: #06C755; color: #ffffff; }
+    .btn-float-yt { background: #FFF1F0; color: #E11D48; }
+
+    .btn-scroll-top { position: fixed; bottom: 76px; right: 20px; width: 42px; height: 42px; border-radius: 50%; background: rgba(18, 40, 68, 0.85); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1400; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
+    .btn-scroll-top.show { opacity: 1; visibility: visible; }
+
+    /* Footer */
+    .site-footer { background: #111827; color: #9CA3AF; padding: 34px 20px; margin-top: 48px; font-size: 0.84rem; text-align: center; }
+
+    @media (max-width: 768px) {
+      .btn-hamburger { display: block; }
+      .nav-links { display: none; }
+      .logo-img { height: 38px; }
+      .nav-container { height: 60px; padding: 0 16px; }
+      .drawer-header { height: 60px; }
+      .mobile-floating-bar { display: block; }
+      .subpage-hero { padding: 40px 20px; }
+      .subpage-hero h1 { font-size: 1.8rem; }
+      
+      .mission-vision-body { padding: 24px 20px; }
+      .missionary-card { flex-direction: column; padding: 24px 20px; gap: 16px; }
+      .missionary-img-wrap { width: 100px; height: 125px; }
+      .missionary-name-wrap { flex-wrap: wrap; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-wrap">
+        <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
+        <li class="nav-item"><a href="worship.html" class="nav-link">聖日礼拝・集会</a></li>
+        <li class="nav-item"><a href="staff.html" class="nav-link">牧師・スタッフ</a></li>
+        <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
+        <li class="nav-item"><a href="mission.html" class="nav-link active">世界宣教</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
+        <li class="nav-item"><a href="access.html" class="nav-link">アクセス</a></li>
+      </ul>
+      <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header"><span class="drawer-title">福岡新生キリスト教会</span></div>
+    <ul class="drawer-menu-list">
+      <li><a href="about.html" class="drawer-link">⛪ 教会について</a></li>
+      <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会</a></li>
+      <li><a href="staff.html" class="drawer-link">👔 牧師・スタッフ</a></li>
+      <li><a href="facility.html" class="drawer-link">🏛️ 会堂案内</a></li>
+      <li><a href="mission.html" class="drawer-link active">🌏 世界宣教</a></li>
+      <li><a href="faq.html" class="drawer-link">🌱 よくある質問</a></li>
+      <li><a href="access.html" class="drawer-link">📍 アクセス</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="#" class="btn-line-drawer">LINE友だち追加・相談</a>
+    </div>
+  </aside>
+
+  <!-- Subpage Hero -->
+  <section class="subpage-hero">
+    <h1 class="font-serif">世界宣教への歩み</h1>
+    <p>全世界に出て行って、すべての造られたものに福音を宣べ伝えよ</p>
+  </section>
+
+  <!-- Main Content -->
+  <main class="subpage-content">
+
+    <!-- 1. 비전 및 기도 게시판 영역 -->
+    <article class="mission-vision-card">
+      <img src="231286.jpg" alt="世界地図と祈りのカード" onerror="this.src='https://via.placeholder.com/900x400?text=Mission+Board'">
+      <div class="mission-vision-body">
+        <h2 class="font-serif">「世界伝道のアンテオケ教会」のビジョン</h2>
+        <p>
+          福岡新生キリスト教会は、初代教会のアンテオケ教会のように、自らの地域を越えて地の果てまで福音を届けることを使命としています。教会の壁には大きな世界地図が掲げられ、派遣された宣教師たちの祈りのカードが貼られています。
+        </p>
+        <p>
+          私たちは単に宣教資金を支援するだけでなく、全聖徒が毎日の祈りの祭壇において、霊的な最前線で戦う宣教師たちのために涙をもってとりなし祈っています。
+        </p>
+        <p>
+          また、毎月最終主日は「世界伝道の日」として守られており、世界宣教祈祷会が持たれ、世界宣教献金の報告が行われます。
+        </p>
+        <div class="mission-verse font-serif">
+          『全世界に出て行って、すべての造られたものに福音を宣べ伝えよ。』（マルコの福音書 16:15）
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. 파송 선교사 리스트 -->
+    <h2 class="missionary-list-header font-serif">当教会より派遣・支援している宣教師</h2>
+
+    <!-- 이성덕 선교사 -->
+    <div class="missionary-card">
+      <div class="missionary-img-wrap">
+        <img src="Missionary_Lee.jpg" alt="李 聖徳 宣教師" onerror="this.src='staff_placeholder.jpg'">
+      </div>
+      <div class="missionary-info">
+        <div class="missionary-name-wrap">
+          <span class="m-role">宣教師</span>
+          <h3 class="m-name">李 聖徳 <span style="font-size: 0.95rem; color: #5F7188; font-weight: 500;">(イ・ソンドク)</span></h3>
+        </div>
+        <div class="m-field">🇰🇿 中央アジア宣教</div>
+        <ul class="m-history">
+          <li>当教会から派遣されている韓国人宣教師。</li>
+          <li>1994年・1995年と2年続けてCCC短期宣教で当教会に来られ、その後10年当教会で働かれた。</li>
+          <li>その間、西南神学校を卒業され、当教会の副牧師に就任、按手を受けられた。</li>
+          <li>現在は中央アジア（東アジア）でご家族で宣教に励んでおられる。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 쵸우라이 선교사 -->
+    <div class="missionary-card">
+      <div class="missionary-img-wrap">
+        <img src="Missionary_Chou.jpg" alt="チョウライ 宣教師" onerror="this.src='staff_placeholder.jpg'">
+      </div>
+      <div class="missionary-info">
+        <div class="missionary-name-wrap">
+          <span class="m-role">宣教師</span>
+          <h3 class="m-name">チョウライ</h3>
+        </div>
+        <div class="m-field">🇺🇸 東アジア・米国研修</div>
+        <ul class="m-history">
+          <li>当教会から派遣されている宣教師。</li>
+          <li>2001年暮れに当教会に導かれ、2002年に受浸。</li>
+          <li>2004年より西南神学部に入学。卒業後、母国の東アジアで宣教。</li>
+          <li>現在は、アメリカで更に学びを深めておられる。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 카와바타 마리코 선교사 -->
+    <div class="missionary-card">
+      <div class="missionary-img-wrap">
+        <img src="Missionary_Kawabata.jpg" alt="河端 真理子 宣教師" onerror="this.src='staff_placeholder.jpg'">
+      </div>
+      <div class="missionary-info">
+        <div class="missionary-name-wrap">
+          <span class="m-role">宣教師</span>
+          <h3 class="m-name">河端 真理子</h3>
+        </div>
+        <div class="m-field">🇰🇪 ケニア開拓伝道・神殿建築</div>
+        <ul class="m-history">
+          <li>当教会でクリスチャンホームの中で育つ。</li>
+          <li>2010年の教会の聖会にて聖霊を受け、献身の思いが与えられる。</li>
+          <li>2016年4月 西南学院大学神学部卒業。同年4月より当教会「宣教師補」就任。</li>
+          <li>2019年5月に宣教地ケニアに赴任。2022年4月、当教会「宣教師」に就任。</li>
+          <li>2022年12月にケニア人伝道師Andrew師と結婚。</li>
+          <li>2023年1月よりケニア Kisii州Kenyanyaにて開拓伝道・神殿建築に励んでおられる。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 자나크 칸델 선교사 -->
+    <div class="missionary-card">
+      <div class="missionary-img-wrap">
+        <img src="Missionary_Janak.jpg" alt="ジャナク・カンデル 宣教師" onerror="this.src='staff_placeholder.jpg'">
+      </div>
+      <div class="missionary-info">
+        <div class="missionary-name-wrap">
+          <span class="m-role">宣教師</span>
+          <h3 class="m-name">ジャナク・カンデル <span style="font-size: 0.95rem; color: #5F7188; font-weight: 500;">(Kandel Janak)</span></h3>
+        </div>
+        <div class="m-field">🇮🇳 インド・ダージリン宣教</div>
+        <ul class="m-history">
+          <li>ネパールで生まれ育つ。</li>
+          <li>2011年に福岡に留学され、当教会に導かれる。当教会で「ネパール語礼拝」を立ち上げられる。</li>
+          <li>日本語学校、日本経済大学卒業後、献身の思いが与えられ、西南学院大学神学部入学。</li>
+          <li>2018年3月に西南神学部を卒業。同年4月より当教会「宣教師補」就任。</li>
+          <li>2018年9月よりインド・ダージリン宣教開始。</li>
+          <li>2022年4月より当教会「宣教師」に就任。現在に至る。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 노구치 휴마 선교사 -->
+    <div class="missionary-card">
+      <div class="missionary-img-wrap">
+        <img src="Missionary_Noguchi.jpg" alt="野口 日宇満 宣教師" onerror="this.src='staff_placeholder.jpg'">
+      </div>
+      <div class="missionary-info">
+        <div class="missionary-name-wrap">
+          <span class="m-role">日本バプテスト連盟 派遣宣教師</span>
+          <h3 class="m-name">野口 日宇満 <span style="font-size: 0.95rem; color: #5F7188; font-weight: 500;">(のぐち ひゅうまん)</span></h3>
+        </div>
+        <div class="m-field">🇮🇩 インドネシア宣教</div>
+        <ul class="m-history">
+          <li>2014年9月から日本バプテスト連盟の派遣宣教師としてインドネシアで活動しています。</li>
+          <li>ジャワ島スマランのインドネシア・バプテスト神学校での神学教育（講義担当）を担当。</li>
+          <li>チャンディバプテスト教会と協力し、教会形成や地域支援に関わっています。</li>
+          <li>インドネシア語や英語による礼拝での奉仕に携わっています。</li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
+      <p style="font-size:0.8rem; margin-top:4px;">〒811-1344 福岡県福岡市南区三宅3-33-1 | TEL: 092-561-4233</p>
+      <p style="font-size:0.75rem; color:#6B7280; margin-top:6px;">© Fukuoka Shinsei Baptist Church. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top Button -->
+  <a href="#" class="btn-scroll-top" id="btnScrollTop" aria-label="ページ上部へ戻る">↑</a>
+
+  <!-- Mobile Floating Bar -->
+  <div class="mobile-floating-bar">
+    <div class="floating-bar-grid">
+      <a href="access.html" class="btn-float btn-float-map"><span>📍</span><span>アクセス</span></a>
+      <a href="#" target="_blank" class="btn-float btn-float-line"><span>💬</span><span>LINE相談</span></a>
+      <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-float btn-float-yt"><span>🔴</span><span>礼拝中継</span></a>
+    </div>
+  </div>
+
+  <script>
+    const btnHamburger = document.getElementById('btnHamburger');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    function toggleMenu() {
+      const isOpen = mobileDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
+      btnHamburger.classList.toggle('open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    function closeMenu() {
+      mobileDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      btnHamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    btnHamburger.addEventListener('click', toggleMenu);
+    drawerOverlay.addEventListener('click', closeMenu);
+
+    const btnScrollTop = document.getElementById('btnScrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        btnScrollTop.classList.add('show');
+      } else {
+        btnScrollTop.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
