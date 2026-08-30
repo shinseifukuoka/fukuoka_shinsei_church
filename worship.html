@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>聖日礼拝・集会 | 福岡新生キリスト教会</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #122844;
+      --primary-blue: #1652A2;
+      --secondary: #245645;
+      --accent: #C49332;
+      --bg-page: #F8FAFC;
+      --surface: #FFFFFF;
+      --text-main: #1E293B;
+      --text-sub: #5F7188;
+      --line-green: #06C755;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 8px rgba(18, 40, 68, 0.04);
+      --shadow-md: 0 8px 24px rgba(18, 40, 68, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans JP', sans-serif; }
+    body { background-color: var(--bg-page); color: var(--text-main); line-height: 1.7; padding-bottom: 64px; overflow-x: hidden; }
+    .font-serif { font-family: 'Noto Serif JP', serif; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo-wrap { display: flex; align-items: center; text-decoration: none; height: 100%; }
+    .logo-img { height: 44px; width: auto; object-fit: contain; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; height: 100%; }
+    .nav-item { display: flex; align-items: center; height: 100%; position: relative; }
+    .nav-link { text-decoration: none; color: #334155; font-size: 0.94rem; font-weight: 500; height: 100%; display: flex; align-items: center; padding: 0 6px; transition: color 0.2s; position: relative; }
+    .nav-link:hover { color: var(--primary-blue); }
+    .nav-link.active { color: var(--primary); font-weight: 700; }
+    .nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: var(--primary); border-radius: 2px 2px 0 0; }
+
+    /* Hamburger */
+    .btn-hamburger { display: none; background: transparent; border: none; cursor: pointer; width: 26px; height: 22px; position: relative; z-index: 3000; outline: none; }
+    .btn-hamburger span { display: block; position: absolute; height: 2.5px; width: 100%; background: #122844; border-radius: 2px; left: 0; transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), top 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease; }
+    .btn-hamburger span:nth-child(1) { top: 2px; }
+    .btn-hamburger span:nth-child(2) { top: 9.75px; }
+    .btn-hamburger span:nth-child(3) { top: 17.5px; }
+    .btn-hamburger.open span:nth-child(1) { top: 9.75px; transform: rotate(45deg); }
+    .btn-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .btn-hamburger.open span:nth-child(3) { top: 9.75px; transform: rotate(-45deg); }
+
+    /* Drawer */
+    .drawer-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(4px); z-index: 2000; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: #ffffff; z-index: 2100; box-shadow: -6px 0 28px rgba(0, 0, 0, 0.16); display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .mobile-drawer.active { transform: translateX(-300px); }
+    .drawer-header { padding: 0 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; height: 68px; font-weight: 700; color: var(--primary); font-size: 0.96rem; }
+    .drawer-menu-list { list-style: none; padding: 14px 0; flex: 1; overflow-y: auto; }
+    .drawer-menu-list li a { display: flex; align-items: center; gap: 12px; padding: 13px 22px; text-decoration: none; color: #1E293B; font-size: 0.94rem; font-weight: 600; border-left: 4px solid transparent; }
+    .drawer-menu-list li a.active { background: #F8FAFC; color: var(--primary-blue); border-left-color: var(--primary); font-weight: 700; }
+    .drawer-footer { padding: 18px 20px; border-top: 1px solid var(--border-color); background: #FAFCFE; }
+    .btn-line-drawer { display: block; width: 100%; background: var(--line-green); color: #ffffff; text-align: center; padding: 11px 0; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem; }
+
+    /* Subpage Hero */
+    .subpage-hero { background: linear-gradient(135deg, var(--primary) 0%, #1c3d69 100%); color: #ffffff; padding: 60px 20px; text-align: center; position: relative; }
+    .subpage-hero h1 { font-size: 2.2rem; margin-bottom: 12px; letter-spacing: 0.05em; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .subpage-hero p { font-size: 0.95rem; color: #E2E8F0; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+    /* Content Area */
+    .subpage-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .content-box { background: var(--surface); border-radius: var(--radius-md); padding: 40px 36px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); margin-bottom: 32px; }
+    .content-box h2 { font-size: 1.4rem; color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid #F1F5F9; padding-bottom: 12px; }
+
+    /* 1. 최신 설교 강조 카드 */
+    .latest-sermon-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    .latest-sermon-header {
+      background: var(--primary-blue);
+      color: #ffffff;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .latest-sermon-body { padding: 24px; }
+    .sermon-date-speaker { font-size: 0.86rem; color: var(--text-sub); margin-bottom: 6px; }
+    .sermon-title { font-size: 1.35rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
+    .sermon-bible { font-size: 0.95rem; color: var(--secondary); font-weight: 600; margin-bottom: 18px; }
+    
+    /* 자료 버튼 칩 그룹 */
+    .resource-chip-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .resource-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 6px; font-size: 0.84rem; font-weight: 600; text-decoration: none; transition: background 0.2s;
+    }
+    .chip-yt { background: #FFF1F0; color: #E11D48; border: 1px solid rgba(225, 29, 72, 0.15); }
+    .chip-yt:hover { background: #FFE4E1; }
+    .chip-ppt { background: #EEF2F6; color: var(--primary-blue); border: 1px solid #D9E2EC; }
+    .chip-ppt:hover { background: #E2E8F0; }
+    .chip-pdf { background: #F1F5F9; color: var(--text-main); border: 1px solid var(--border-color); }
+    .chip-pdf:hover { background: #E2E8F0; }
+
+    /* 2. 설교 아카이브 리스트 */
+    .sermon-list { display: flex; flex-direction: column; gap: 12px; }
+    .sermon-item {
+      display: flex; flex-direction: column; padding: 18px; background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; transition: box-shadow 0.2s;
+    }
+    .sermon-item:hover { box-shadow: var(--shadow-sm); border-color: #CBD5E1; }
+    .s-item-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 16px; }
+    .s-item-info h4 { font-size: 1.1rem; color: var(--primary); margin-bottom: 4px; line-height: 1.4; }
+    .s-item-info p { font-size: 0.84rem; color: var(--text-sub); margin: 0; }
+    .s-item-speaker { font-size: 0.84rem; font-weight: 600; color: #475569; white-space: nowrap; }
+
+    /* 3. 새벽기도회 아카이브 (심플 리스트) */
+    .morning-prayer-list {
+      list-style: none; padding: 0; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;
+    }
+    .morning-prayer-list li {
+      display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--border-color); background: #FAFCFE;
+    }
+    .morning-prayer-list li:last-child { border-bottom: none; }
+    .mp-date { font-weight: 700; color: var(--primary); font-size: 0.92rem; }
+    .mp-bible { font-size: 0.88rem; color: #475569; }
+
+    /* Mobile Floating Bar & Scroll Top */
+    .mobile-floating-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-top: 1px solid #E2E8F0; z-index: 1500; padding: 8px 12px; }
+    .floating-bar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; max-width: 480px; margin: 0 auto; }
+    .btn-float { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 0.72rem; font-weight: 700; }
+    .btn-float-map { background: #EEF2F6; color: var(--primary); }
+    .btn-float-line { background: #06C755; color: #ffffff; }
+    .btn-float-yt { background: #FFF1F0; color: #E11D48; }
+
+    .btn-scroll-top { position: fixed; bottom: 76px; right: 20px; width: 42px; height: 42px; border-radius: 50%; background: rgba(18, 40, 68, 0.85); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1400; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
+    .btn-scroll-top.show { opacity: 1; visibility: visible; }
+
+    /* Footer */
+    .site-footer { background: #111827; color: #9CA3AF; padding: 34px 20px; margin-top: 48px; font-size: 0.84rem; text-align: center; }
+
+    @media (max-width: 768px) {
+      .btn-hamburger { display: block; }
+      .nav-links { display: none; }
+      .logo-img { height: 38px; }
+      .nav-container { height: 60px; padding: 0 16px; }
+      .drawer-header { height: 60px; }
+      .mobile-floating-bar { display: block; }
+      .content-box { padding: 28px 20px; }
+      .subpage-hero { padding: 40px 20px; }
+      .subpage-hero h1 { font-size: 1.8rem; }
+      .s-item-top { flex-direction: column; gap: 8px; }
+      .resource-chip-group { margin-top: 12px; }
+      .resource-chip { flex: 1; justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-wrap">
+        <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
+        <li class="nav-item"><a href="worship.html" class="nav-link active">聖日礼拝・集会</a></li>
+        <li class="nav-item"><a href="pastor.html" class="nav-link">牧師挨拶</a></li>
+        <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
+        <li class="nav-item"><a href="mission.html" class="nav-link">世界宣教</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
+        <li class="nav-item"><a href="access.html" class="nav-link">アクセス</a></li>
+      </ul>
+      <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header"><span class="drawer-title">福岡新生キリスト教会</span></div>
+    <ul class="drawer-menu-list">
+      <li><a href="about.html" class="drawer-link">⛪ 教会について</a></li>
+      <li><a href="worship.html" class="drawer-link active">📖 聖日礼拝・集会案内</a></li>
+      <li><a href="pastor.html" class="drawer-link">👔 牧師挨拶</a></li>
+      <li><a href="facility.html" class="drawer-link">🏛️ 会堂施設のご案内</a></li>
+      <li><a href="mission.html" class="drawer-link">🌏 世界宣教のご紹介</a></li>
+      <li><a href="faq.html" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
+      <li><a href="access.html" class="drawer-link">📍 アクセス・地図</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="#" class="btn-line-drawer">LINE友だち追加・相談</a>
+    </div>
+  </aside>
+
+  <!-- Subpage Hero -->
+  <section class="subpage-hero">
+    <h1 class="font-serif">礼拝メッセージ・資料</h1>
+    <p>神の御言葉の恵みを、教会でもご自宅でも</p>
+  </section>
+
+  <!-- Main Content -->
+  <main class="subpage-content">
+    
+    <!-- 1. 聖日礼拝 メッセージ アーカイブ -->
+    <article class="content-box">
+      <h2 class="font-serif">聖日礼拝 メッセージ</h2>
+      <p style="font-size:0.9rem; color:#5F7188; margin-bottom:24px;">
+        このページでは、主日礼拝で語られた聖書のメッセージ映像、礼拝プログラム（週報）、ならびにメッセージ用スライド（PPT）を公開しています。
+      </p>
+
+      <!-- 최신 설교가 JS로 자동 렌더링될 위치 -->
+      <div id="latestSermonContainer"></div>
+
+      <!-- 이전 설교 리스트가 JS로 자동 렌더링될 위치 -->
+      <div class="sermon-list" id="sermonListContainer"></div>
+
+    </article>
+
+    <!-- 2. 早天祈祷会 (새벽기도회) 메시지 -->
+    <article class="content-box">
+      <h2 class="font-serif">早天祈祷会（朝のお祈り会）</h2>
+      <p style="font-size:0.9rem; color:#5F7188; margin-bottom:20px;">
+        毎朝5時からの早天祈祷会で分かち合っている御言葉の箇所です。皆様の朝のディボーションにお役立てください。
+      </p>
+      
+      <ul class="morning-prayer-list" id="morningPrayerContainer">
+        <!-- 새벽기도회 데이터가 JS로 렌더링될 위치 -->
+      </ul>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
+      <p style="font-size:0.8rem; margin-top:4px;">〒811-1344 福岡県福岡市南区三宅3-33-1 | TEL: 092-561-4233</p>
+      <p style="font-size:0.75rem; color:#6B7280; margin-top:6px;">© Fukuoka Shinsei Baptist Church. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top Button -->
+  <a href="#" class="btn-scroll-top" id="btnScrollTop" aria-label="ページ上部へ戻る">↑</a>
+
+  <!-- Mobile Floating Bar -->
+  <div class="mobile-floating-bar">
+    <div class="floating-bar-grid">
+      <a href="access.html" class="btn-float btn-float-map"><span>📍</span><span>アクセス</span></a>
+      <a href="#" target="_blank" class="btn-float btn-float-line"><span>💬</span><span>LINE相談</span></a>
+      <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-float btn-float-yt"><span>🔴</span><span>礼拝中継</span></a>
+    </div>
+  </div>
+
+  <script>
+    // 햄버거 메뉴 토글 로직
+    const btnHamburger = document.getElementById('btnHamburger');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    function toggleMenu() {
+      const isOpen = mobileDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
+      btnHamburger.classList.toggle('open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    function closeMenu() {
+      mobileDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      btnHamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    btnHamburger.addEventListener('click', toggleMenu);
+    drawerOverlay.addEventListener('click', closeMenu);
+
+    // 스크롤 Top 버튼 제어
+    const btnScrollTop = document.getElementById('btnScrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        btnScrollTop.classList.add('show');
+      } else {
+        btnScrollTop.classList.remove('show');
+      }
+    });
+
+    // ==========================================
+    // 💡 담당자 갱신 영역: 매주 여기만 추가/수정하세요!
+    // ==========================================
+
+    // 1. 주일 예배 데이터 배열 (가장 위에 있는 데이터가 최신 설교로 큼직하게 표시됩니다)
+    const sermonData = [
+      {
+        date: "2026年 8月 16日",
+        title: "世界宣教を果たす為に創造された私たち",
+        bible: "ヨハネによる福音書(John) 17章1〜19節",
+        speaker: "Adrian Dewan 師",
+        youtubeLink: "https://youtube.com/live/xxxxxx",
+        pptLink: "https://drive.google.com/file/d/xxxxx",
+        pdfLink: "https://drive.google.com/file/d/yyyyy"
+      },
+      {
+        date: "2026年 7月 12日",
+        title: "賢い乙女の生きざま",
+        bible: "マタイによる福音書 25章1〜13節",
+        speaker: "竹田 耶子武 牧師",
+        youtubeLink: "https://youtube.com/live/xxxxxx",
+        pptLink: "#",
+        pdfLink: "#"
+      },
+      {
+        date: "2026年 7月 5日",
+        title: "箱舟を造りなさい",
+        bible: "創世記 (Genesis) 6章9〜14節",
+        speaker: "竹田 殉聖 牧師",
+        youtubeLink: "https://youtube.com/live/xxxxxx",
+        pptLink: "#",
+        pdfLink: "#"
+      }
+    ];
+
+    // 2. 새벽기도회 본문 데이터 (월/일 수정)
+    const morningPrayerData = [
+      { date: "8月 22日 (土)", bible: "マタイによる福音書 21章" },
+      { date: "8月 20日 (木)", bible: "マタイによる福音書 19章" },
+      { date: "8月 19日 (水)", bible: "マタイによる福音書 18章" }
+    ];
+
+    // ==========================================
+    // 자동 렌더링 엔진 (건드리지 마세요)
+    // ==========================================
+    
+    // 주일 예배 렌더링
+    if(sermonData.length > 0) {
+      const latest = sermonData[0];
+      const others = sermonData.slice(1);
+
+      // 최신 설교 카드 (맨 위 1개)
+      document.getElementById('latestSermonContainer').innerHTML = `
+        <div class="latest-sermon-card">
+          <div class="latest-sermon-header">✨ 最新の礼拝メッセージ</div>
+          <div class="latest-sermon-body">
+            <div class="sermon-date-speaker">${latest.date} ｜ ${latest.speaker}</div>
+            <div class="sermon-title">『 ${latest.title} 』</div>
+            <div class="sermon-bible">📖 ${latest.bible}</div>
+            <div class="resource-chip-group">
+              <a href="${latest.youtubeLink}" target="_blank" class="resource-chip chip-yt">▶ YouTube 視聴</a>
+              ${latest.pptLink !== "#" ? `<a href="${latest.pptLink}" target="_blank" class="resource-chip chip-ppt">📊 スライド (PPT)</a>` : ""}
+              ${latest.pdfLink !== "#" ? `<a href="${latest.pdfLink}" target="_blank" class="resource-chip chip-pdf">📄 今週の週報 (PDF)</a>` : ""}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 이전 설교 목록
+      document.getElementById('sermonListContainer').innerHTML = others.map(sermon => `
+        <div class="sermon-item">
+          <div class="s-item-top">
+            <div class="s-item-info">
+              <p>${sermon.date} ｜ 📖 ${sermon.bible}</p>
+              <h4>『 ${sermon.title} 』</h4>
+            </div>
+            <div class="s-item-speaker">${sermon.speaker}</div>
+          </div>
+          <div class="resource-chip-group">
+            <a href="${sermon.youtubeLink}" target="_blank" class="resource-chip chip-yt">▶ 視聴</a>
+            ${sermon.pptLink !== "#" ? `<a href="${sermon.pptLink}" target="_blank" class="resource-chip chip-ppt">📊 PPT</a>` : ""}
+            ${sermon.pdfLink !== "#" ? `<a href="${sermon.pdfLink}" target="_blank" class="resource-chip chip-pdf">📄 週報</a>` : ""}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 새벽기도회 렌더링
+    document.getElementById('morningPrayerContainer').innerHTML = morningPrayerData.map(mp => `
+      <li>
+        <span class="mp-date">「 ${mp.date} 」</span>
+        <span class="mp-bible">${mp.bible}</span>
+      </li>
+    `).join('');
+
+  </script>
+</body>
+</html>
