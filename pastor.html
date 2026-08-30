@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>牧師挨拶 | 福岡新生キリスト教会</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #122844;
+      --primary-blue: #1652A2;
+      --secondary: #245645;
+      --accent: #C49332;
+      --bg-page: #F8FAFC;
+      --surface: #FFFFFF;
+      --text-main: #1E293B;
+      --text-sub: #5F7188;
+      --line-green: #06C755;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 8px rgba(18, 40, 68, 0.04);
+      --shadow-md: 0 8px 24px rgba(18, 40, 68, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans JP', sans-serif; }
+    body { background-color: var(--bg-page); color: var(--text-main); line-height: 1.7; padding-bottom: 64px; overflow-x: hidden; }
+    .font-serif { font-family: 'Noto Serif JP', serif; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo-wrap { display: flex; align-items: center; text-decoration: none; height: 100%; }
+    .logo-img { height: 44px; width: auto; object-fit: contain; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; height: 100%; }
+    .nav-item { display: flex; align-items: center; height: 100%; position: relative; }
+    .nav-link { text-decoration: none; color: #334155; font-size: 0.94rem; font-weight: 500; height: 100%; display: flex; align-items: center; padding: 0 6px; transition: color 0.2s; position: relative; }
+    .nav-link:hover { color: var(--primary-blue); }
+    .nav-link.active { color: var(--primary); font-weight: 700; }
+    .nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: var(--primary); border-radius: 2px 2px 0 0; }
+
+    /* Hamburger */
+    .btn-hamburger { display: none; background: transparent; border: none; cursor: pointer; width: 26px; height: 22px; position: relative; z-index: 3000; outline: none; }
+    .btn-hamburger span { display: block; position: absolute; height: 2.5px; width: 100%; background: #122844; border-radius: 2px; left: 0; transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), top 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease; }
+    .btn-hamburger span:nth-child(1) { top: 2px; }
+    .btn-hamburger span:nth-child(2) { top: 9.75px; }
+    .btn-hamburger span:nth-child(3) { top: 17.5px; }
+    .btn-hamburger.open span:nth-child(1) { top: 9.75px; transform: rotate(45deg); }
+    .btn-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .btn-hamburger.open span:nth-child(3) { top: 9.75px; transform: rotate(-45deg); }
+
+    /* Drawer */
+    .drawer-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(4px); z-index: 2000; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: #ffffff; z-index: 2100; box-shadow: -6px 0 28px rgba(0, 0, 0, 0.16); display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .mobile-drawer.active { transform: translateX(-300px); }
+    .drawer-header { padding: 0 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; height: 68px; font-weight: 700; color: var(--primary); font-size: 0.96rem; }
+    .drawer-menu-list { list-style: none; padding: 14px 0; flex: 1; overflow-y: auto; }
+    .drawer-menu-list li a { display: flex; align-items: center; gap: 12px; padding: 13px 22px; text-decoration: none; color: #1E293B; font-size: 0.94rem; font-weight: 600; border-left: 4px solid transparent; }
+    .drawer-menu-list li a.active { background: #F8FAFC; color: var(--primary-blue); border-left-color: var(--primary); font-weight: 700; }
+    .drawer-footer { padding: 18px 20px; border-top: 1px solid var(--border-color); background: #FAFCFE; }
+    .btn-line-drawer { display: block; width: 100%; background: var(--line-green); color: #ffffff; text-align: center; padding: 11px 0; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem; }
+
+    /* Subpage Hero */
+    .subpage-hero { background: linear-gradient(135deg, var(--primary) 0%, #1c3d69 100%); color: #ffffff; padding: 60px 20px; text-align: center; position: relative; }
+    .subpage-hero h1 { font-size: 2.2rem; margin-bottom: 12px; letter-spacing: 0.05em; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .subpage-hero p { font-size: 0.95rem; color: #E2E8F0; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+    /* Content Area */
+    .subpage-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+    /* Profile Cards */
+    .profile-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 32px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+    
+    .profile-img-wrap {
+      width: 220px;
+      flex-shrink: 0;
+    }
+    .profile-img-wrap img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      border: 1px solid #E2E8F0;
+    }
+
+    .profile-content { flex: 1; }
+    
+    .profile-role {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .profile-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #F1F5F9;
+    }
+
+    .profile-message {
+      font-size: 0.96rem;
+      color: #334155;
+      line-height: 1.8;
+    }
+    .profile-message p { margin-bottom: 16px; }
+    .profile-message p:last-child { margin-bottom: 0; }
+
+    /* 임시 텍스트 표시 박스 */
+    .temp-placeholder {
+      background: #FFFBEB;
+      border: 1px dashed #F59E0B;
+      color: #92400E;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* 성구 인용구 */
+    .bible-quote {
+      background: #F8FAFC;
+      border-left: 4px solid var(--primary-blue);
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-weight: 600;
+      color: var(--primary);
+      border-radius: 0 8px 8px 0;
+    }
+    .bible-quote span { display: block; font-size: 0.84rem; color: var(--text-sub); margin-top: 8px; font-weight: 400; }
+
+    /* Mobile Floating Bar & Scroll Top */
+    .mobile-floating-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-top: 1px solid #E2E8F0; z-index: 1500; padding: 8px 12px; }
+    .floating-bar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; max-width: 480px; margin: 0 auto; }
+    .btn-float { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 0.72rem; font-weight: 700; }
+    .btn-float-map { background: #EEF2F6; color: var(--primary); }
+    .btn-float-line { background: #06C755; color: #ffffff; }
+    .btn-float-yt { background: #FFF1F0; color: #E11D48; }
+
+    .btn-scroll-top { position: fixed; bottom: 76px; right: 20px; width: 42px; height: 42px; border-radius: 50%; background: rgba(18, 40, 68, 0.85); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1400; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
+    .btn-scroll-top.show { opacity: 1; visibility: visible; }
+
+    /* Footer */
+    .site-footer { background: #111827; color: #9CA3AF; padding: 34px 20px; margin-top: 48px; font-size: 0.84rem; text-align: center; }
+
+    @media (max-width: 768px) {
+      .btn-hamburger { display: block; }
+      .nav-links { display: none; }
+      .logo-img { height: 38px; }
+      .nav-container { height: 60px; padding: 0 16px; }
+      .drawer-header { height: 60px; }
+      .mobile-floating-bar { display: block; }
+      .subpage-hero { padding: 40px 20px; }
+      .subpage-hero h1 { font-size: 1.8rem; }
+      
+      .profile-card { flex-direction: column; padding: 28px 20px; gap: 24px; align-items: center; text-align: center; }
+      .profile-img-wrap { width: 160px; }
+      .profile-message { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-wrap">
+        <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
+        <li class="nav-item"><a href="worship.html" class="nav-link">聖日礼拝・集会</a></li>
+        <li class="nav-item"><a href="pastor.html" class="nav-link active">牧師挨拶</a></li>
+        <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
+        <li class="nav-item"><a href="mission.html" class="nav-link">世界宣教</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
+        <li class="nav-item"><a href="access.html" class="nav-link">アクセス</a></li>
+      </ul>
+      <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header"><span class="drawer-title">福岡新生キリスト教会</span></div>
+    <ul class="drawer-menu-list">
+      <li><a href="about.html" class="drawer-link">⛪ 教会について</a></li>
+      <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会案内</a></li>
+      <li><a href="pastor.html" class="drawer-link active">👔 牧師挨拶</a></li>
+      <li><a href="facility.html" class="drawer-link">🏛️ 会堂施設のご案内</a></li>
+      <li><a href="mission.html" class="drawer-link">🌏 世界宣教のご紹介</a></li>
+      <li><a href="faq.html" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
+      <li><a href="access.html" class="drawer-link">📍 アクセス・地図</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="#" class="btn-line-drawer">LINE友だち追加・相談</a>
+    </div>
+  </aside>
+
+  <!-- Subpage Hero -->
+  <section class="subpage-hero">
+    <h1 class="font-serif">牧師挨拶</h1>
+    <p>キリストの愛と真理を語る、当教会の牧会者たちをご紹介します</p>
+  </section>
+
+  <!-- Main Content -->
+  <main class="subpage-content">
+
+    <!-- 1. 담임목사님 (임시 텍스트) -->
+    <article class="profile-card">
+      <div class="profile-img-wrap">
+        <img src="Pastor_Takeda.jpg" alt="主任牧師 竹田 殉聖" onerror="this.src='https://via.placeholder.com/400x500?text=Photo'">
+      </div>
+      <div class="profile-content">
+        <span class="profile-role">主任牧師 (Senior Pastor)</span>
+        <h2 class="profile-name font-serif">竹田 殉聖 <span style="font-size: 1.1rem; color: #5F7188; font-weight: 500; margin-left: 8px;">(Takeda Junsei)</span></h2>
+        
+        <div class="temp-placeholder">
+          【※こちらの挨拶文は現在準備中です。後日正式な原稿に差し替えられます。】
+        </div>
+
+        <div class="profile-message font-serif">
+          <p>
+            福岡新生キリスト教会のホームページへようこそお越しくださいました。
+          </p>
+          <p>
+            私たちは聖書を神のことばとして信じる、伝統あるプロテスタント教会です。日々の歩みの中で安らぎや希望を求めておられる方、聖書について知りたい方、どなたでも心よりお待ちしております。（仮テキスト）
+          </p>
+          <p>
+            イエス・キリストの恵みと平安が、皆様の人生に豊かにありますようにお祈り申し上げます。
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. 원로/협력목사님 (칼럼 요약) -->
+    <article class="profile-card">
+      <div class="profile-img-wrap">
+        <!-- 원로목사님 사진을 Pastor_Hiroshi.jpg로 업로드하여 연결하세요 -->
+        <img src="Pastor_Hiroshi.jpg" alt="協働牧師 竹田 浩" onerror="this.src='https://via.placeholder.com/400x500?text=Photo'">
+      </div>
+      <div class="profile-content">
+        <span class="profile-role">協働牧師・開拓牧師 (Co-Pastor / Founder)</span>
+        <h2 class="profile-name font-serif">竹田 浩 <span style="font-size: 1.1rem; color: #5F7188; font-weight: 500; margin-left: 8px;">(Takeda Hiroshi)</span></h2>
+        
+        <div class="profile-message font-serif">
+          <h3 style="font-size: 1.15rem; color: var(--primary); margin-bottom: 12px; font-weight: 700;">《愛は、恨みを抱かない》</h3>
+          
+          <div class="bible-quote">
+            「愛は…礼を失せず、自分の利益を求めず、いらだたず、恨みを抱かない。」
+            <span>（Ⅰコリント 13：5）</span>
+          </div>
+
+          <p>
+            聖書が教える小羊の血（キリストの愛）とは、無条件の愛であり、赦しであり、謙遜です。「恨みを抱かない」と訳されたギリシャ語の「ロギゾマイ」には、元々「計算する」という意味があります。すなわち、神様はキリストの十字架によって、私たちの罪の負債を完全に計算済み（帳消し）にしてくださり、もう二度と私たちの悪を数え立てることはなさらないのです。
+          </p>
+          <p>
+            イエス様は「7を70倍するまで赦しなさい」と語られました。自分に酷いことをした人を赦せない惨めな現実に直面することもあります。しかし、十字架の赦しの命に生きるとき、私たちは人の悪を心に抱き裁く人生から解放され、むしろ心からその人を祝福し祈る者へと造り変えられます。
+          </p>
+          <p>
+            それこそが、小羊の血の力によって勝利し、真の愛に生きるということなのです。
+          </p>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
+      <p style="font-size:0.8rem; margin-top:4px;">〒811-1344 福岡県福岡市南区三宅3-33-1 | TEL: 092-561-4233</p>
+      <p style="font-size:0.75rem; color:#6B7280; margin-top:6px;">© Fukuoka Shinsei Baptist Church. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top Button -->
+  <a href="#" class="btn-scroll-top" id="btnScrollTop" aria-label="ページ上部へ戻る">↑</a>
+
+  <!-- Mobile Floating Bar -->
+  <div class="mobile-floating-bar">
+    <div class="floating-bar-grid">
+      <a href="access.html" class="btn-float btn-float-map"><span>📍</span><span>アクセス</span></a>
+      <a href="#" target="_blank" class="btn-float btn-float-line"><span>💬</span><span>LINE相談</span></a>
+      <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-float btn-float-yt"><span>🔴</span><span>礼拝中継</span></a>
+    </div>
+  </div>
+
+  <script>
+    // 햄버거 메뉴 토글 로직
+    const btnHamburger = document.getElementById('btnHamburger');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    function toggleMenu() {
+      const isOpen = mobileDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
+      btnHamburger.classList.toggle('open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    function closeMenu() {
+      mobileDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      btnHamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    btnHamburger.addEventListener('click', toggleMenu);
+    drawerOverlay.addEventListener('click', closeMenu);
+
+    // 스크롤 Top 버튼 제어
+    const btnScrollTop = document.getElementById('btnScrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        btnScrollTop.classList.add('show');
+      } else {
+        btnScrollTop.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
