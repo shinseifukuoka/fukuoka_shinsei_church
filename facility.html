@@ -28,7 +28,7 @@
     body { background-color: var(--bg-page); color: var(--text-main); line-height: 1.7; padding-bottom: 64px; overflow-x: hidden; }
     .font-serif { font-family: 'Noto Serif JP', serif; }
 
-    /* Header */
+    /* Header (7개 메뉴 구조) */
     .site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
     .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
     .logo-wrap { display: flex; align-items: center; text-decoration: none; height: 100%; }
@@ -82,7 +82,7 @@
     
     .facility-img-wrap {
       width: 100%;
-      height: 380px;
+      height: 420px; /* 외관을 시원하게 보여주기 위해 높이 약간 확대 */
       position: relative;
       background: #E2E8F0;
     }
@@ -93,66 +93,17 @@
       display: block;
     }
 
-    .facility-body {
-      padding: 32px 36px;
-    }
-    .facility-tag {
-      display: inline-block;
-      background: #EEF2F6;
-      color: var(--primary-blue);
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .facility-body h2 {
-      font-size: 1.45rem;
-      color: var(--primary);
-      margin-bottom: 16px;
-    }
-    .facility-body p {
-      font-size: 0.96rem;
-      color: #475569;
-      margin-bottom: 24px;
-      line-height: 1.7;
-    }
+    .facility-body { padding: 32px 36px; }
+    .facility-tag { display: inline-block; background: #EEF2F6; color: var(--primary-blue); padding: 4px 12px; border-radius: 4px; font-size: 0.82rem; font-weight: 700; margin-bottom: 10px; }
+    .facility-body h2 { font-size: 1.45rem; color: var(--primary); margin-bottom: 16px; }
+    .facility-body p { font-size: 0.96rem; color: #475569; margin-bottom: 24px; line-height: 1.7; }
 
-    /* Facility Feature Grid (장점 및 사용기준) */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      background: #F8FAFC;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 20px;
-    }
-    .feature-col h4 {
-      font-size: 0.92rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .feature-list {
-      list-style: none;
-      padding: 0;
-    }
-    .feature-list li {
-      font-size: 0.86rem;
-      color: #5F7188;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-    }
-    .feature-list li::before {
-      content: '✓';
-      color: var(--primary-blue);
-      font-weight: bold;
-    }
+    /* Facility Feature Grid */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; }
+    .feature-col h4 { font-size: 0.92rem; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .feature-list { list-style: none; padding: 0; }
+    .feature-list li { font-size: 0.86rem; color: #5F7188; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px; }
+    .feature-list li::before { content: '✓'; color: var(--primary-blue); font-weight: bold; }
 
     /* Mobile Floating Bar & Scroll Top */
     .mobile-floating-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-top: 1px solid #E2E8F0; z-index: 1500; padding: 8px 12px; }
@@ -178,7 +129,7 @@
       .subpage-hero { padding: 40px 20px; }
       .subpage-hero h1 { font-size: 1.8rem; }
       
-      .facility-img-wrap { height: 240px; }
+      .facility-img-wrap { height: 260px; }
       .facility-body { padding: 24px 20px; }
       .feature-grid { grid-template-columns: 1fr; gap: 20px; }
     }
@@ -186,7 +137,7 @@
 </head>
 <body>
 
-  <!-- Header (7개 메뉴 통합본) -->
+  <!-- Header (7개 통합 메뉴) -->
   <header class="site-header">
     <div class="nav-container">
       <a href="index.html" class="logo-wrap">
@@ -196,7 +147,7 @@
         <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
         <li class="nav-item"><a href="worship.html" class="nav-link">聖日礼拝・集会</a></li>
         <li class="nav-item"><a href="staff.html" class="nav-link">牧師・スタッフ</a></li>
-        <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
+        <li class="nav-item"><a href="facility.html" class="nav-link active">会堂案内</a></li>
         <li class="nav-item"><a href="mission.html" class="nav-link">世界宣教</a></li>
         <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
         <li class="nav-item"><a href="access.html" class="nav-link">アクセス</a></li>
@@ -215,7 +166,7 @@
       <li><a href="about.html" class="drawer-link">⛪ 教会紹介</a></li>
       <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会</a></li>
       <li><a href="staff.html" class="drawer-link">👔 牧師・スタッフ</a></li>
-      <li><a href="facility.html" class="drawer-link">🏛️ 会堂案内</a></li>
+      <li><a href="facility.html" class="drawer-link active">🏛️ 会堂案内</a></li>
       <li><a href="mission.html" class="drawer-link">🌏 世界宣教</a></li>
       <li><a href="faq.html" class="drawer-link">🌱 よくある質問</a></li>
       <li><a href="access.html" class="drawer-link">📍 アクセス</a></li>
@@ -237,7 +188,8 @@
     <!-- 1. 외관 및 주차장 -->
     <article class="facility-box">
       <div class="facility-img-wrap">
-        <img src="exterior.jpg" alt="教会外観・駐車場" onerror="this.src='https://via.placeholder.com/800x400?text=Exterior+Photo'">
+        <!-- 💡 object-position: center top; 속성을 주어 십자가가 잘리지 않도록 고정 -->
+        <img src="exterior.jpg" alt="教会外観・駐車場" style="object-position: center top;" onerror="this.src='https://via.placeholder.com/800x400?text=Exterior+Photo'">
       </div>
       <div class="facility-body">
         <span class="facility-tag">外観・駐車場</span>
@@ -330,7 +282,6 @@
     <!-- 4. 게스트룸 / 친교실 (2층 뒤편) -->
     <article class="facility-box">
       <div class="facility-img-wrap">
-        <!-- 007번 사진(매트 깔린 친교실)을 메인으로 사용 -->
         <img src="fellowship-room.jpg" alt="2階 ゲストルーム・交わり室" onerror="this.src='https://via.placeholder.com/800x400?text=Guest+Room'">
       </div>
       <div class="facility-body">
@@ -383,7 +334,7 @@
   </div>
 
   <script>
-    // 햄버거 메뉴 토글 로직
+    // 햄버거 메뉴 토글
     const btnHamburger = document.getElementById('btnHamburger');
     const drawerOverlay = document.getElementById('drawerOverlay');
     const mobileDrawer = document.getElementById('mobileDrawer');
@@ -402,7 +353,7 @@
     btnHamburger.addEventListener('click', toggleMenu);
     drawerOverlay.addEventListener('click', closeMenu);
 
-    // 스크롤 Top 버튼 제어
+    // 스크롤 Top 버튼
     const btnScrollTop = document.getElementById('btnScrollTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
