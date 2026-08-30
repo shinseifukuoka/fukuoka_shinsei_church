@@ -70,26 +70,37 @@
     /* Content Area */
     .subpage-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
     .content-box { background: var(--surface); border-radius: var(--radius-md); padding: 40px 36px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); margin-bottom: 32px; }
-    .content-box h2 { font-size: 1.4rem; color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid #F1F5F9; padding-bottom: 12px; }
+    .content-box h2 { font-size: 1.4rem; color: var(--primary); margin-bottom: 24px; border-bottom: 2px solid #F1F5F9; padding-bottom: 12px; }
+    .content-box p { font-size: 0.96rem; color: #334155; margin-bottom: 16px; line-height: 1.8; }
 
-    /* 1. 최신 설교 강조 카드 */
-    .latest-sermon-card {
-      background: #F8FAFC;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 30px;
-    }
-    .latest-sermon-header {
-      background: var(--primary-blue);
-      color: #ffffff;
-      padding: 10px 16px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    /* 1. 예배 시간표 (Schedule) */
+    .schedule-list { display: flex; flex-direction: column; }
+    .schedule-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 10px; border-bottom: 1px dashed #EEF2F6; font-size: 0.98rem; }
+    .schedule-row:last-child { border-bottom: none; }
+    .schedule-title { display: flex; align-items: center; color: #1E293B; font-weight: 600; }
+    .tag-badge { font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-right: 12px; display: inline-block; min-width: 58px; text-align: center; }
+    .tag-sunday { background: #E2E8F0; color: #475569; }
+    .tag-cs { background: #E2E8F0; color: #475569; }
+    .tag-multi { background: #E2E8F0; color: #475569; }
+    .tag-evening { background: #E2E8F0; color: #475569; }
+    .tag-weekday { background: #E0E7FF; color: #3730A3; }
+    .tag-morning { background: #FEF3C7; color: #92400E; }
+    .time-val { color: var(--primary-blue); font-weight: 700; font-size: 1.1rem; }
+
+    /* 2. 처음 오시는 분 안내 (First Time Guide) */
+    .guide-step { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding: 16px; background: #F8FAFC; border-radius: 10px; border: 1px solid var(--border-color); }
+    .guide-step:last-child { margin-bottom: 0; }
+    .guide-icon { font-size: 2rem; flex-shrink: 0; line-height: 1; margin-top: 4px; }
+    .guide-text h4 { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+    .guide-text p { font-size: 0.92rem; margin-bottom: 0; color: #475569; }
+    
+    .contact-assist { margin-top: 24px; text-align: center; }
+    .btn-assist-line { background: var(--line-green); color: #ffffff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 0.94rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(6, 199, 85, 0.25); transition: transform 0.2s; }
+    .btn-assist-line:hover { transform: translateY(-2px); }
+
+    /* 3. 최신 설교 강조 카드 */
+    .latest-sermon-card { background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 30px; }
+    .latest-sermon-header { background: var(--primary-blue); color: #ffffff; padding: 10px 16px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
     .latest-sermon-body { padding: 24px; }
     .sermon-date-speaker { font-size: 0.86rem; color: var(--text-sub); margin-bottom: 6px; }
     .sermon-title { font-size: 1.35rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
@@ -97,10 +108,7 @@
     
     /* 자료 버튼 칩 그룹 */
     .resource-chip-group { display: flex; flex-wrap: wrap; gap: 10px; }
-    .resource-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 14px; border-radius: 6px; font-size: 0.84rem; font-weight: 600; text-decoration: none; transition: background 0.2s;
-    }
+    .resource-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; font-size: 0.84rem; font-weight: 600; text-decoration: none; transition: background 0.2s; }
     .chip-yt { background: #FFF1F0; color: #E11D48; border: 1px solid rgba(225, 29, 72, 0.15); }
     .chip-yt:hover { background: #FFE4E1; }
     .chip-ppt { background: #EEF2F6; color: var(--primary-blue); border: 1px solid #D9E2EC; }
@@ -108,24 +116,18 @@
     .chip-pdf { background: #F1F5F9; color: var(--text-main); border: 1px solid var(--border-color); }
     .chip-pdf:hover { background: #E2E8F0; }
 
-    /* 2. 설교 아카이브 리스트 */
+    /* 4. 설교 아카이브 리스트 */
     .sermon-list { display: flex; flex-direction: column; gap: 12px; }
-    .sermon-item {
-      display: flex; flex-direction: column; padding: 18px; background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; transition: box-shadow 0.2s;
-    }
+    .sermon-item { display: flex; flex-direction: column; padding: 18px; background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; transition: box-shadow 0.2s; }
     .sermon-item:hover { box-shadow: var(--shadow-sm); border-color: #CBD5E1; }
     .s-item-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 16px; }
     .s-item-info h4 { font-size: 1.1rem; color: var(--primary); margin-bottom: 4px; line-height: 1.4; }
     .s-item-info p { font-size: 0.84rem; color: var(--text-sub); margin: 0; }
     .s-item-speaker { font-size: 0.84rem; font-weight: 600; color: #475569; white-space: nowrap; }
 
-    /* 3. 새벽기도회 아카이브 (심플 리스트) */
-    .morning-prayer-list {
-      list-style: none; padding: 0; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;
-    }
-    .morning-prayer-list li {
-      display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--border-color); background: #FAFCFE;
-    }
+    /* 5. 새벽기도회 아카이브 */
+    .morning-prayer-list { list-style: none; padding: 0; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
+    .morning-prayer-list li { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--border-color); background: #FAFCFE; }
     .morning-prayer-list li:last-child { border-bottom: none; }
     .mp-date { font-weight: 700; color: var(--primary); font-size: 0.92rem; }
     .mp-bible { font-size: 0.88rem; color: #475569; }
@@ -154,6 +156,8 @@
       .content-box { padding: 28px 20px; }
       .subpage-hero { padding: 40px 20px; }
       .subpage-hero h1 { font-size: 1.8rem; }
+      .schedule-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .time-val { align-self: flex-end; }
       .s-item-top { flex-direction: column; gap: 8px; }
       .resource-chip-group { margin-top: 12px; }
       .resource-chip { flex: 1; justify-content: center; text-align: center; }
@@ -203,18 +207,93 @@
 
   <!-- Subpage Hero -->
   <section class="subpage-hero">
-    <h1 class="font-serif">礼拝メッセージ・資料</h1>
-    <p>神の御言葉の恵みを、教会でもご自宅でも</p>
+    <h1 class="font-serif">礼拝・集会のご案内</h1>
+    <p>神様のあたたかな御前へ、あなたを歓迎いたします</p>
   </section>
 
   <!-- Main Content -->
   <main class="subpage-content">
     
-    <!-- 1. 聖日礼拝 メッセージ アーカイブ -->
+    <!-- 1. 예배 시간표 (Schedule) -->
     <article class="content-box">
-      <h2 class="font-serif">聖日礼拝 メッセージ</h2>
+      <h2 class="font-serif">📖 礼拝・祈祷会のご案内</h2>
+      <p style="margin-bottom:24px;">私たち福岡新生キリスト教会では、世代や背景を問わず、すべての人が共に集い、主の御名に祈りと讃美を捧げています。</p>
+      
+      <div class="schedule-list">
+        <div class="schedule-row">
+          <div class="schedule-title"><span class="tag-badge tag-sunday">聖日</span> 合同 聖日礼拝</div>
+          <div class="time-val">10:30〜</div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-title"><span class="tag-badge tag-cs">CS</span> 教会学校 (日曜)</div>
+          <div class="time-val">09:00〜</div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-title"><span class="tag-badge tag-multi">多文化</span> ネパール語礼拝</div>
+          <div class="time-val">14:30〜</div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-title"><span class="tag-badge tag-evening">夕方</span> 夕礼拝 (日曜)</div>
+          <div class="time-val">19:00〜</div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-title"><span class="tag-badge tag-weekday">平日</span> 水曜 祈祷会</div>
+          <div class="time-val">19:15〜</div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-title"><span class="tag-badge tag-friday">平日</span> 金曜リバイバル祈祷会</div>
+          <div class="time-val">19:00〜</div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-title"><span class="tag-badge tag-morning">早朝</span> 早朝祈祷会 (月〜土)</div>
+          <div class="time-val">05:00〜</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. 처음 오시는 분 안내 (First Time Guide) -->
+    <article class="content-box">
+      <h2 class="font-serif">🌱 初めて礼拝に参加される方へ</h2>
+      <p style="margin-bottom:28px;">
+        「教会に行ってみたいけれど、少し不安…」<br>
+        初めての方も、クリスチャンではない方も、どうぞ安心してお越しください。神様の家族として、真心を込めて温かくお迎えいたします。
+      </p>
+
+      <div class="guide-step">
+        <div class="guide-icon">👋</div>
+        <div class="guide-text">
+          <h4>1. 受付でお声がけください</h4>
+          <p>玄関に入りましたら受付がございます。「初めてです」とお伝えいただければ、案内係がご質問にお答えし、礼拝堂の席まで親切にご案内いたします。</p>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-icon">👕</div>
+        <div class="guide-text">
+          <h4>2. 普段着で手ぶらでお越しください</h4>
+          <p>服装の決まりは一切ございません。リラックスできる普段着でお越しください。礼拝で使用する聖書や讃美歌は、受付にて無料でお貸し出ししております。</p>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-icon">🕊️</div>
+        <div class="guide-text">
+          <h4>3. 献金は自由（任意）です</h4>
+          <p>礼拝の中で献金の時間が設けられていますが、これは神様の恵みへの感謝を表すものであり、強制ではありません。ご用意のない方は、そのままカゴを隣の方へお回しください。</p>
+        </div>
+      </div>
+
+      <div class="contact-assist">
+        <p style="font-size: 0.9rem; margin-bottom: 12px; color: #475569;">道に迷われた際や、その他ご不明な点がございましたらお気軽にご連絡ください。</p>
+        <a href="#" target="_blank" class="btn-assist-line">💬 LINEで質問・お問い合わせ</a>
+      </div>
+    </article>
+
+    <!-- 3. 聖日礼拝 メッセージ アーカイブ -->
+    <article class="content-box">
+      <h2 class="font-serif">🎥 礼拝メッセージ・資料</h2>
       <p style="font-size:0.9rem; color:#5F7188; margin-bottom:24px;">
-        このページでは、主日礼拝で語られた聖書のメッセージ映像、礼拝プログラム（週報）、ならびにメッセージ用スライド（PPT）を公開しています。
+        主日礼拝で語られた聖書のメッセージ映像、礼拝プログラム（週報）、ならびにメッセージ用スライド（PPT）を公開しています。ご自宅での黙想にご活用ください。
       </p>
 
       <!-- 최신 설교가 JS로 자동 렌더링될 위치 -->
@@ -222,12 +301,11 @@
 
       <!-- 이전 설교 리스트가 JS로 자동 렌더링될 위치 -->
       <div class="sermon-list" id="sermonListContainer"></div>
-
     </article>
 
-    <!-- 2. 早天祈祷会 (새벽기도회) 메시지 -->
+    <!-- 4. 早天祈祷会 (새벽기도회) 메시지 -->
     <article class="content-box">
-      <h2 class="font-serif">早天祈祷会（朝のお祈り会）</h2>
+      <h2 class="font-serif">🌅 早天祈祷会（朝のお祈り会）</h2>
       <p style="font-size:0.9rem; color:#5F7188; margin-bottom:20px;">
         毎朝5時からの早天祈祷会で分かち合っている御言葉の箇所です。皆様の朝のディボーションにお役立てください。
       </p>
