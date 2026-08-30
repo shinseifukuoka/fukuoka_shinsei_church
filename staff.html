@@ -28,11 +28,12 @@
     body { background-color: var(--bg-page); color: var(--text-main); line-height: 1.7; padding-bottom: 64px; overflow-x: hidden; }
     .font-serif { font-family: 'Noto Serif JP', serif; }
 
-    /* Header */
+    /* Header (7개 메뉴에 맞춰 간격/크기 시원하게 복구) */
     .site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
     .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
     .logo-wrap { display: flex; align-items: center; text-decoration: none; height: 100%; }
     .logo-img { height: 44px; width: auto; object-fit: contain; display: block; }
+    
     .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; height: 100%; }
     .nav-item { display: flex; align-items: center; height: 100%; position: relative; }
     .nav-link { text-decoration: none; color: #334155; font-size: 0.94rem; font-weight: 500; height: 100%; display: flex; align-items: center; padding: 0 6px; transition: color 0.2s; position: relative; }
@@ -69,8 +70,7 @@
 
     /* Content Area */
     .subpage-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
-
-    /* Section Title */
+    
     .section-title {
       font-size: 1.5rem;
       color: var(--primary);
@@ -78,12 +78,9 @@
       margin-bottom: 24px;
       padding-bottom: 12px;
       border-bottom: 2px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
-    /* 1. Main Pastors (담임목사, 원로목사) */
+    /* 1. Main Pastors (담임목사, 원로목사 상세카드) */
     .profile-card {
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -150,6 +147,8 @@
 
     /* Footer */
     .site-footer { background: #111827; color: #9CA3AF; padding: 34px 20px; margin-top: 48px; font-size: 0.84rem; text-align: center; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+    .footer-content strong { color: #ffffff; font-size: 0.94rem; }
 
     @media (max-width: 768px) {
       .btn-hamburger { display: block; }
@@ -173,7 +172,7 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header (7개 메뉴 구조) -->
   <header class="site-header">
     <div class="nav-container">
       <a href="index.html" class="logo-wrap">
@@ -199,13 +198,13 @@
   <aside class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header"><span class="drawer-title">福岡新生キリスト教会</span></div>
     <ul class="drawer-menu-list">
-      <li><a href="about.html" class="drawer-link">⛪ 教会について</a></li>
-      <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会案内</a></li>
-      <li><a href="staff.html" class="drawer-link active">👔 牧師・スタッフ紹介</a></li>
-      <li><a href="facility.html" class="drawer-link">🏛️ 会堂施設のご案内</a></li>
-      <li><a href="mission.html" class="drawer-link">🌏 世界宣教のご紹介</a></li>
-      <li><a href="faq.html" class="drawer-link">🌱 初めての方へ（Q&A）</a></li>
-      <li><a href="access.html" class="drawer-link">📍 アクセス・地図</a></li>
+      <li><a href="about.html" class="drawer-link">⛪ 教会紹介</a></li>
+      <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会</a></li>
+      <li><a href="staff.html" class="drawer-link active">👔 牧師・スタッフ</a></li>
+      <li><a href="facility.html" class="drawer-link">🏛️ 会堂案内</a></li>
+      <li><a href="mission.html" class="drawer-link">🌏 世界宣教</a></li>
+      <li><a href="faq.html" class="drawer-link">🌱 よくある質問</a></li>
+      <li><a href="access.html" class="drawer-link">📍 アクセス</a></li>
     </ul>
     <div class="drawer-footer">
       <a href="#" class="btn-line-drawer">LINE友だち追加・相談</a>
@@ -221,7 +220,7 @@
   <!-- Main Content -->
   <main class="subpage-content">
 
-    <h2 class="section-title font-serif">牧会者（牧師）</h2>
+    <h2 class="section-title font-serif" style="margin-top: 10px;">牧会者（牧師）</h2>
 
     <!-- 1. 담임목사님 -->
     <article class="profile-card">
@@ -281,7 +280,7 @@
     </article>
 
 
-    <!-- 부교역자 및 평신도 사역자 섹션 -->
+    <!-- 부교역자 및 스태프 섹션 -->
     <h2 class="section-title font-serif" style="margin-top: 56px;">教役者・教会の働き人</h2>
     
     <div class="staff-grid">
@@ -359,7 +358,7 @@
       <!-- 8. 미디어 담당자 -->
       <div class="staff-card">
         <div class="staff-img-wrap">
-          <img src="Media_Director.jpg" alt="メディア・広報担当" onerror="this.src='staff_placeholder.jpg'">
+          <img src="Media_Director.jpg" alt="メディア・映像担当" onerror="this.src='staff_placeholder.jpg'">
         </div>
         <div class="staff-info">
           <span class="staff-role">メディア・映像担当</span>
@@ -395,7 +394,7 @@
   </div>
 
   <script>
-    // 햄버거 메뉴 토글 로직
+    // 햄버거 메뉴 토글
     const btnHamburger = document.getElementById('btnHamburger');
     const drawerOverlay = document.getElementById('drawerOverlay');
     const mobileDrawer = document.getElementById('mobileDrawer');
@@ -414,7 +413,7 @@
     btnHamburger.addEventListener('click', toggleMenu);
     drawerOverlay.addEventListener('click', closeMenu);
 
-    // 스크롤 Top 버튼 제어
+    // 스크롤 Top 버튼
     const btnScrollTop = document.getElementById('btnScrollTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
