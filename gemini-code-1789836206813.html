@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>アクセス | 福岡新生キリスト教会</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #122844;
+      --primary-blue: #1652A2;
+      --secondary: #245645;
+      --accent: #C49332;
+      --bg-page: #F8FAFC;
+      --surface: #FFFFFF;
+      --text-main: #1E293B;
+      --text-sub: #5F7188;
+      --line-green: #06C755;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 8px rgba(18, 40, 68, 0.04);
+      --shadow-md: 0 8px 24px rgba(18, 40, 68, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans JP', sans-serif; }
+    body { background-color: var(--bg-page); color: var(--text-main); line-height: 1.7; padding-bottom: 64px; overflow-x: hidden; }
+    .font-serif { font-family: 'Noto Serif JP', serif; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo-wrap { display: flex; align-items: center; text-decoration: none; height: 100%; }
+    .logo-img { height: 44px; width: auto; object-fit: contain; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; height: 100%; }
+    .nav-item { display: flex; align-items: center; height: 100%; position: relative; }
+    .nav-link { text-decoration: none; color: #334155; font-size: 0.94rem; font-weight: 500; height: 100%; display: flex; align-items: center; padding: 0 6px; transition: color 0.2s; position: relative; }
+    .nav-link:hover { color: var(--primary-blue); }
+    .nav-link.active { color: var(--primary); font-weight: 700; }
+    .nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: var(--primary); border-radius: 2px 2px 0 0; }
+
+    /* Hamburger */
+    .btn-hamburger { display: none; background: transparent; border: none; cursor: pointer; width: 26px; height: 22px; position: relative; z-index: 3000; outline: none; }
+    .btn-hamburger span { display: block; position: absolute; height: 2.5px; width: 100%; background: #122844; border-radius: 2px; left: 0; transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), top 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease; }
+    .btn-hamburger span:nth-child(1) { top: 2px; }
+    .btn-hamburger span:nth-child(2) { top: 9.75px; }
+    .btn-hamburger span:nth-child(3) { top: 17.5px; }
+    .btn-hamburger.open span:nth-child(1) { top: 9.75px; transform: rotate(45deg); }
+    .btn-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .btn-hamburger.open span:nth-child(3) { top: 9.75px; transform: rotate(-45deg); }
+
+    /* Drawer */
+    .drawer-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(4px); z-index: 2000; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: #ffffff; z-index: 2100; box-shadow: -6px 0 28px rgba(0, 0, 0, 0.16); display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .mobile-drawer.active { transform: translateX(-300px); }
+    .drawer-header { padding: 0 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; height: 68px; font-weight: 700; color: var(--primary); font-size: 0.96rem; }
+    .drawer-menu-list { list-style: none; padding: 14px 0; flex: 1; overflow-y: auto; }
+    .drawer-menu-list li a { display: flex; align-items: center; gap: 12px; padding: 13px 22px; text-decoration: none; color: #1E293B; font-size: 0.94rem; font-weight: 600; border-left: 4px solid transparent; }
+    .drawer-menu-list li a.active { background: #F8FAFC; color: var(--primary-blue); border-left-color: var(--primary); font-weight: 700; }
+    .drawer-footer { padding: 18px 20px; border-top: 1px solid var(--border-color); background: #FAFCFE; }
+    .btn-line-drawer { display: block; width: 100%; background: var(--line-green); color: #ffffff; text-align: center; padding: 11px 0; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem; }
+
+    /* Subpage Hero */
+    .subpage-hero { background: linear-gradient(135deg, var(--primary) 0%, #1c3d69 100%); color: #ffffff; padding: 60px 20px; text-align: center; position: relative; }
+    .subpage-hero h1 { font-size: 2.2rem; margin-bottom: 12px; letter-spacing: 0.05em; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .subpage-hero p { font-size: 0.95rem; color: #E2E8F0; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+    /* Content Area */
+    .subpage-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+    /* Access Big Map Box */
+    .access-map-container {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 32px;
+    }
+    .map-frame-wrap {
+      width: 100%;
+      height: 450px;
+      background: #F1F5F9;
+    }
+    .map-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .btn-open-gmap-large {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #F8FAFC;
+      color: var(--primary-blue);
+      padding: 16px 20px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border-top: 1px solid var(--border-color);
+      transition: background 0.2s;
+    }
+    .btn-open-gmap-large:hover { background: #EEF2F6; }
+
+    /* Address & Contact Bar */
+    .address-bar {
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 24px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-sm);
+    }
+    .address-info h2 { font-size: 1.3rem; margin-bottom: 6px; }
+    .address-info p { font-size: 0.96rem; color: #E2E8F0; margin: 0; }
+    .contact-info { text-align: right; }
+    .contact-tel { font-size: 1.4rem; font-weight: 700; color: #ffffff; text-decoration: none; display: block; margin-bottom: 4px; }
+    .contact-subtel { font-size: 0.88rem; color: #CBD5E1; }
+
+    /* Detailed Directions Cards */
+    .directions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .direction-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+    .direction-card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #F1F5F9;
+    }
+    .d-icon {
+      font-size: 2rem;
+      background: #F8FAFC;
+      width: 54px; height: 54px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+    }
+    .direction-card h3 { font-size: 1.25rem; color: var(--primary); }
+    
+    .direction-steps { list-style: none; padding: 0; margin: 0; }
+    .direction-steps li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 16px;
+      font-size: 0.96rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .direction-steps li::before {
+      content: '📍';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      font-size: 1rem;
+    }
+    .direction-steps li:last-child { margin-bottom: 0; }
+    .highlight-text { color: var(--primary-blue); font-weight: 700; }
+    .note-text { font-size: 0.84rem; color: #64748B; display: block; margin-top: 4px; padding-left: 24px; }
+
+    /* Mobile Floating Bar & Scroll Top */
+    .mobile-floating-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-top: 1px solid #E2E8F0; z-index: 1500; padding: 8px 12px; }
+    .floating-bar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; max-width: 480px; margin: 0 auto; }
+    .btn-float { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 0.72rem; font-weight: 700; }
+    .btn-float-map { background: #EEF2F6; color: var(--primary); }
+    .btn-float-line { background: #06C755; color: #ffffff; }
+    .btn-float-yt { background: #FFF1F0; color: #E11D48; }
+
+    .btn-scroll-top { position: fixed; bottom: 76px; right: 20px; width: 42px; height: 42px; border-radius: 50%; background: rgba(18, 40, 68, 0.85); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1400; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
+    .btn-scroll-top.show { opacity: 1; visibility: visible; }
+
+    /* Footer */
+    .site-footer { background: #111827; color: #9CA3AF; padding: 34px 20px; margin-top: 48px; font-size: 0.84rem; text-align: center; }
+
+    @media (max-width: 768px) {
+      .btn-hamburger { display: block; }
+      .nav-links { display: none; }
+      .logo-img { height: 38px; }
+      .nav-container { height: 60px; padding: 0 16px; }
+      .drawer-header { height: 60px; }
+      .mobile-floating-bar { display: block; }
+      .subpage-hero { padding: 40px 20px; }
+      .subpage-hero h1 { font-size: 1.8rem; }
+      
+      .map-frame-wrap { height: 320px; }
+      .address-bar { flex-direction: column; text-align: center; align-items: center; padding: 24px 20px; gap: 16px; }
+      .contact-info { text-align: center; }
+      .directions-grid { grid-template-columns: 1fr; gap: 20px; }
+      .direction-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-wrap">
+        <img src="Headerlogo.png" alt="日本バプテスト連盟 福岡新生キリスト教会" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li class="nav-item"><a href="about.html" class="nav-link">教会紹介</a></li>
+        <li class="nav-item"><a href="worship.html" class="nav-link">聖日礼拝・集会</a></li>
+        <li class="nav-item"><a href="staff.html" class="nav-link">牧師・スタッフ</a></li>
+        <li class="nav-item"><a href="facility.html" class="nav-link">会堂案内</a></li>
+        <li class="nav-item"><a href="mission.html" class="nav-link">世界宣教</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">よくある質問</a></li>
+        <li class="nav-item"><a href="access.html" class="nav-link active">アクセス</a></li>
+      </ul>
+      <button class="btn-hamburger" id="btnHamburger" aria-label="メニュー切り替え">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header"><span class="drawer-title">福岡新生キリスト教会</span></div>
+    <ul class="drawer-menu-list">
+      <li><a href="about.html" class="drawer-link">⛪ 教会紹介</a></li>
+      <li><a href="worship.html" class="drawer-link">📖 聖日礼拝・集会</a></li>
+      <li><a href="staff.html" class="drawer-link">👔 牧師・スタッフ</a></li>
+      <li><a href="facility.html" class="drawer-link">🏛️ 会堂案内</a></li>
+      <li><a href="mission.html" class="drawer-link">🌏 世界宣教</a></li>
+      <li><a href="faq.html" class="drawer-link">🌱 よくある質問</a></li>
+      <li><a href="access.html" class="drawer-link active">📍 アクセス</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="#" class="btn-line-drawer">LINE友だち追加・相談</a>
+    </div>
+  </aside>
+
+  <!-- Subpage Hero -->
+  <section class="subpage-hero">
+    <h1 class="font-serif">交通アクセス</h1>
+    <p>教会までの道順・交通機関のご案内</p>
+  </section>
+
+  <!-- Main Content -->
+  <main class="subpage-content">
+
+    <!-- 1. Address & Contact Bar -->
+    <div class="address-bar">
+      <div class="address-info">
+        <h2 class="font-serif">福岡新生キリスト教会</h2>
+        <p>〒811-1344 福岡県福岡市南区三宅3-33-1</p>
+      </div>
+      <div class="contact-info">
+        <a href="tel:092-561-4233" class="contact-tel">📞 092-561-4233</a>
+        <div class="contact-subtel">牧師直通：092-561-6791</div>
+      </div>
+    </div>
+
+    <!-- 2. Google Map Embed -->
+    <div class="access-map-container">
+      <div class="map-frame-wrap">
+        <!-- Google Maps iframe -->
+        <iframe 
+          src="https://maps.google.com/maps?q=33.5473298042147,130.43094711450982&hl=ja&z=17&output=embed" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <a href="https://maps.app.goo.gl/bSomrzCEZq1gkn8bA" target="_blank" class="btn-open-gmap-large">
+        <span>📍</span> Google マップアプリで経路を開く
+      </a>
+    </div>
+
+    <!-- 3. Directions Cards -->
+    <div class="directions-grid">
+      
+      <!-- Bus Directions -->
+      <article class="direction-card">
+        <div class="direction-card-head">
+          <div class="d-icon">🚌</div>
+          <h3 class="font-serif">公共交通機関（バス）</h3>
+        </div>
+        <ul class="direction-steps">
+          <li>西鉄電車「大橋駅」にて下車し、<span class="highlight-text">西口バス乗り場</span>へ向かいます。</li>
+          <li>西鉄バス <span class="highlight-text">「4番」「47番」「48番」「62番」</span>系統のいずれかに乗車します。</li>
+          <li><span class="highlight-text">「和田（わだ）」バス停</span>で下車します。</li>
+          <li>バス進行方向へ進み、「南市民プール」方面へ向かって<span class="highlight-text">徒歩約3分</span>で教会に到着します。</li>
+        </ul>
+        <span class="note-text">※赤いレンガ調のアクセントと十字架がある建物が目印です。</span>
+      </article>
+
+      <!-- Car Directions -->
+      <article class="direction-card">
+        <div class="direction-card-head">
+          <div class="d-icon">🚗</div>
+          <h3 class="font-serif">お車をご利用の方</h3>
+        </div>
+        <ul class="direction-steps">
+          <li>福岡都市高速5号線 <span class="highlight-text">「野多目（のため）」出入口</span>をご利用ください。</li>
+          <li>出口より一般道へ下りて、<span class="highlight-text">車で約1分</span>の距離です。</li>
+          <li>教会の敷地内に、礼拝へお越しの方のための<span class="highlight-text">専用無料駐車場</span>を完備しております。</li>
+          <li>日曜日や各種集会の時間帯は自由に駐車していただけます。</li>
+        </ul>
+        <span class="note-text">※満車の場合や駐車位置が分からない場合は、案内係が誘導いたしますのでお気軽にお声がけください。</span>
+      </article>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <strong>日本バプテスト連盟 福岡新生キリスト教会</strong>
+      <p style="font-size:0.8rem; margin-top:4px;">〒811-1344 福岡県福岡市南区三宅3-33-1 | TEL: 092-561-4233</p>
+      <p style="font-size:0.75rem; color:#6B7280; margin-top:6px;">© Fukuoka Shinsei Baptist Church. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top Button -->
+  <a href="#" class="btn-scroll-top" id="btnScrollTop" aria-label="ページ上部へ戻る">↑</a>
+
+  <!-- Mobile Floating Bar -->
+  <div class="mobile-floating-bar">
+    <div class="floating-bar-grid">
+      <a href="access.html" class="btn-float btn-float-map"><span>📍</span><span>アクセス</span></a>
+      <a href="#" target="_blank" class="btn-float btn-float-line"><span>💬</span><span>LINE相談</span></a>
+      <a href="https://www.youtube.com/@福岡新生キリスト教会" target="_blank" class="btn-float btn-float-yt"><span>🔴</span><span>礼拝中継</span></a>
+    </div>
+  </div>
+
+  <script>
+    // 햄버거 메뉴 토글 로직
+    const btnHamburger = document.getElementById('btnHamburger');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    function toggleMenu() {
+      const isOpen = mobileDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
+      btnHamburger.classList.toggle('open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    function closeMenu() {
+      mobileDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      btnHamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    btnHamburger.addEventListener('click', toggleMenu);
+    drawerOverlay.addEventListener('click', closeMenu);
+
+    // 스크롤 Top 버튼 제어
+    const btnScrollTop = document.getElementById('btnScrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        btnScrollTop.classList.add('show');
+      } else {
+        btnScrollTop.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
