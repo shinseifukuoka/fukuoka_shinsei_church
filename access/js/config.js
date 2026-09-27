@@ -62,10 +62,11 @@ const FEEDBACK = {
 /* Firebase 콘솔 → 프로젝트 설정 → 내 앱(웹) 의 firebaseConfig 를 그대로 붙여넣기
    ※ 이 값은 공개되어도 괜찮습니다. 보안은 firestore.rules 가 담당합니다. */
 const FIREBASE_CONFIG = {
-  apiKey: '',
-  authDomain: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: '',
-  appId: '',
+    apiKey: "AIzaSyAGLuRuGPzUr06ISvAoqi6_uW3PDer3X78",
+    authDomain: "fukuoka-shinsei.firebaseapp.com",
+    projectId: "fukuoka-shinsei",
+    storageBucket: "fukuoka-shinsei.firebasestorage.app",
+    messagingSenderId: "239669963912",
+    appId: "1:239669963912:web:91ef00824b506b4146833d",
+    measurementId: "G-6DFGT7GLWC"
 };
