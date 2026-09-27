@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ご意見管理 | 福岡新生キリスト教会</title>
+  <link rel="icon" href="../assets/img/common/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/feedback.css">
+  <script src="../assets/js/config.js" defer></script>
+  <script src="../assets/js/firebase.js" defer></script>
+  <script src="../assets/js/admin.js" defer></script>
+</head>
+<body data-root="../">
+
+  <!-- 관리 화면: 로그인한 관리자만 의견을 볼 수 있습니다 (권한은 firestore.rules 에서 지정) -->
+  <main class="p-admin">
+    <div class="p-admin__bar">
+      <h1>ホームページ ご意見管理</h1>
+      <div class="p-admin__user js-user" hidden>
+        <span class="js-user-email"></span>
+        <button type="button" class="c-btn c-btn--outline js-csv">CSV</button>
+        <button type="button" class="c-btn c-btn--outline js-logout">ログアウト</button>
+      </div>
+    </div>
+
+    <div class="p-admin__login js-login">
+      <p class="js-login-msg">管理者アカウントでログインしてください。</p>
+      <button type="button" class="c-btn c-btn--navy js-login-btn">Google でログイン</button>
+    </div>
+
+    <div class="js-board" hidden>
+      <div class="p-admin__tabs js-tabs"></div>
+      <div class="js-list"></div>
+    </div>
+  </main>
+
+</body>
+</html>

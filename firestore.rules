@@ -1,0 +1,58 @@
+rules_version = '2';
+
+// ==========================================================================
+// Firestore 보안 규칙 — Firebase 콘솔 → Firestore → 규칙 탭에 그대로 붙여넣기
+//  - 누구나: 의견 "작성"만 가능 (형식·길이 검사)
+//  - 관리자: 읽기 · 상태 변경 · 메모 · 삭제
+// ★ 아래 ADMIN_EMAILS 에 관리자 Google 계정을 적어 주세요.
+// ==========================================================================
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in [
+          'donkah16@gmail.com',
+          'knockj.pla@gmail.com'
+          // , '다른관리자@gmail.com'
+        ];
+    }
+
+    function isShortString(v, max) {
+      return v is string && v.size() <= max;
+    }
+
+    function validTarget(t) {
+      return t == null
+        || (t is map && t.keys().hasOnly(['selector', 'text'])
+            && isShortString(t.selector, 500) && isShortString(t.text, 100));
+    }
+
+    match /feedback/{id} {
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['page', 'pageTitle', 'target', 'message', 'name', 'device', 'status', 'createdAt'])
+                    && isShortString(request.resource.data.page, 200)
+                    && isShortString(request.resource.data.pageTitle, 100)
+                    && validTarget(request.resource.data.target)
+                    && isShortString(request.resource.data.message, 2000)
+                    && request.resource.data.message.size() > 0
+                    && isShortString(request.resource.data.name, 50)
+                    && request.resource.data.device in ['PC', 'スマホ']
+                    && request.resource.data.status == 'new'
+                    && request.resource.data.createdAt == request.time;
+
+      allow read, delete: if isAdmin();
+
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'memo'])
+                    && request.resource.data.status in ['new', 'hold', 'done']
+                    && (!('memo' in request.resource.data) || isShortString(request.resource.data.memo, 500));
+    }
+
+    // 그 외 모든 경로는 차단
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

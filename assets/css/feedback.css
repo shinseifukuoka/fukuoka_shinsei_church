@@ -1,0 +1,91 @@
+@charset "UTF-8";
+/* ==========================================================================
+   feedback.css — 의견 수집 위젯 + 관리 화면
+   FEEDBACK.enabled 일 때만 layout.js 가 불러옵니다.
+   ========================================================================== */
+
+/* 열기 버튼 */
+.c-fb-open {
+  position: fixed; left: 20px; bottom: 24px; z-index: 1450;
+  padding: 10px 16px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--c-gold); color: #fff; font-size: .84rem; font-weight: 700;
+  box-shadow: var(--shadow-m);
+}
+.c-fb-open:hover { filter: brightness(1.05); }
+
+/* 모달 */
+.c-fb {
+  position: fixed; inset: 0; z-index: 4000; padding: 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, .55); backdrop-filter: blur(3px);
+}
+.c-fb[hidden] { display: none; }
+.c-fb__panel {
+  width: 100%; max-width: 480px; max-height: calc(100dvh - 32px); overflow-y: auto;
+  padding: 24px; border-radius: var(--radius-m); background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+}
+.c-fb__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.c-fb__head h2 { font-size: 1.12rem; }
+.c-fb__close { border: 0; background: none; font-size: 1.6rem; line-height: 1; color: #64748B; cursor: pointer; }
+.c-fb__note { font-size: .82rem; color: var(--c-text-sub); margin-bottom: 16px; }
+.c-fb__label { display: block; margin: 14px 0 6px; font-size: .82rem; font-weight: 700; color: var(--c-navy); }
+.c-fb__label em { font-style: normal; font-size: .7rem; color: #fff; background: var(--c-yt); padding: 1px 6px; border-radius: 4px; margin-left: 4px; }
+.c-fb__page { font-size: .9rem; }
+.c-fb__target { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; background: var(--c-bg); border: 1px solid var(--c-border); border-radius: var(--radius-s); font-size: .86rem; }
+.c-fb__target-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.c-fb__pick { flex-shrink: 0; padding: 6px 10px; border: 1px solid var(--c-blue); border-radius: 6px; background: #fff; color: var(--c-blue); font-size: .8rem; font-weight: 700; cursor: pointer; }
+.c-fb textarea, .c-fb input {
+  width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: var(--radius-s);
+  font: inherit; font-size: 16px; /* iOS 확대 방지 */
+}
+.c-fb textarea:focus, .c-fb input:focus { outline: 2px solid var(--c-blue); border-color: transparent; }
+.c-fb .c-btn { margin-top: 20px; }
+.c-fb .c-btn:disabled { opacity: .6; cursor: wait; }
+.c-fb__status { margin-top: 10px; font-size: .86rem; text-align: center; }
+.c-fb__status.is-ok { color: var(--c-green); font-weight: 700; }
+.c-fb__status.is-error { color: var(--c-yt); font-weight: 700; }
+
+/* 場所を選ぶ 모드 */
+.c-fb-pickbar {
+  position: fixed; left: 0; right: 0; top: 0; z-index: 3500;
+  display: flex; justify-content: center; align-items: center; gap: 12px; padding: 12px 16px;
+  background: var(--c-navy); color: #fff; font-size: .9rem; font-weight: 700;
+}
+.c-fb-pickbar[hidden] { display: none; }
+.c-fb-pickbar button { padding: 5px 12px; border: 1px solid #fff; border-radius: 6px; background: none; color: #fff; font: inherit; font-size: .8rem; cursor: pointer; }
+.is-fb-picking, .is-fb-picking * { cursor: crosshair !important; }
+.is-fb-hover { outline: 3px dashed var(--c-gold) !important; outline-offset: 2px; }
+.is-fb-highlight { outline: 4px solid var(--c-gold) !important; outline-offset: 4px; animation: fb-pulse 1.4s ease-in-out 3; }
+@keyframes fb-pulse { 50% { outline-color: rgba(196, 147, 50, .25); } }
+
+@media (max-width: 768px) {
+  .c-fb-open { left: auto; right: 12px; bottom: calc(76px + env(safe-area-inset-bottom)); padding: 8px 12px; font-size: .76rem; }
+  .c-totop { bottom: 128px; }
+}
+
+/* ==========================================================================
+   관리 화면 (admin/index.html)
+   ========================================================================== */
+.p-admin { max-width: 1000px; margin: 0 auto; padding: 24px 16px 64px; }
+.p-admin__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; }
+.p-admin__bar h1 { font-size: 1.3rem; }
+.p-admin__user { font-size: .84rem; color: var(--c-text-sub); display: flex; gap: 10px; align-items: center; }
+.p-admin__tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.p-admin__tab { padding: 7px 14px; border: 1px solid var(--c-border); border-radius: 999px; background: #fff; font-size: .84rem; font-weight: 600; cursor: pointer; }
+.p-admin__tab.is-current { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
+.p-admin__tab b { margin-left: 4px; }
+.p-admin__group { margin-bottom: 28px; }
+.p-admin__group h2 { font-size: 1rem; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--c-border); }
+.p-admin__item { padding: 16px 18px; margin-bottom: 10px; background: #fff; border: 1px solid var(--c-border); border-left: 4px solid var(--c-gold); border-radius: var(--radius-s); }
+.p-admin__item[data-status="done"] { border-left-color: var(--c-green); opacity: .75; }
+.p-admin__item[data-status="hold"] { border-left-color: #94A3B8; }
+.p-admin__meta { font-size: .78rem; color: var(--c-text-sub); margin-bottom: 6px; }
+.p-admin__target { display: inline-block; margin-bottom: 8px; font-size: .82rem; color: var(--c-blue); }
+.p-admin__msg { white-space: pre-wrap; margin-bottom: 12px; }
+.p-admin__actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.p-admin__actions button { padding: 5px 12px; border: 1px solid var(--c-border); border-radius: 6px; background: #fff; font-size: .8rem; cursor: pointer; }
+.p-admin__actions button.is-current { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
+.p-admin__actions .is-danger { margin-left: auto; color: var(--c-yt); }
+.p-admin__memo { width: 100%; margin-top: 8px; padding: 7px 10px; border: 1px solid var(--c-border); border-radius: 6px; font: inherit; font-size: .84rem; }
+.p-admin__empty, .p-admin__login { padding: 48px 20px; text-align: center; color: var(--c-text-sub); }
+.p-admin__login .c-btn { margin-top: 16px; }

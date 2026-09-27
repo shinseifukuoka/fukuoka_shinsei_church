@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>礼拝・集会案内 | 福岡新生キリスト教会</title>
+  <meta name="description" content="聖日礼拝（日曜10:30）、教会学校、ネパール語礼拝、夕礼拝、水曜・金曜祈祷会、早朝祈祷会の時間のご案内。">
+  <link rel="icon" href="../assets/img/common/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/config.js" defer></script>
+  <script src="../assets/js/data/weekly.js" defer></script>
+  <script src="../assets/js/layout.js" defer></script>
+</head>
+<body data-root="../" data-page="worship-top">
+
+  <section class="p-hero">
+    <h1 class="p-hero__title">礼拝・集会のご案内</h1>
+    <p class="p-hero__lead">神様のあたたかな御前へ、あなたを歓迎いたします</p>
+  </section>
+
+  <main class="l-main" id="main">
+
+    <section class="c-card">
+      <h2 class="c-heading">📖 礼拝・祈祷会のご案内</h2>
+      <p>私たち福岡新生キリスト教会では、世代や背景を問わず、すべての人が共に集い、主の御名に祈りと讃美を捧げています。</p>
+      <!-- 시간표는 assets/js/config.js 의 SCHEDULE 에서 수정 -->
+      <div class="js-schedule"></div>
+    </section>
+
+    <section class="c-card">
+      <h2 class="c-heading">🎥 今週の礼拝メッセージ</h2>
+      <div class="js-sermon-latest"></div>
+      <a href="sermons.html" class="c-more u-mt-0">過去のメッセージ・週報・早天祈祷会</a>
+    </section>
+
+    <section class="c-contact">
+      <h2 class="c-contact__title">🌱 初めて礼拝に参加される方へ</h2>
+      <p>受付のご案内や服装、献金について、初めての方向けのページをご用意しています。</p>
+      <div class="c-btn-group">
+        <a href="../first-visit/" class="c-btn c-btn--navy">初めての方へのご案内 →</a>
+        <a data-site-href="line" class="c-btn c-btn--line">💬 LINEで問い合わせ</a>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
