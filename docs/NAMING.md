@@ -136,3 +136,11 @@
 2. `<title>`, `<meta name="description">`, `data-page="about-newpage"`, hero 문구를 수정합니다.
 3. `assets/js/config.js`의 `NAV`에서 해당 섹션 `children`에 한 줄을 추가합니다.
    → 글로벌 메뉴, 드롭다운, 모바일 메뉴, 서브 탭에 자동으로 반영됩니다.
+
+---
+
+## 6. 캐시 대책 (버전 번호)
+
+HTML에서 CSS·JS를 불러올 때 `style.css?v=20260927`처럼 버전 번호를 붙입니다.
+CSS나 JS를 수정했는데 스마트폰에서 예전 화면이 보이면, 모든 HTML의 `?v=` 숫자를 오늘 날짜로 바꿔 주세요.
+(`feedback.css` · `firebase.js` · `feedback.js`는 `layout.js`의 번호를 자동으로 따라갑니다.)

@@ -8,6 +8,20 @@
   const ROOT = body.dataset.root || './';
   const PAGE = body.dataset.page || '';
   const IS_FILE = location.protocol === 'file:';
+  const VER = (document.querySelector('script[src*="layout.js"]')?.src.match(/v=(\d+)/) || [])[1] || '';
+
+  /* ---------- 앱 내 브라우저 → 기기 기본 브라우저로 열기 ----------
+     LINE: URL에 openExternalBrowser=1 을 붙이면 LINE이 Safari/Chrome으로 넘겨 줌
+     KakaoTalk: 전용 스킴으로 외부 브라우저 열기 */
+  const UA = navigator.userAgent;
+  if (/\bLine\//i.test(UA) && !/openExternalBrowser=1/.test(location.search)) {
+    const u = new URL(location.href);
+    u.searchParams.set('openExternalBrowser', '1');
+    location.replace(u.href);
+  } else if (/KAKAOTALK/i.test(UA) && !(() => { try { return sessionStorage.getItem('ext-tried'); } catch (e) { return 1; } })()) {
+    try { sessionStorage.setItem('ext-tried', '1'); } catch (e) {}
+    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
+  }
 
   /* ---------- helpers ---------- */
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
@@ -135,8 +149,8 @@
 
   /* ---------- 교회원 의견 위젯 (config.js 의 FEEDBACK.enabled) ---------- */
   if (typeof FEEDBACK !== 'undefined' && FEEDBACK.enabled) {
-    document.head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="${ROOT}assets/css/feedback.css">`);
-    const load = (src) => new Promise((ok) => { const s = document.createElement('script'); s.src = ROOT + src; s.onload = ok; document.body.append(s); });
+    document.head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="${ROOT}assets/css/feedback.css?v=${VER}">`);
+    const load = (src) => new Promise((ok) => { const s = document.createElement('script'); s.src = ROOT + src + '?v=' + VER; s.onload = ok; document.body.append(s); });
     load('assets/js/firebase.js').then(() => load('assets/js/feedback.js'));
   }
 

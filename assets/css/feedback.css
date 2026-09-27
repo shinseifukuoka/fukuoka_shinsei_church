@@ -59,8 +59,8 @@
 @keyframes fb-pulse { 50% { outline-color: rgba(196, 147, 50, .25); } }
 
 @media (max-width: 768px) {
-  .c-fb-open { left: auto; right: 12px; bottom: calc(76px + env(safe-area-inset-bottom)); padding: 8px 12px; font-size: .76rem; }
-  .c-totop { bottom: 128px; }
+  /* 모바일: 의견 버튼은 왼쪽, 맨 위로 버튼은 오른쪽 — 서로 겹치지 않게 */
+  .c-fb-open { left: 12px; right: auto; bottom: calc(76px + env(safe-area-inset-bottom)); padding: 8px 12px; font-size: .76rem; }
 }
 
 /* ==========================================================================
