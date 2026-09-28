@@ -6,7 +6,8 @@
 
 | 하고 싶은 일 | 수정할 파일 |
 |---|---|
-| 매주 설교·주보·새벽기도 본문 갱신 | `assets/js/data/weekly.js` (배열 맨 위에 추가) |
+| **주보 이미지 · 암송성구 · 식당 일정 · 앨범 사진** | **관리 화면 `/admin/`** (코드 수정 불필요) → [`docs/ADMIN_SETUP.md`](docs/ADMIN_SETUP.md) |
+| 매주 설교 · 새벽기도 본문 갱신 | `assets/js/data/weekly.js` (배열 맨 위에 추가) |
 | 전화번호 · LINE · YouTube · 지도 링크 | `assets/js/config.js` → `SITE` |
 | 예배 시간 변경 | `assets/js/config.js` → `SCHEDULE` |
 | 메뉴 추가·순서 변경 | `assets/js/config.js` → `NAV` |

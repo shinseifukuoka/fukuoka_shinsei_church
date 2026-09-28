@@ -9,10 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap">
-  <link rel="stylesheet" href="../assets/css/style.css?v=20260927">
-  <script src="../assets/js/config.js?v=20260927" defer></script>
-  <script src="../assets/js/data/weekly.js?v=20260927" defer></script>
-  <script src="../assets/js/layout.js?v=20260927" defer></script>
+  <link rel="stylesheet" href="../assets/css/style.css?v=20260928">
+  <script src="../assets/js/config.js?v=20260928" defer></script>
+  <script src="../assets/js/data/weekly.js?v=20260928" defer></script>
+  <script src="../assets/js/layout.js?v=20260928" defer></script>
 </head>
 <body data-root="../" data-page="worship-sermons">
 
@@ -24,6 +24,8 @@
   <!-- 💡 이 페이지 내용은 모두 assets/js/data/weekly.js 에서 자동 생성됩니다 -->
   <main class="l-main" id="main">
 
+    <div class="js-fs-verse" hidden></div>
+
     <section class="c-card" id="sermons">
       <h2 class="c-heading">🎥 礼拝メッセージ</h2>
       <p class="c-lead">主日礼拝で語られた聖書のメッセージ映像と、メッセージ用スライド（PPT）を公開しています。</p>
@@ -32,8 +34,10 @@
     </section>
 
     <section class="c-card" id="bulletin">
-      <h2 class="c-heading">📄 週報アーカイブ（過去5週分）</h2>
-      <ul class="c-linklist js-bulletin-list"></ul>
+      <h2 class="c-heading">📄 週報（過去5週分）</h2>
+      <p class="c-lead">画像を押すと大きく表示されます。</p>
+      <!-- 管理画面「週報・暗誦聖句」でアップロードした週報が自動で表示されます -->
+      <div class="js-fs-bulletin"></div>
     </section>
 
     <section class="c-card" id="morning">

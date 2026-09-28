@@ -63,29 +63,3 @@
   .c-fb-open { left: 12px; right: auto; bottom: calc(76px + env(safe-area-inset-bottom)); padding: 8px 12px; font-size: .76rem; }
 }
 
-/* ==========================================================================
-   관리 화면 (admin/index.html)
-   ========================================================================== */
-.p-admin { max-width: 1000px; margin: 0 auto; padding: 24px 16px 64px; }
-.p-admin__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; }
-.p-admin__bar h1 { font-size: 1.3rem; }
-.p-admin__user { font-size: .84rem; color: var(--c-text-sub); display: flex; gap: 10px; align-items: center; }
-.p-admin__tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.p-admin__tab { padding: 7px 14px; border: 1px solid var(--c-border); border-radius: 999px; background: #fff; font-size: .84rem; font-weight: 600; cursor: pointer; }
-.p-admin__tab.is-current { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
-.p-admin__tab b { margin-left: 4px; }
-.p-admin__group { margin-bottom: 28px; }
-.p-admin__group h2 { font-size: 1rem; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--c-border); }
-.p-admin__item { padding: 16px 18px; margin-bottom: 10px; background: #fff; border: 1px solid var(--c-border); border-left: 4px solid var(--c-gold); border-radius: var(--radius-s); }
-.p-admin__item[data-status="done"] { border-left-color: var(--c-green); opacity: .75; }
-.p-admin__item[data-status="hold"] { border-left-color: #94A3B8; }
-.p-admin__meta { font-size: .78rem; color: var(--c-text-sub); margin-bottom: 6px; }
-.p-admin__target { display: inline-block; margin-bottom: 8px; font-size: .82rem; color: var(--c-blue); }
-.p-admin__msg { white-space: pre-wrap; margin-bottom: 12px; }
-.p-admin__actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.p-admin__actions button { padding: 5px 12px; border: 1px solid var(--c-border); border-radius: 6px; background: #fff; font-size: .8rem; cursor: pointer; }
-.p-admin__actions button.is-current { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
-.p-admin__actions .is-danger { margin-left: auto; color: var(--c-yt); }
-.p-admin__memo { width: 100%; margin-top: 8px; padding: 7px 10px; border: 1px solid var(--c-border); border-radius: 6px; font: inherit; font-size: .84rem; }
-.p-admin__empty, .p-admin__login { padding: 48px 20px; text-align: center; color: var(--c-text-sub); }
-.p-admin__login .c-btn { margin-top: 16px; }

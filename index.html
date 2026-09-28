@@ -9,10 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=20260927">
-  <script src="assets/js/config.js?v=20260927" defer></script>
-  <script src="assets/js/data/weekly.js?v=20260927" defer></script>
-  <script src="assets/js/layout.js?v=20260927" defer></script>
+  <link rel="stylesheet" href="assets/css/style.css?v=20260928">
+  <script src="assets/js/config.js?v=20260928" defer></script>
+  <script src="assets/js/data/weekly.js?v=20260928" defer></script>
+  <script src="assets/js/layout.js?v=20260928" defer></script>
 </head>
 <body data-root="./" data-page="home">
 
@@ -37,7 +37,7 @@
 
       <section class="c-card c-card--accent">
         <h2 class="p-home-quick__title">🎥 メッセージ・週報</h2>
-        <p>礼拝メッセージの動画・スライドと、過去5週分の週報（PDF）をご覧いただけます。</p>
+        <p>礼拝メッセージの動画と、毎週の週報・暗誦聖句をご覧いただけます。</p>
         <div class="c-chips">
           <a data-site-href="youtube" class="c-chip c-chip--yt">▶ YouTube 礼拝中継</a>
           <a href="worship/sermons.html#bulletin" class="c-chip c-chip--pdf">📄 週報を見る</a>
@@ -53,6 +53,9 @@
         </div>
       </section>
     </div>
+
+    <!-- 今週の暗誦聖句 (管理画面「週報・暗誦聖句」で更新) -->
+    <div class="js-fs-verse" hidden></div>
 
     <!-- 담임목사 인사 -->
     <section class="c-card p-home-pastor">
@@ -74,16 +77,16 @@
         <img src="assets/img/facility/facility-exterior.webp" alt="" loading="lazy">
         <div class="p-home-link__body"><h3 class="p-home-link__title">教会紹介</h3><p>1968年の開拓から続く祈りの歩みと、4つのビジョン。</p></div>
       </a>
-      <a href="about/facility.html" class="p-home-link">
-        <img src="assets/img/facility/facility-sanctuary-2f-wide.webp" alt="" loading="lazy">
-        <div class="p-home-link__body"><h3 class="p-home-link__title">会堂案内</h3><p>150席の大礼拝堂、防音祈祷室、無料駐車場。</p></div>
+      <a href="hallelujah/" class="p-home-link">
+        <img src="assets/img/facility/facility-fellowship-room-2f.webp" alt="" loading="lazy">
+        <div class="p-home-link__body"><h3 class="p-home-link__title">ハレルヤ食堂</h3><p>地域の子どもたちのためのこども食堂。次回の開催とメニュー。</p></div>
       </a>
       <a href="mission/" class="p-home-link">
         <img src="assets/img/mission/mission-wall.webp" alt="" loading="lazy">
         <div class="p-home-link__body"><h3 class="p-home-link__title">世界宣教</h3><p>ケニア、インド、中央アジアなど5名の宣教師を派遣・支援。</p></div>
       </a>
       <a href="first-visit/" class="p-home-link">
-        <img src="assets/img/facility/facility-fellowship-room-2f.webp" alt="" loading="lazy">
+        <img src="assets/img/facility/facility-sanctuary-2f-wide.webp" alt="" loading="lazy">
         <div class="p-home-link__body"><h3 class="p-home-link__title">初めての方へ</h3><p>服装・献金・お子様連れなど、よくあるご質問。</p></div>
       </a>
     </nav>

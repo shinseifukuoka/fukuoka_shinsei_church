@@ -35,7 +35,14 @@ const NAV = [
       { id: 'worship-sermons', label: 'メッセージ・週報', path: 'worship/sermons.html' },
     ],
   },
-  { id: 'mission',     label: '世界宣教',     path: 'mission/' },
+  {
+    id: 'activity', label: '教会の活動', path: 'hallelujah/',
+    children: [
+      { id: 'hallelujah', label: 'ハレルヤ食堂',   path: 'hallelujah/' },
+      { id: 'album',      label: 'フォトアルバム', path: 'album/' },
+      { id: 'mission',    label: '世界宣教',       path: 'mission/' },
+    ],
+  },
   { id: 'first-visit', label: '初めての方へ', path: 'first-visit/' },
   { id: 'access',      label: 'アクセス',     path: 'access/' },
 ];

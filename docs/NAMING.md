@@ -29,15 +29,19 @@
 ├─ worship/                   礼拝・集会
 │  ├─ index.html              礼拝・集会案内
 │  └─ sermons.html            メッセージ・週報・早天祈祷会
-├─ mission/index.html         世界宣教
+├─ hallelujah/index.html      ハレルヤ食堂   (教会の活動)
+├─ album/index.html           フォトアルバム (教会の活動)
+├─ mission/index.html         世界宣教       (教会の活動)
 ├─ first-visit/index.html     初めての方へ     (구 faq.html + 처음 오신 분 안내 통합)
 ├─ access/index.html          アクセス
-├─ admin/index.html           ご意見管理 (관리자 전용, 메뉴에 없음)
+├─ admin/                     管理画面 (관리자 전용, 메뉴에 없음)
+│  ├─ index.html · admin.css
+│  └─ js/core.js · bulletin.js · shokudo.js · album.js · feedback.js
 ├─ firestore.rules            Firestore 보안 규칙
 ├─ assets/
 │  ├─ css/style.css · feedback.css
 │  ├─ js/config.js · layout.js · data/weekly.js
-│  │    firebase.js · feedback.js · admin.js   (의견 수집)
+│  │    firebase.js · content.js · feedback.js  (Firebase 연동)
 │  └─ img/{common,hero,facility,staff,mission}/
 └─ docs/NAMING.md
 ```
@@ -71,6 +75,7 @@
 | `l-` | Layout: 사이트 골격 (페이지당 1개) | `l-header`, `l-gnav`, `l-drawer`, `l-footer`, `l-main` |
 | `c-` | Component: 어디서나 재사용하는 부품 | `c-card`, `c-btn`, `c-tag`, `c-profile`, `c-faq` |
 | `p-` | Project: 특정 페이지 전용 | `p-hero`, `p-home-quick`, `p-facility__img` |
+| `a-` | Admin: 관리 화면 전용 (`admin/admin.css`) | `a-card`, `a-field`, `a-photo` |
 | `u-` | Utility: 한 가지 역할만 하는 보조 | `u-center`, `u-mt-0`, `u-draft` |
 | `is-` | 상태 (JS가 붙였다 뗐다 함) | `is-current`, `is-show`, `is-drawer-open` |
 | `js-` | JS 연결 전용 (**스타일 지정 금지**) | `js-schedule`, `js-drawer-toggle` |
@@ -144,3 +149,18 @@
 HTML에서 CSS·JS를 불러올 때 `style.css?v=20260927`처럼 버전 번호를 붙입니다.
 CSS나 JS를 수정했는데 스마트폰에서 예전 화면이 보이면, 모든 HTML의 `?v=` 숫자를 오늘 날짜로 바꿔 주세요.
 (`feedback.css` · `firebase.js` · `feedback.js`는 `layout.js`의 번호를 자동으로 따라갑니다.)
+
+---
+
+## 7. Firestore 컬렉션 이름
+
+| 컬렉션 | 문서 ID | 내용 |
+|---|---|---|
+| `bulletins` | `YYYY-MM-DD` | 주보 메타 + 암송성구 `{date, verse, verseRef, pages, thumb}` |
+| `bulletinPages` | `YYYY-MM-DD_1` … | 주보 이미지 1장씩 `{data}` |
+| `shokudo` | 자동 ID | 식당 일정 `{date, time, menu, note, image}` |
+| `album` | 자동 ID | 사진 목록용 `{cat, title, date, thumb}` |
+| `albumFull` | album과 같은 ID | 확대용 원본 `{data}` |
+| `feedback` | 자동 ID | 교회원 의견 |
+
+공개 페이지에서 불러올 자리는 `js-fs-` 접두어 클래스로 표시합니다 (`js-fs-verse`, `js-fs-bulletin`, `js-fs-shokudo`, `js-fs-photos`, `js-fs-album`).

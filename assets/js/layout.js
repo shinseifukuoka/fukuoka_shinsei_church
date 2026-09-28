@@ -147,11 +147,22 @@
   const totop = $('.js-totop');
   window.addEventListener('scroll', () => totop.classList.toggle('is-show', scrollY > 400), { passive: true });
 
-  /* ---------- 교회원 의견 위젯 (config.js 의 FEEDBACK.enabled) ---------- */
-  if (typeof FEEDBACK !== 'undefined' && FEEDBACK.enabled) {
-    document.head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="${ROOT}assets/css/feedback.css?v=${VER}">`);
-    const load = (src) => new Promise((ok) => { const s = document.createElement('script'); s.src = ROOT + src + '?v=' + VER; s.onload = ok; document.body.append(s); });
-    load('assets/js/firebase.js').then(() => load('assets/js/feedback.js'));
+  /* ---------- Firebase 연동 (의견 위젯 · 관리 화면에서 올린 콘텐츠) ----------
+     - FEEDBACK.enabled        → 의견 버튼 (feedback.js)
+     - .js-fs-* 컨테이너가 있음 → 주보·암송성구·식당·앨범 (content.js) */
+  const load = (src) => new Promise((ok) => {
+    const s = document.createElement('script');
+    s.src = ROOT + src + '?v=' + VER; s.onload = ok; s.onerror = ok;
+    document.body.append(s);
+  });
+  const wantFeedback = typeof FEEDBACK !== 'undefined' && FEEDBACK.enabled;
+  const wantContent = !!document.querySelector('[class*="js-fs-"]');
+  if (wantFeedback || wantContent) {
+    if (wantFeedback) document.head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="${ROOT}assets/css/feedback.css?v=${VER}">`);
+    load('assets/js/firebase.js').then(() => {
+      if (wantContent) load('assets/js/content.js');
+      if (wantFeedback) load('assets/js/feedback.js');
+    });
   }
 
   /* ==========================================================================
@@ -175,7 +186,9 @@
     </div>`;
 
   // 최신 설교 <div class="js-sermon-latest"></div>
-  const latest = typeof SERMONS !== 'undefined' ? SERMONS[0] : null;
+  const SERMON_LIST = typeof SERMONS !== 'undefined' ? SERMONS : [];
+  const MORNING_LIST = typeof MORNING_PRAYERS !== 'undefined' ? MORNING_PRAYERS : [];
+  const latest = SERMON_LIST[0] || null;
   $$('.js-sermon-latest').forEach((el) => {
     if (!latest) return;
     el.innerHTML = `<article class="c-sermon-latest">
@@ -190,7 +203,7 @@
 
   // 지난 설교 목록 <div class="js-sermon-list" data-limit="10"></div>
   $$('.js-sermon-list').forEach((el) => {
-    const list = SERMONS.slice(1, 1 + Number(el.dataset.limit || 99));
+    const list = SERMON_LIST.slice(1, 1 + Number(el.dataset.limit || 99));
     el.innerHTML = list.length ? `<ul class="c-sermon-list">${list.map((s) => `
       <li class="c-sermon">
         <div class="c-sermon__head">
@@ -201,20 +214,9 @@
       </li>`).join('')}</ul>` : '';
   });
 
-  // 주보 목록 (최근 5주) <ul class="js-bulletin-list"></ul>
-  $$('.js-bulletin-list').forEach((el) => {
-    const list = SERMONS.slice(0, 5);
-    el.innerHTML = list.map((s, i) => `<li>${s.bulletin
-      ? `<a ${ext(s.bulletin)} class="c-linklist__item">`
-      : '<span class="c-linklist__item is-disabled">'}
-        <span>${i === 0 ? '<span class="c-tag c-tag--new">最新</span>' : ''}${fmtDate(s.date)} 聖日週報</span>
-        <span class="c-linklist__arrow">${s.bulletin ? 'PDF →' : '準備中'}</span>
-      ${s.bulletin ? '</a>' : '</span>'}</li>`).join('');
-  });
-
   // 새벽기도회 <ul class="js-morning-list"></ul>
   $$('.js-morning-list').forEach((el) => {
-    el.innerHTML = MORNING_PRAYERS.map((m) => `
+    el.innerHTML = MORNING_LIST.map((m) => `
       <li class="c-linklist__item"><span class="c-linklist__date">${fmtDate(m.date, false)}</span><span>${esc(m.bible)}</span></li>`).join('');
   });
 })();
