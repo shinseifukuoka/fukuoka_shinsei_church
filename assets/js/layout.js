@@ -178,6 +178,30 @@
       </li>`).join('')}</ul>`;
   });
 
+  // 헌금 계좌 안내 <div class="js-offering"></div>  (config.js 의 OFFERING)
+  $$('.js-offering').forEach((el) => {
+    if (typeof OFFERING === 'undefined' || !OFFERING.accounts.length) { el.hidden = true; return; }
+    el.innerHTML = `
+      ${OFFERING.draft ? '<span class="u-draft">※ 現在は仮の情報です。正式な口座は後日掲載いたします。</span>' : ''}
+      <div class="c-grid">${OFFERING.accounts.map((a) => `
+        <dl class="c-account">
+          <dt class="c-account__label">${esc(a.label)}</dt>
+          <dd><span>金融機関</span>${esc(a.bank)}</dd>
+          <dd><span>支店</span>${esc(a.branch)}</dd>
+          <dd><span>${esc(a.type)}</span><b class="c-account__num">${esc(a.number)}</b>
+            <button type="button" class="c-account__copy" data-copy="${esc(a.number)}">コピー</button></dd>
+          <dd><span>口座名義</span>${esc(a.holder)}</dd>
+        </dl>`).join('')}</div>
+      ${OFFERING.note ? `<p class="c-account__note">${esc(OFFERING.note)}</p>` : ''}`;
+    el.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-copy]');
+      if (!b) return;
+      try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'コピーしました'; }
+      catch (err) { b.textContent = '長押しでコピー'; }
+      setTimeout(() => { b.textContent = 'コピー'; }, 2000);
+    });
+  });
+
   // 자료 버튼 묶음
   const chips = (s, compact) => `<div class="c-chips">
       <a ${ext(s.youtube || SITE.youtubeUrl)} class="c-chip c-chip--yt">▶ ${compact ? '視聴' : 'YouTube 視聴'}</a>

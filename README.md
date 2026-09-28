@@ -10,6 +10,7 @@
 | 매주 설교 · 새벽기도 본문 갱신 | `assets/js/data/weekly.js` (배열 맨 위에 추가) |
 | 전화번호 · LINE · YouTube · 지도 링크 | `assets/js/config.js` → `SITE` |
 | 예배 시간 변경 | `assets/js/config.js` → `SCHEDULE` |
+| 헌금 계좌 안내 (礼拝・集会 페이지) | `assets/js/config.js` → `OFFERING` (실제 계좌 입력 후 `draft: false`) |
 | 메뉴 추가·순서 변경 | `assets/js/config.js` → `NAV` |
 | 스태프·선교사 사진 등록 | `assets/img/staff/`, `assets/img/mission/`에 정해진 파일명으로 업로드 |
 

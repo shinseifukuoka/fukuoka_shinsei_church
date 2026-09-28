@@ -9,7 +9,7 @@ const SITE = {
   nameEn: 'Fukuoka Shinsei Baptist Church',
   zip: '〒811-1344',
   address: '福岡県福岡市南区三宅3-33-1',
-  tel: '092-561-4232',
+  tel: '092-562-4331',
   telPastor: '092-561-6791',
   lineUrl: 'https://lin.ee/RZqsQOM',   // LINE 공식계정 (비우면 LINE 버튼이 자동으로 숨겨짐)
   youtubeUrl: 'https://www.youtube.com/@%E7%A6%8F%E5%B2%A1%E6%96%B0%E7%94%9F%E3%82%AD%E3%83%AA%E3%82%B9%E3%83%88%E6%95%99%E4%BC%9A',
@@ -47,10 +47,21 @@ const NAV = [
   { id: 'access',      label: 'アクセス',     path: 'access/' },
 ];
 
+/* 헌금 계좌 안내 — 礼拝・集会 페이지 「献金について」 에 자동 표시
+   ★ 지금은 임시(ダミー) 값입니다. 실제 계좌로 바꾸고 draft 를 false 로 하세요. */
+const OFFERING = {
+  draft: true,                       // true 인 동안 「※仮の情報です」 표시
+  accounts: [
+    { label: '銀行振込', bank: '〇〇銀行', branch: '〇〇支店（000）', type: '普通', number: '0000000', holder: 'シュウキョウホウジン フクオカシンセイキリストキョウカイ' },
+    { label: 'ゆうちょ銀行', bank: 'ゆうちょ銀行', branch: '記号 00000', type: '番号', number: '00000000', holder: 'フクオカシンセイキリストキョウカイ' },
+  ],
+  note: 'お振込みの際は、お名前の前に「献金」または用途（例：宣教献金）をご記入ください。',
+};
+
 /* 예배·집회 시간표 — 홈과 礼拝・集会 페이지에서 공통 사용
    type: sunday | weekday | morning (배지 색상 구분) */
 const SCHEDULE = [
-  { tag: '聖日',   type: 'sunday',  name: '合同 聖日礼拝',       time: '10:30' },
+  { tag: '聖日',   type: 'sunday',  name: '合同 聖日礼拝（日曜）', time: '10:30' },
   { tag: 'CS',     type: 'sunday',  name: '教会学校（日曜）',     time: '09:00' },
   { tag: '多文化', type: 'sunday',  name: 'ネパール語礼拝',       time: '14:30' },
   { tag: '夕方',   type: 'sunday',  name: '夕礼拝（日曜）',       time: '19:00' },
