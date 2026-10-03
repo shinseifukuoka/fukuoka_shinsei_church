@@ -61,6 +61,10 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAdmin();
     }
+    match /people/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
     match /settings/{id} {
       allow read: if true;
       allow write: if isAdmin();

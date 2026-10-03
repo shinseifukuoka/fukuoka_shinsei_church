@@ -5,13 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="福岡新生キリスト教会のこども食堂「ハレルヤ食堂」。開催日・メニューのご案内、ボランティア募集。">
   <title>ハレルヤ食堂 | 福岡新生キリスト教会</title>
-  <link rel="icon" href="../assets/img/common/favicon.png">
+  <link rel="icon" href="../assets/img/common/favicon.ico" sizes="any">
+  <link rel="icon" href="../assets/img/common/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/img/common/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#122844">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;700&display=swap">
-  <link rel="stylesheet" href="../assets/css/style.css?v=20261003">
-  <script src="../assets/js/config.js?v=20261003" defer></script>
-  <script src="../assets/js/layout.js?v=20261003" defer></script>
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261004">
+  <script src="../assets/js/config.js?v=20261004" defer></script>
+  <script src="../assets/js/layout.js?v=20261004" defer></script>
 </head>
 <body data-root="../" data-page="hallelujah">
 
@@ -24,8 +28,10 @@
 
     <section class="c-card">
       <h2 class="c-heading">ハレルヤ食堂とは</h2>
-      <p>ハレルヤ食堂は、福岡新生キリスト教会が地域の子どもたちのために開いている「こども食堂」です。温かい手作りごはんを囲みながら、子どもたちが安心して過ごせる居場所をつくりたいと願って始まりました。</p>
-      <p>教会に通っていない方も、どなたでも大歓迎です。お友だちやご家族と一緒に、気軽にお越しください。</p>
+      <div class="js-fs-shokudo-intro">
+        <p>ハレルヤ食堂は、福岡新生キリスト教会が地域の子どもたちのために開いている「こども食堂」です。温かい手作りごはんを囲みながら、子どもたちが安心して過ごせる居場所をつくりたいと願って始まりました。</p>
+        <p>教会に通っていない方も、どなたでも大歓迎です。お友だちやご家族と一緒に、気軽にお越しください。</p>
+      </div>
     </section>
 
     <section class="c-card c-card--accent">
@@ -36,7 +42,8 @@
 
     <section class="c-card">
       <h2 class="c-heading">ご利用案内</h2>
-      <dl class="p-shokudo-info">
+      <!-- 管理画面「ハレルヤ食堂」→「紹介文・ご利用案内」で変更できます -->
+      <dl class="p-shokudo-info js-fs-shokudo-info">
         <dt>場所</dt><dd>福岡新生キリスト教会 2階 親睦室</dd>
         <dt>対象</dt><dd>どなたでも（小学生・中学生を優先します）</dd>
         <dt>参加費</dt><dd><span class="p-shokudo-price">子ども 無料</span>　／　大人 300円</dd>

@@ -46,10 +46,21 @@ ADMIN.register({
           <p class="a-card__desc a-hint">💡 食堂の写真は「🖼️ アルバム」タブでカテゴリ「ハレルヤ食堂」を選んでアップロードすると、食堂ページにも表示されます。</p>
         </form>
 
+        <div>
         <div class="a-card">
           <h2>登録済みの予定</h2>
           <p class="a-card__desc">薄く表示されているのは終了した予定です（ホームページには出ません）。</p>
           <div class="a-list js-list"><p class="a-empty">読み込み中…</p></div>
+        </div>
+
+        <form class="a-card js-info">
+          <h2>紹介文・ご利用案内</h2>
+          <p class="a-card__desc">食堂ページの「ハレルヤ食堂とは」と「ご利用案内」の内容です。</p>
+          <div class="a-field"><label for="iIntro">紹介文（空行で段落が分かれます）</label><textarea id="iIntro" rows="5"></textarea></div>
+          <div class="js-info-rows"></div>
+          <button type="button" class="c-btn c-btn--outline c-btn--sm js-info-add">＋ 項目を追加</button>
+          <div class="a-actions a-hint"><button type="submit" class="c-btn c-btn--navy">保存する</button></div>
+        </form>
         </div>
       </div>`;
 
@@ -147,6 +158,34 @@ ADMIN.register({
         prog.textContent = '';
         resetForm(); load();
       } catch (err) { prog.textContent = ''; A.fail(err); } finally { btn.disabled = false; }
+    });
+
+    /* ---------- 紹介文・ご利用案内 (settings/shokudo) ---------- */
+    const infoRef = fs.doc(db, 'settings', 'shokudo');
+    const DEFAULT_INFO = [
+      { label: '場所', value: '福岡新生キリスト教会 2階 親睦室' },
+      { label: '対象', value: 'どなたでも（小学生・中学生を優先します）' },
+      { label: '参加費', value: '子ども 無料／大人 300円' },
+      { label: '予約', value: '不要（なくなり次第終了）' },
+    ];
+    let info = [];
+    const infoRow = (r, i) => `<div class="a-row a-info-row">
+        <div class="a-field"><input type="text" data-k="label" value="${esc(r.label)}" placeholder="項目（例：場所）"></div>
+        <div class="a-field a-info-val"><input type="text" data-k="value" value="${esc(r.value)}" placeholder="内容"><button type="button" class="c-btn c-btn--danger c-btn--sm" data-info-rm="${i}">×</button></div>
+      </div>`;
+    const drawInfo = () => { $('.js-info-rows').innerHTML = info.map(infoRow).join(''); };
+    const readInfo = () => { info = [...el.querySelectorAll('.a-info-row')].map((r) => ({ label: r.querySelector('[data-k=label]').value.trim(), value: r.querySelector('[data-k=value]').value.trim() })); };
+    fs.getDoc(infoRef).then((s) => {
+      const d = s.exists() ? s.data() : {};
+      $('#iIntro').value = d.intro || 'ハレルヤ食堂は、福岡新生キリスト教会が地域の子どもたちのために開いている「こども食堂」です。温かい手作りごはんを囲みながら、子どもたちが安心して過ごせる居場所をつくりたいと願って始まりました。\n\n教会に通っていない方も、どなたでも大歓迎です。お友だちやご家族と一緒に、気軽にお越しください。';
+      info = d.info && d.info.length ? d.info : DEFAULT_INFO.map((x) => ({ ...x }));
+      drawInfo();
+    }).catch(A.fail);
+    $('.js-info-add').onclick = () => { readInfo(); info.push({ label: '', value: '' }); drawInfo(); };
+    $('.js-info-rows').addEventListener('click', (e) => { const b = e.target.closest('[data-info-rm]'); if (b) { readInfo(); info.splice(Number(b.dataset.infoRm), 1); drawInfo(); } });
+    $('.js-info').addEventListener('submit', async (e) => {
+      e.preventDefault(); readInfo();
+      try { await fs.setDoc(infoRef, { intro: $('#iIntro').value.trim(), info: info.filter((r) => r.label || r.value), updatedAt: fs.serverTimestamp() }); A.toast('保存しました'); } catch (err) { A.fail(err); }
     });
 
     load().catch(A.fail);

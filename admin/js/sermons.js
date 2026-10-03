@@ -1,6 +1,6 @@
 /* ==========================================================================
    メッセージ・早天祈祷会 — sermons/{YYYY-MM-DD} · morning/{YYYY-MM-DD}
-   (등록 데이터가 있으면 사이트에서 weekly.js 대신 이쪽을 표시)
+   （登録データがあれば、サイトでは weekly.js の代わりにこちらを表示）
    ========================================================================== */
 ADMIN.register({
   id: 'sermons',
@@ -80,7 +80,7 @@ ADMIN.register({
     }
 
     function render() {
-      // 처음 한 번: weekly.js 의 기존 데이터 가져오기
+      // 初回のみ：weekly.js の既存データを取り込む
       const legacy = typeof SERMONS !== 'undefined' ? SERMONS : [];
       $('.js-import').innerHTML = !sermons.length && legacy.length
         ? `<p class="a-empty">これまでのメッセージ（${legacy.length}件）が weekly.js にあります。<br>

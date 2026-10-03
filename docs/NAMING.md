@@ -37,7 +37,7 @@
 ├─ admin/                     管理画面 (관리자 전용, 메뉴에 없음)
 │  ├─ index.html · admin.css
 │  └─ js/core.js · dashboard.js · bulletin.js · sermons.js · shokudo.js
-│        album.js · mission.js · settings.js · feedback.js   (탭 1개 = 파일 1개)
+│        album.js · mission.js · people.js · settings.js · feedback.js   (탭 1개 = 파일 1개)
 ├─ firestore.rules            Firestore 보안 규칙
 ├─ assets/
 │  ├─ css/style.css · feedback.css
@@ -165,7 +165,8 @@ CSS나 JS를 수정했는데 스마트폰에서 예전 화면이 보이면, 모�
 | `sermons` | `YYYY-MM-DD` | 설교 `{date, title, bible, speaker, youtube, slides}` |
 | `morning` | `YYYY-MM-DD` | 새벽기도 본문 `{date, bible}` |
 | `missionNews` | 자동 ID | 선교 소식 `{date, missionary, title, body, prayer, image}` |
-| `settings` | `offering` | 헌금 계좌 `{draft, accounts[], note}` |
+| `people` | 자동 ID | 인물 소개 `{page, group, order, role, name, sub, field, title, quote, quoteRef, body, image, draft}` |
+| `settings` | `offering` / `shokudo` | 헌금 계좌 · 식당 소개문과 이용 안내 |
 | `feedback` | 자동 ID | 교회원 의견 |
 
 공개 페이지에서 불러올 자리는 `js-fs-` 접두어 클래스로 표시합니다 (`js-fs-verse`, `js-fs-bulletin`, `js-fs-shokudo`, `js-fs-photos`, `js-fs-album`).

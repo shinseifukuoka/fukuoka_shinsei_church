@@ -8,6 +8,7 @@
    <div class="js-fs-photos" data-cat="shokudo" data-limit="6"></div>  写真プレビュー
    <div class="js-fs-album"></div>                         フォトアルバム (全体)
    <div class="js-fs-mission-news"></div>                  宣教ニュース・祈りの課題
+   <div class="js-fs-people" data-page data-group></div>   人物紹介（牧師・スタッフ・宣教師）
    + .js-sermon-* / .js-morning-list / .js-offering は 관리 화면 데이터가 있으면 덮어씀
    layout.js 가 위 컨테이너가 있는 페이지에서만 자동으로 불러옵니다.
    ========================================================================== */
@@ -263,6 +264,99 @@
           </article>`;
       }).join('')}</div>`;
       el.onclick = (ev) => { const b = ev.target.closest('[data-img]'); if (b) lb.open(items, Number(b.dataset.img)); };
+    });
+  }
+
+  /* ==========================================================================
+     人物紹介（牧師・スタッフ／宣教師） — people/{id}
+     등록 데이터가 있으면 HTML에 적힌 기본 내용을 대체합니다.
+     ========================================================================== */
+  const ROOT = document.body.dataset.root || './';
+  const PH = ROOT + 'assets/img/common/placeholder-person.webp';
+  const paras = (t = '') => t.split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean).map((x) => `<p>${nl2br(x)}</p>`).join('');
+  const lines = (t = '') => t.split('\n').map((x) => x.trim()).filter(Boolean).map((x) => `<li>${esc(x)}</li>`).join('');
+  const draft = (p) => (p.draft ? '<span class="u-draft">【※こちらの内容は現在準備中です。後日正式な内容に差し替えられます。】</span>' : '');
+  const PEOPLE_VIEW = {
+    pastor: (p) => `
+      <article class="c-card c-profile">
+        <div class="c-profile__img"><img src="${p.image || PH}" alt="${esc(p.role)} ${esc(p.name)}" width="220" height="293"></div>
+        <div class="c-profile__body">
+          <div class="c-profile__head">
+            <span class="c-profile__role">${esc(p.role)}</span>
+            <h3 class="c-profile__name">${esc(p.name)}${p.sub ? `<small>${esc(p.sub)}</small>` : ''}</h3>
+          </div>
+          ${draft(p)}
+          <div class="c-profile__text">
+            ${p.title ? `<h4>${esc(p.title)}</h4>` : ''}
+            ${p.quote ? `<blockquote class="c-quote c-quote--blue">${nl2br(p.quote)}${p.quoteRef ? `<cite>${esc(p.quoteRef)}</cite>` : ''}</blockquote>` : ''}
+            ${paras(p.body)}
+          </div>
+        </div>
+      </article>`,
+    member: (p) => `
+      <article class="c-person">
+        <div class="c-person__img"><img src="${p.image || PH}" alt="${esc(p.role)} ${esc(p.name)}" loading="lazy"></div>
+        <div>
+          <span class="c-person__role">${esc(p.role)}</span>
+          <h3 class="c-person__name">${esc(p.name)}</h3>
+          <p class="c-person__text">${nl2br(p.body)}${p.draft ? '（※紹介文準備中）' : ''}</p>
+        </div>
+      </article>`,
+    missionary: (p) => `
+      <article class="c-card c-profile c-profile--s">
+        <div class="c-profile__img"><img src="${p.image || PH}" alt="${esc(p.name)}" loading="lazy"></div>
+        <div class="c-profile__body">
+          <div class="c-profile__head">
+            <span class="c-tag c-tag--green">${esc(p.role || '宣教師')}</span>
+            <h3 class="c-profile__name">${esc(p.name)}${p.sub ? `<small>${esc(p.sub)}</small>` : ''}</h3>
+            ${p.field ? `<p class="c-profile__field">${esc(p.field)}</p>` : ''}
+          </div>
+          ${draft(p)}
+          <ul class="c-list">${lines(p.body)}</ul>
+        </div>
+      </article>`,
+  };
+  const peopleEls = $$('.js-fs-people');
+  const greetEl = $('.js-fs-greeting');
+  if (peopleEls.length || greetEl) {
+    const pages = [...new Set(peopleEls.map((el) => el.dataset.page).concat(greetEl ? ['staff'] : []))];
+    for (const page of pages) {
+      await safe(null, async () => {
+        const snap = await getDocs(query(collection(db, 'people'), where('page', '==', page)));
+        const all = snap.docs.map((d) => d.data()).sort((a, b) => (a.order || 0) - (b.order || 0));
+        if (!all.length) return;
+        peopleEls.filter((el) => el.dataset.page === page).forEach((el) => {
+          const g = el.dataset.group;
+          const list = all.filter((p) => p.group === g);
+          if (!list.length) return;
+          const html = list.map(PEOPLE_VIEW[g]).join('');
+          el.innerHTML = g === 'member' ? `<div class="c-grid" style="--grid-min: 340px">${html}</div>` : html;
+        });
+        // 홈의 주임목사 인사 (목회자 첫 번째)
+        const head = all.find((p) => p.group === 'pastor');
+        if (greetEl && page === 'staff' && head) {
+          const img = $('img', greetEl);
+          if (head.image) img.src = head.image;
+          img.alt = `${head.role} ${head.name}`;
+          $('.p-home-pastor__name', greetEl).textContent = `${(head.role || '').replace(/[（(].*$/, '').trim()} ${head.name}`;
+          const first = (head.body || '').split(/\n\s*\n/).slice(0, 2).join('\n');
+          if (first) $('p', greetEl).innerHTML = nl2br(first);
+        }
+      });
+    }
+  }
+
+  /* ハレルヤ食堂 — 紹介文・ご利用案内 (settings/shokudo) */
+  if ($('.js-fs-shokudo-info') || $('.js-fs-shokudo-intro')) {
+    await safe(null, async () => {
+      const s = await getDoc(doc(db, 'settings', 'shokudo'));
+      if (!s.exists()) return;
+      const d = s.data();
+      $$('.js-fs-shokudo-intro').forEach((el) => { if (d.intro) el.innerHTML = paras(d.intro); });
+      $$('.js-fs-shokudo-info').forEach((el) => {
+        const rows = (d.info || []).filter((r) => r.label && r.value);
+        if (rows.length) el.innerHTML = rows.map((r) => `<dt>${esc(r.label)}</dt><dd>${nl2br(r.value)}</dd>`).join('');
+      });
     });
   }
 

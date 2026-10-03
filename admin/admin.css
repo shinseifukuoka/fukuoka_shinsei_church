@@ -1,11 +1,11 @@
 @charset "UTF-8";
 /* ==========================================================================
-   admin.css — 관리 화면 전용 (a- 접두어 = admin)
-   공개 사이트의 style.css 변수·컴포넌트(c-btn 등)를 그대로 사용합니다.
+   admin.css — 管理画面専用（a- 接頭辞 = admin）
+   公開サイトの style.css の変数・コンポーネント（c-btn など）をそのまま使います。
    ========================================================================== */
 body.a-body { background: #EEF2F6; }
 
-/* 상단 바 */
+/* 上部バー */
 .a-bar { position: sticky; top: 0; z-index: 100; background: var(--c-navy); color: #fff; }
 .a-bar__inner { max-width: 1200px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .a-bar__title { font-size: 1rem; font-weight: 700; color: #fff; flex: 1; display: flex; align-items: center; gap: 10px; }
@@ -13,7 +13,7 @@ body.a-body { background: #EEF2F6; }
 .a-bar__user { font-size: .78rem; color: #CBD5E1; }
 .a-bar a, .a-bar button { font-size: .8rem; color: #fff; background: rgba(255, 255, 255, .12); border: 0; border-radius: 6px; padding: 6px 10px; text-decoration: none; cursor: pointer; }
 
-/* 탭 */
+/* タブ */
 .a-tabs { background: #fff; border-bottom: 1px solid var(--c-border); position: sticky; top: 48px; z-index: 90; }
 .a-tabs__list { max-width: 1200px; margin: 0 auto; padding: 0 8px; display: flex; overflow-x: auto; }
 .a-tabs__btn { flex-shrink: 0; padding: 14px 16px; border: 0; border-bottom: 3px solid transparent; background: none; font: inherit; font-size: .9rem; font-weight: 600; color: var(--c-text-sub); cursor: pointer; }
@@ -27,7 +27,7 @@ body.a-body { background: #EEF2F6; }
 .a-card h2 { font-size: 1.05rem; margin-bottom: 4px; }
 .a-card__desc { font-size: .8rem; color: var(--c-text-sub); margin-bottom: 14px; }
 
-/* 폼 */
+/* フォーム */
 .a-field { margin-bottom: 14px; }
 .a-field label, .a-label { display: block; font-size: .8rem; font-weight: 700; color: var(--c-navy); margin-bottom: 5px; }
 .a-field label em { font-style: normal; font-size: .7rem; color: #fff; background: var(--c-yt); padding: 0 5px; border-radius: 3px; margin-left: 4px; }
@@ -43,7 +43,7 @@ body.a-body { background: #EEF2F6; }
 .c-btn--danger { background: #fff; color: var(--c-yt); border-color: #FBCFE8; }
 .c-btn--sm { padding: 5px 10px !important; font-size: .78rem; }
 
-/* 파일 선택 + 미리보기 */
+/* ファイル選択＋プレビュー */
 .a-drop { display: block; padding: 18px; border: 2px dashed #CBD5E1; border-radius: 10px; text-align: center; color: var(--c-text-sub); font-size: .85rem; cursor: pointer; background: var(--c-bg); }
 .a-drop:hover, .a-drop.is-over { border-color: var(--c-blue); background: #EFF6FF; }
 .a-drop input { display: none; }
@@ -51,7 +51,7 @@ body.a-body { background: #EEF2F6; }
 .a-previews img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid var(--c-border); }
 .a-progress { margin-top: 10px; font-size: .82rem; color: var(--c-blue); font-weight: 700; }
 
-/* 목록 */
+/* 一覧 */
 .a-list { display: grid; gap: 10px; }
 .a-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px; border: 1px solid var(--c-border); border-radius: 10px; background: #fff; }
 .a-item.is-editing { border-color: var(--c-gold); box-shadow: 0 0 0 2px rgba(196, 147, 50, .25); }
@@ -63,7 +63,7 @@ body.a-body { background: #EEF2F6; }
 .a-item__text { margin-top: 4px; color: #334155; white-space: pre-wrap; }
 .a-item__btns { display: flex; flex-direction: column; gap: 6px; }
 
-/* 앨범 관리 그리드 */
+/* アルバム管理グリッド */
 .a-filter { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
 .a-filter button { padding: 5px 12px; border: 1px solid var(--c-border); border-radius: 99px; background: #fff; font-size: .78rem; cursor: pointer; }
 .a-filter button.is-current { background: var(--c-navy); color: #fff; border-color: var(--c-navy); }
@@ -75,7 +75,7 @@ body.a-body { background: #EEF2F6; }
 .a-photo__row { display: flex; gap: 6px; }
 .a-photo__row > * { flex: 1; }
 
-/* 로그인 */
+/* ログイン */
 .a-login { max-width: 380px; margin: 10vh auto 0; padding: 0 16px; }
 .a-login .a-card { padding: 28px; }
 .a-login__logo { display: block; height: 36px; margin: 0 auto 14px; }
@@ -85,14 +85,14 @@ body.a-body { background: #EEF2F6; }
 .a-msg.is-ok { color: var(--c-green); font-weight: 700; }
 .a-link { background: none; border: 0; color: var(--c-blue); font: inherit; font-size: .8rem; text-decoration: underline; cursor: pointer; }
 
-/* 의견 */
+/* ご意見 */
 .a-fb-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .a-fb-item { border-left: 4px solid var(--c-gold); }
 .a-fb-item[data-status="done"] { border-left-color: var(--c-green); opacity: .7; }
 .a-fb-item[data-status="hold"] { border-left-color: #94A3B8; }
 .a-fb-item textarea { width: 100%; margin-top: 8px; padding: 6px 8px; border: 1px solid var(--c-border); border-radius: 6px; font: inherit; font-size: .8rem; min-height: 36px; }
 
-/* 토스트 */
+/* トースト通知 */
 .a-toast { position: fixed; left: 50%; bottom: 24px; z-index: 999; transform: translateX(-50%); padding: 10px 18px; border-radius: 99px; background: var(--c-navy); color: #fff; font-size: .86rem; font-weight: 700; box-shadow: var(--shadow-m); }
 .a-toast.is-error { background: var(--c-yt); }
 .a-toast[hidden] { display: none; }
@@ -105,7 +105,7 @@ body.a-body { background: #EEF2F6; }
 }
 .a-hint { margin: 14px 0 0; }
 
-/* 대시보드 */
+/* ダッシュボード */
 .a-dash { display: grid; gap: 10px; }
 .a-dash__item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border: 1px solid var(--c-border); border-radius: 10px; background: #fff; text-align: left; font: inherit; cursor: pointer; }
 .a-dash__item.is-warn { border-color: #F5D98B; background: #FFFBEB; }
@@ -120,6 +120,14 @@ body.a-body { background: #EEF2F6; }
 .a-stat span { font-size: .8rem; color: var(--c-text-sub); }
 .a-stat.is-warn b { color: var(--c-yt); }
 
-/* 헌금 계좌 편집 */
+/* 献金口座の編集 */
 .a-account { margin-bottom: 14px; padding: 14px 16px 16px; border: 1px solid var(--c-border); border-radius: 10px; background: var(--c-bg); }
 .a-account legend { padding: 0 6px; font-size: .82rem; font-weight: 700; color: var(--c-navy); }
+
+/* セグメント切り替え（人物紹介） */
+.a-seg { display: inline-flex; margin-bottom: 16px; padding: 4px; border-radius: 10px; background: #fff; border: 1px solid var(--c-border); }
+.a-seg button { padding: 8px 18px; border: 0; border-radius: 7px; background: none; font: inherit; font-size: .88rem; font-weight: 600; color: var(--c-text-sub); cursor: pointer; }
+.a-seg button.is-current { background: var(--c-navy); color: #fff; }
+[hidden] { display: none !important; }
+.a-info-row .a-field { margin-bottom: 8px; }
+.a-info-val { display: flex; gap: 6px; }

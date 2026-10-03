@@ -1,6 +1,6 @@
 /* ==========================================================================
-   admin/js/core.js — 관리 화면 공통 (로그인 · 탭 · 이미지 압축 · 유틸)
-   각 기능은 ADMIN.register({ id, label, init }) 로 탭을 추가합니다.
+   admin/js/core.js — 管理画面の共通処理（ログイン・タブ・画像圧縮・ユーティリティ）
+   各機能は ADMIN.register({ id, label, init }) でタブを追加します。
    ========================================================================== */
 window.ADMIN = (() => {
   const $ = (s, c = document) => c.querySelector(s);
@@ -12,7 +12,7 @@ window.ADMIN = (() => {
     esc: (s = '') => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])),
   };
 
-  /* ---------- 날짜 ---------- */
+  /* ---------- 日付 ---------- */
   const WEEK = ['日', '月', '火', '水', '木', '金', '土'];
   A.iso = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   A.today = () => A.iso();
@@ -22,7 +22,7 @@ window.ADMIN = (() => {
     return isNaN(d) ? (iso || '') : `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}（${WEEK[d.getDay()]}）`;
   };
 
-  /* ---------- 알림 ---------- */
+  /* ---------- 通知 ---------- */
   let toastTimer;
   A.toast = (msg, isError = false) => {
     const t = $('.js-toast');
@@ -38,9 +38,9 @@ window.ADMIN = (() => {
     A.toast(perm ? '権限がありません（管理者に登録されていないアカウントです）' : '保存できませんでした：' + (e.message || e), true);
   };
 
-  /* ---------- 이미지 압축 ----------
-     스마트폰 사진도 자동으로 줄여서 저장 (Firestore 문서 1MB 제한 대응)
-     max: 긴 변 픽셀 / quality: 0~1 / maxBytes: 최대 크기 */
+  /* ---------- 画像の圧縮 ----------
+     スマホの写真も自動で縮小して保存（Firestore の1ドキュメント1MB制限に対応）
+     max: 長辺のピクセル / quality: 0〜1 / maxBytes: 最大サイズ */
   A.resizeImage = (file, { max = 1600, quality = 0.82, maxBytes = 850000 } = {}) => new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const img = new Image();
@@ -70,7 +70,7 @@ window.ADMIN = (() => {
     img.src = url;
   });
 
-  /* 파일 선택 + 미리보기 + 드래그앤드롭 */
+  /* ファイル選択＋プレビュー＋ドラッグ＆ドロップ */
   A.filePicker = (label, { multiple = false, onChange } = {}) => {
     const input = label.querySelector('input[type="file"]');
     const previews = label.nextElementSibling && label.nextElementSibling.classList.contains('a-previews') ? label.nextElementSibling : null;
@@ -92,7 +92,7 @@ window.ADMIN = (() => {
 
   A.lastSunday = () => { const d = new Date(); d.setDate(d.getDate() - d.getDay()); return A.iso(d); };
 
-  /* ---------- 로그인 · 시작 ---------- */
+  /* ---------- ログイン・起動 ---------- */
   document.addEventListener('DOMContentLoaded', async () => {
     const msgEl = $('.js-login-msg');
     const msg = { set textContent(t) { msgEl.textContent = t; }, set className(c) { msgEl.className = c + ' js-login-msg'; } };
@@ -169,7 +169,7 @@ window.ADMIN = (() => {
     A.badge = (id, n) => { const b = $(`[data-tab="${id}"] b`, tabBox); if (b) { b.hidden = !n; b.textContent = n; } };
     const first = tabs.find((t) => t.id === location.hash.slice(1)) || tabs[0];
     show(first.id);
-    // 의견 미처리 건수 배지는 처음부터 표시
+    // 未対応のご意見の件数バッジは最初から表示
     tabs.filter((t) => t.badge).forEach((t) => t.badge(A));
   }
 
