@@ -104,3 +104,22 @@ body.a-body { background: #EEF2F6; }
   .a-bar__user { display: none; }
 }
 .a-hint { margin: 14px 0 0; }
+
+/* 대시보드 */
+.a-dash { display: grid; gap: 10px; }
+.a-dash__item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border: 1px solid var(--c-border); border-radius: 10px; background: #fff; text-align: left; font: inherit; cursor: pointer; }
+.a-dash__item.is-warn { border-color: #F5D98B; background: #FFFBEB; }
+.a-dash__item b { display: block; color: var(--c-navy); font-size: .92rem; }
+.a-dash__item small { display: block; color: var(--c-text-sub); font-size: .8rem; margin-top: 2px; }
+.a-dash__item > span:nth-child(2) { flex: 1; min-width: 0; }
+.a-dash__icon { font-size: 1.3rem; }
+.a-dash__arrow { color: var(--c-blue); font-weight: 700; }
+.a-dash--stats { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.a-stat { padding: 18px; border: 1px solid var(--c-border); border-radius: 12px; background: #fff; text-align: center; font: inherit; cursor: pointer; }
+.a-stat b { display: block; font-size: 1.6rem; color: var(--c-navy); }
+.a-stat span { font-size: .8rem; color: var(--c-text-sub); }
+.a-stat.is-warn b { color: var(--c-yt); }
+
+/* 헌금 계좌 편집 */
+.a-account { margin-bottom: 14px; padding: 14px 16px 16px; border: 1px solid var(--c-border); border-radius: 10px; background: var(--c-bg); }
+.a-account legend { padding: 0 6px; font-size: .82rem; font-weight: 700; color: var(--c-navy); }

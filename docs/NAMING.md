@@ -31,12 +31,13 @@
 │  └─ sermons.html            メッセージ・週報・早天祈祷会
 ├─ hallelujah/index.html      ハレルヤ食堂   (教会の活動)
 ├─ album/index.html           フォトアルバム (教会の活動)
-├─ mission/index.html         世界宣教       (教会の活動)
+├─ mission/index.html         世界宣教       (단독 메뉴 · 핵심 비전)
 ├─ first-visit/index.html     初めての方へ     (구 faq.html + 처음 오신 분 안내 통합)
 ├─ access/index.html          アクセス
 ├─ admin/                     管理画面 (관리자 전용, 메뉴에 없음)
 │  ├─ index.html · admin.css
-│  └─ js/core.js · bulletin.js · shokudo.js · album.js · feedback.js
+│  └─ js/core.js · dashboard.js · bulletin.js · sermons.js · shokudo.js
+│        album.js · mission.js · settings.js · feedback.js   (탭 1개 = 파일 1개)
 ├─ firestore.rules            Firestore 보안 규칙
 ├─ assets/
 │  ├─ css/style.css · feedback.css
@@ -161,6 +162,10 @@ CSS나 JS를 수정했는데 스마트폰에서 예전 화면이 보이면, 모�
 | `shokudo` | 자동 ID | 식당 일정 `{date, time, menu, note, image}` |
 | `album` | 자동 ID | 사진 목록용 `{cat, title, date, thumb}` |
 | `albumFull` | album과 같은 ID | 확대용 원본 `{data}` |
+| `sermons` | `YYYY-MM-DD` | 설교 `{date, title, bible, speaker, youtube, slides}` |
+| `morning` | `YYYY-MM-DD` | 새벽기도 본문 `{date, bible}` |
+| `missionNews` | 자동 ID | 선교 소식 `{date, missionary, title, body, prayer, image}` |
+| `settings` | `offering` | 헌금 계좌 `{draft, accounts[], note}` |
 | `feedback` | 자동 ID | 교회원 의견 |
 
 공개 페이지에서 불러올 자리는 `js-fs-` 접두어 클래스로 표시합니다 (`js-fs-verse`, `js-fs-bulletin`, `js-fs-shokudo`, `js-fs-photos`, `js-fs-album`).

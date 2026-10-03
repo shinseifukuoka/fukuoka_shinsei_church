@@ -90,6 +90,8 @@ window.ADMIN = (() => {
     return { input, clear() { input.value = ''; if (previews) previews.innerHTML = ''; } };
   };
 
+  A.lastSunday = () => { const d = new Date(); d.setDate(d.getDate() - d.getDay()); return A.iso(d); };
+
   /* ---------- 로그인 · 시작 ---------- */
   document.addEventListener('DOMContentLoaded', async () => {
     const msgEl = $('.js-login-msg');
@@ -163,6 +165,7 @@ window.ADMIN = (() => {
       history.replaceState(null, '', '#' + id);
     };
     tabBox.addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) show(b.dataset.tab); });
+    A.go = (id) => { show(id); scrollTo(0, 0); };
     A.badge = (id, n) => { const b = $(`[data-tab="${id}"] b`, tabBox); if (b) { b.hidden = !n; b.textContent = n; } };
     const first = tabs.find((t) => t.id === location.hash.slice(1)) || tabs[0];
     show(first.id);

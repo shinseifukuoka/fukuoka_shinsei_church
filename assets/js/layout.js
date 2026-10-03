@@ -149,14 +149,14 @@
 
   /* ---------- Firebase 연동 (의견 위젯 · 관리 화면에서 올린 콘텐츠) ----------
      - FEEDBACK.enabled        → 의견 버튼 (feedback.js)
-     - .js-fs-* 컨테이너가 있음 → 주보·암송성구·식당·앨범 (content.js) */
+     - .js-fs-* / 설교 / 헌금 컨테이너가 있음 → 관리 화면 데이터로 갱신 (content.js) */
   const load = (src) => new Promise((ok) => {
     const s = document.createElement('script');
     s.src = ROOT + src + '?v=' + VER; s.onload = ok; s.onerror = ok;
     document.body.append(s);
   });
   const wantFeedback = typeof FEEDBACK !== 'undefined' && FEEDBACK.enabled;
-  const wantContent = !!document.querySelector('[class*="js-fs-"]');
+  const wantContent = !!document.querySelector('[class*="js-fs-"], .js-offering, .js-sermon-latest, .js-sermon-list, .js-morning-list');
   if (wantFeedback || wantContent) {
     if (wantFeedback) document.head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="${ROOT}assets/css/feedback.css?v=${VER}">`);
     load('assets/js/firebase.js').then(() => {
@@ -178,12 +178,17 @@
       </li>`).join('')}</ul>`;
   });
 
-  // 헌금 계좌 안내 <div class="js-offering"></div>  (config.js 의 OFFERING)
-  $$('.js-offering').forEach((el) => {
-    if (typeof OFFERING === 'undefined' || !OFFERING.accounts.length) { el.hidden = true; return; }
+  /* 아래 위젯은 먼저 config.js / weekly.js 값으로 그리고,
+     관리 화면에서 등록한 데이터가 있으면 content.js 가 같은 함수로 다시 그립니다. */
+  const R = window.SITE_RENDER = {};
+
+  // 헌금 계좌 안내 <div class="js-offering"></div>
+  R.offering = (o) => $$('.js-offering').forEach((el) => {
+    if (!o || !o.accounts || !o.accounts.length) { el.hidden = true; return; }
+    el.hidden = false;
     el.innerHTML = `
-      ${OFFERING.draft ? '<span class="u-draft">※ 現在は仮の情報です。正式な口座は後日掲載いたします。</span>' : ''}
-      <div class="c-grid">${OFFERING.accounts.map((a) => `
+      ${o.draft ? '<span class="u-draft">※ 現在は仮の情報です。正式な口座は後日掲載いたします。</span>' : ''}
+      <div class="c-grid">${o.accounts.map((a) => `
         <dl class="c-account">
           <dt class="c-account__label">${esc(a.label)}</dt>
           <dd><span>金融機関</span>${esc(a.bank)}</dd>
@@ -192,14 +197,14 @@
             <button type="button" class="c-account__copy" data-copy="${esc(a.number)}">コピー</button></dd>
           <dd><span>口座名義</span>${esc(a.holder)}</dd>
         </dl>`).join('')}</div>
-      ${OFFERING.note ? `<p class="c-account__note">${esc(OFFERING.note)}</p>` : ''}`;
-    el.addEventListener('click', async (e) => {
+      ${o.note ? `<p class="c-account__note">${esc(o.note)}</p>` : ''}`;
+    el.onclick = async (e) => {
       const b = e.target.closest('[data-copy]');
       if (!b) return;
       try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'コピーしました'; }
       catch (err) { b.textContent = '長押しでコピー'; }
       setTimeout(() => { b.textContent = 'コピー'; }, 2000);
-    });
+    };
   });
 
   // 자료 버튼 묶음
@@ -209,38 +214,40 @@
       ${s.bulletin ? `<a ${ext(s.bulletin)} class="c-chip c-chip--pdf">📄 ${compact ? '週報' : '週報 (PDF)'}</a>` : ''}
     </div>`;
 
-  // 최신 설교 <div class="js-sermon-latest"></div>
-  const SERMON_LIST = typeof SERMONS !== 'undefined' ? SERMONS : [];
-  const MORNING_LIST = typeof MORNING_PRAYERS !== 'undefined' ? MORNING_PRAYERS : [];
-  const latest = SERMON_LIST[0] || null;
-  $$('.js-sermon-latest').forEach((el) => {
-    if (!latest) return;
-    el.innerHTML = `<article class="c-sermon-latest">
-      <p class="c-sermon-latest__label">✨ 最新の礼拝メッセージ</p>
-      <div class="c-sermon-latest__body">
-        <p class="c-sermon__meta">${fmtDate(latest.date)}｜${esc(latest.speaker)}</p>
-        <h3 class="c-sermon-latest__title">『${esc(latest.title)}』</h3>
-        <p class="c-sermon__bible">📖 ${esc(latest.bible)}</p>
-        ${chips(latest)}
-      </div></article>`;
-  });
-
-  // 지난 설교 목록 <div class="js-sermon-list" data-limit="10"></div>
-  $$('.js-sermon-list').forEach((el) => {
-    const list = SERMON_LIST.slice(1, 1 + Number(el.dataset.limit || 99));
-    el.innerHTML = list.length ? `<ul class="c-sermon-list">${list.map((s) => `
-      <li class="c-sermon">
-        <div class="c-sermon__head">
-          <div><p class="c-sermon__meta">${fmtDate(s.date)}｜📖 ${esc(s.bible)}</p>
-          <h4 class="c-sermon__title">『${esc(s.title)}』</h4></div>
-          <span class="c-sermon__speaker">${esc(s.speaker)}</span>
-        </div>${chips(s, true)}
-      </li>`).join('')}</ul>` : '';
-  });
+  // 설교 <div class="js-sermon-latest"></div> <div class="js-sermon-list" data-limit="10"></div>
+  R.sermons = (list = []) => {
+    const latest = list[0];
+    $$('.js-sermon-latest').forEach((el) => {
+      if (!latest) return;
+      el.innerHTML = `<article class="c-sermon-latest">
+        <p class="c-sermon-latest__label">✨ 最新の礼拝メッセージ</p>
+        <div class="c-sermon-latest__body">
+          <p class="c-sermon__meta">${fmtDate(latest.date)}｜${esc(latest.speaker)}</p>
+          <h3 class="c-sermon-latest__title">『${esc(latest.title)}』</h3>
+          <p class="c-sermon__bible">📖 ${esc(latest.bible)}</p>
+          ${chips(latest)}
+        </div></article>`;
+    });
+    $$('.js-sermon-list').forEach((el) => {
+      const rest = list.slice(1, 1 + Number(el.dataset.limit || 99));
+      el.innerHTML = rest.length ? `<ul class="c-sermon-list">${rest.map((s) => `
+        <li class="c-sermon">
+          <div class="c-sermon__head">
+            <div><p class="c-sermon__meta">${fmtDate(s.date)}｜📖 ${esc(s.bible)}</p>
+            <h4 class="c-sermon__title">『${esc(s.title)}』</h4></div>
+            <span class="c-sermon__speaker">${esc(s.speaker)}</span>
+          </div>${chips(s, true)}
+        </li>`).join('')}</ul>` : '';
+    });
+  };
 
   // 새벽기도회 <ul class="js-morning-list"></ul>
-  $$('.js-morning-list').forEach((el) => {
-    el.innerHTML = MORNING_LIST.map((m) => `
+  R.morning = (list = []) => $$('.js-morning-list').forEach((el) => {
+    el.innerHTML = list.map((m) => `
       <li class="c-linklist__item"><span class="c-linklist__date">${fmtDate(m.date, false)}</span><span>${esc(m.bible)}</span></li>`).join('');
   });
+
+  R.offering(typeof OFFERING !== 'undefined' ? OFFERING : null);
+  R.sermons(typeof SERMONS !== 'undefined' ? SERMONS : []);
+  R.morning(typeof MORNING_PRAYERS !== 'undefined' ? MORNING_PRAYERS : []);
 })();

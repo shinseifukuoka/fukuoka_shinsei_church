@@ -7,6 +7,8 @@
    <div class="js-fs-shokudo"></div>                       ハレルヤ食堂 次回の予定
    <div class="js-fs-photos" data-cat="shokudo" data-limit="6"></div>  写真プレビュー
    <div class="js-fs-album"></div>                         フォトアルバム (全体)
+   <div class="js-fs-mission-news"></div>                  宣教ニュース・祈りの課題
+   + .js-sermon-* / .js-morning-list / .js-offering は 관리 화면 데이터가 있으면 덮어씀
    layout.js 가 위 컨테이너가 있는 페이지에서만 자동으로 불러옵니다.
    ========================================================================== */
 (async () => {
@@ -36,17 +38,17 @@
   const loading = (el) => { el.innerHTML = '<p class="c-empty is-loading">読み込み中…</p>'; };
 
   if (!window.hasFirebase()) {
-    $$('.js-fs-bulletin, .js-fs-shokudo, .js-fs-photos, .js-fs-album').forEach((el) => empty(el, '準備中です。'));
+    $$('.js-fs-bulletin, .js-fs-shokudo, .js-fs-photos, .js-fs-album, .js-fs-mission-news').forEach((el) => empty(el, '準備中です。'));
     return;
   }
 
-  $$('.js-fs-bulletin, .js-fs-shokudo, .js-fs-photos, .js-fs-album').forEach(loading);
+  $$('.js-fs-bulletin, .js-fs-shokudo, .js-fs-photos, .js-fs-album, .js-fs-mission-news').forEach(loading);
   let fs, db;
   try {
     ({ fs, db } = await window.loadFirebase());
   } catch (e) {
     console.error(e);
-    $$('.js-fs-bulletin, .js-fs-shokudo, .js-fs-photos, .js-fs-album').forEach((el) => empty(el, '読み込めませんでした。時間をおいて再度お試しください。'));
+    $$('.js-fs-bulletin, .js-fs-shokudo, .js-fs-photos, .js-fs-album, .js-fs-mission-news').forEach((el) => empty(el, '読み込めませんでした。時間をおいて再度お試しください。'));
     return;
   }
   const { collection, doc, getDoc, getDocs, query, orderBy, where, limit, startAfter } = fs;
@@ -212,6 +214,55 @@
         const b = ev.target.closest('[data-img]');
         if (b) lb.open(items, Number(b.dataset.img));
       };
+    });
+  }
+
+  /* ==========================================================================
+     メッセージ・早天祈祷会・献金口座 — 관리 화면 데이터가 있으면 덮어쓰기
+     (없으면 weekly.js / config.js 내용 그대로)
+     ========================================================================== */
+  const R = window.SITE_RENDER || {};
+  if (R.sermons && ($('.js-sermon-latest') || $('.js-sermon-list'))) {
+    await safe(null, async () => {
+      const snap = await getDocs(query(collection(db, 'sermons'), where('date', '<=', today()), orderBy('date', 'desc'), limit(10)));
+      if (!snap.empty) R.sermons(snap.docs.map((d) => d.data()));
+    });
+  }
+  if (R.morning && $('.js-morning-list')) {
+    await safe(null, async () => {
+      const snap = await getDocs(query(collection(db, 'morning'), where('date', '<=', today()), orderBy('date', 'desc'), limit(7)));
+      if (!snap.empty) R.morning(snap.docs.map((d) => d.data()));
+    });
+  }
+  if (R.offering && $('.js-offering')) {
+    await safe(null, async () => {
+      const s = await getDoc(doc(db, 'settings', 'offering'));
+      if (s.exists() && (s.data().accounts || []).length) R.offering(s.data());
+    });
+  }
+
+  /* ==========================================================================
+     宣教ニュース・祈りの課題
+     ========================================================================== */
+  for (const el of $$('.js-fs-mission-news')) {
+    await safe(el, async () => {
+      const snap = await getDocs(query(collection(db, 'missionNews'), orderBy('date', 'desc'), limit(Number(el.dataset.limit || 6))));
+      if (snap.empty) return empty(el, '宣教地からのお便りは準備中です。');
+      const items = [];
+      el.innerHTML = `<div class="c-news-list">${snap.docs.map((d) => {
+        const n = d.data();
+        if (n.image) items.push({ title: n.title, sub: `${n.missionary || ''} ${fmtDate(n.date)}`, thumb: n.image });
+        return `
+          <article class="c-news">
+            ${n.image ? `<button type="button" class="c-news__img" data-img="${items.length - 1}"><img src="${n.image}" alt="" loading="lazy"></button>` : ''}
+            <div class="c-news__body">
+              <p class="c-news__meta">${fmtDate(n.date)}${n.missionary ? `｜<b>${esc(n.missionary)}</b>` : ''}${n.prayer ? '<span class="c-tag c-tag--green">祈りの課題</span>' : ''}</p>
+              <h3 class="c-news__title">${esc(n.title || '')}</h3>
+              <p class="c-news__text">${nl2br(n.body || '')}</p>
+            </div>
+          </article>`;
+      }).join('')}</div>`;
+      el.onclick = (ev) => { const b = ev.target.closest('[data-img]'); if (b) lb.open(items, Number(b.dataset.img)); };
     });
   }
 
