@@ -43,7 +43,7 @@
 │  ├─ css/style.css · feedback.css
 │  ├─ js/config.js · layout.js · data/weekly.js
 │  │    firebase.js · content.js · feedback.js  (Firebase 연동)
-│  └─ img/{common,hero,facility,staff,mission}/
+│  └─ img/{common,hero,facility,staff,mission,activity}/
 └─ docs/NAMING.md
 ```
 
@@ -60,6 +60,7 @@
 | `facility/` 시설 (층 표기) | `facility-sanctuary-2f.webp`, `facility-prayer-room-1f.webp` |
 | `staff/` 교역자·스태프 (성-이름 로마자) | `staff-takeda-junsei.webp`, `staff-noguchi-kazuko.webp` |
 | `mission/` 선교사 | `missionary-kandel-janak.webp`, `mission-wall.webp` |
+| `activity/` 교회 활동·행사 | `activity-shokudo-banner.webp`, `activity-world-mission-revival.webp` |
 
 - 형식은 **WebP**, 가로 최대 1600px(인물은 600px)
 - 인물 사진은 **세로 3:4** 비율 권장
