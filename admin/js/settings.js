@@ -15,7 +15,7 @@ ADMIN.register({
     try {
       const s = await fs.getDoc(ref);
       data = s.exists() ? s.data() : (typeof OFFERING !== 'undefined' ? JSON.parse(JSON.stringify(OFFERING)) : { draft: true, accounts: [], note: '' });
-    } catch (err) { A.fail(err); return; }
+    } catch (err) { A.errBox(el, err); return; }
 
     const row = (a, i) => `
       <fieldset class="a-account" data-i="${i}">
@@ -40,7 +40,7 @@ ADMIN.register({
         <form class="a-card js-form">
           <h2>献金口座の案内</h2>
           <p class="a-card__desc">「礼拝・集会」ページの「献金について」に表示されます。最大${MAX}件まで登録できます。</p>
-          <div class="a-field"><label><input type="checkbox" class="js-draft"${data.draft ? ' checked' : ''}> 「※現在は仮の情報です」と表示する（正式な口座を入力したら外してください）</label></div>
+          <div class="a-field"><label><input type="checkbox" class="js-draft"${data.draft ? ' checked' : ''}> 準備中にする（チェック中はホームページに口座番号を表示せず「準備中」とだけ表示します。正式な口座を入力したら外してください）</label></div>
           <div class="js-rows">${data.accounts.map(row).join('')}</div>
           <button type="button" class="c-btn c-btn--outline c-btn--sm js-add"${data.accounts.length >= MAX ? ' hidden' : ''}>＋ 口座を追加</button>
           <div class="a-field a-hint"><label for="oNote">注意書き</label><textarea id="oNote">${esc(data.note || '')}</textarea></div>
@@ -69,6 +69,9 @@ ADMIN.register({
     el.addEventListener('submit', async (e) => {
       e.preventDefault();
       collect();
+      // 仮の値（〇〇・0000）のまま公開しようとしたら止める
+      const dummy = data.accounts.some((a) => /〇〇|○○/.test(Object.values(a).join('')) || /^0+$/.test(a.number || ''));
+      if (!data.draft && dummy) return A.toast('〇〇 や 0000 などの仮の値が残っています。正式な口座を入力するか「準備中にする」にチェックしてください', true);
       try {
         await fs.setDoc(ref, { draft: data.draft, accounts: data.accounts, note: data.note, updatedAt: fs.serverTimestamp() });
         A.toast('保存しました');

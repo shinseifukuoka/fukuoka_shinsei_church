@@ -15,6 +15,8 @@
 (async () => {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  // 画像は data:image または https のみ許可
+  const safeImg = (v) => (/^(data:image\/|https:\/\/)/.test(v || '') ? v : '');
   const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nl2br = (s = '') => esc(s).replace(/\n/g, '<br>');
   const WEEK = ['日', '月', '火', '水', '木', '金', '土'];
@@ -169,7 +171,7 @@
             load: loadFull('bulletinPages', `${b.id}_${k + 1}`),
           }));
           pagesEl.innerHTML = items.map((it, k) =>
-            `<button type="button" class="c-bulletin__page" data-k="${k}" aria-label="${k + 1}ページを拡大"><img alt="週報 ${k + 1}ページ" ${it.thumb ? `src="${it.thumb}"` : ''}></button>`).join('');
+            `<button type="button" class="c-bulletin__page" data-k="${k}" aria-label="${k + 1}ページを拡大"><img alt="週報 ${k + 1}ページ" ${it.thumb ? `src="${safeImg(it.thumb)}"` : ''}></button>`).join('');
           items.forEach(async (it, k) => {
             const src = await it.load();
             const img = $(`[data-k="${k}"] img`, pagesEl);
@@ -203,7 +205,7 @@
         return `
           <article class="c-event${i === 0 ? ' c-event--next' : ''}">
             ${i === 0 ? '<span class="c-event__badge">次回</span>' : ''}
-            ${e.image ? `<button type="button" class="c-event__img" data-img="${items.length - 1}"><img src="${e.image}" alt="${esc(e.menu || '')}"></button>` : ''}
+            ${e.image ? `<button type="button" class="c-event__img" data-img="${items.length - 1}"><img src="${safeImg(e.image)}" alt="${esc(e.menu || '')}"></button>` : ''}
             <div class="c-event__body">
               <p class="c-event__date">${fmtDate(e.date)}${e.time ? `<span>${esc(e.time)}</span>` : ''}</p>
               ${e.menu ? `<h3 class="c-event__menu">🍽️ ${esc(e.menu)}</h3>` : ''}
@@ -255,7 +257,7 @@
         if (n.image) items.push({ title: n.title, sub: `${n.missionary || ''} ${fmtDate(n.date)}`, thumb: n.image });
         return `
           <article class="c-news">
-            ${n.image ? `<button type="button" class="c-news__img" data-img="${items.length - 1}"><img src="${n.image}" alt="" loading="lazy"></button>` : ''}
+            ${n.image ? `<button type="button" class="c-news__img" data-img="${items.length - 1}"><img src="${safeImg(n.image)}" alt="" loading="lazy"></button>` : ''}
             <div class="c-news__body">
               <p class="c-news__meta">${fmtDate(n.date)}${n.missionary ? `｜<b>${esc(n.missionary)}</b>` : ''}${n.prayer ? '<span class="c-tag c-tag--green">祈りの課題</span>' : ''}</p>
               <h3 class="c-news__title">${esc(n.title || '')}</h3>
@@ -279,7 +281,7 @@
   const PEOPLE_VIEW = {
     pastor: (p) => `
       <article class="c-card c-profile">
-        <div class="c-profile__img"><img src="${p.image || PH}" alt="${esc(p.role)} ${esc(p.name)}" width="220" height="293"></div>
+        <div class="c-profile__img"><img src="${safeImg(p.image) || PH}" alt="${esc(p.role)} ${esc(p.name)}" width="220" height="293"></div>
         <div class="c-profile__body">
           <div class="c-profile__head">
             <span class="c-profile__role">${esc(p.role)}</span>
@@ -295,7 +297,7 @@
       </article>`,
     member: (p) => `
       <article class="c-person">
-        <div class="c-person__img"><img src="${p.image || PH}" alt="${esc(p.role)} ${esc(p.name)}" loading="lazy"></div>
+        <div class="c-person__img"><img src="${safeImg(p.image) || PH}" alt="${esc(p.role)} ${esc(p.name)}" loading="lazy"></div>
         <div>
           <span class="c-person__role">${esc(p.role)}</span>
           <h3 class="c-person__name">${esc(p.name)}</h3>
@@ -304,7 +306,7 @@
       </article>`,
     missionary: (p) => `
       <article class="c-card c-profile c-profile--s">
-        <div class="c-profile__img"><img src="${p.image || PH}" alt="${esc(p.name)}" loading="lazy"></div>
+        <div class="c-profile__img"><img src="${safeImg(p.image) || PH}" alt="${esc(p.name)}" loading="lazy"></div>
         <div class="c-profile__body">
           <div class="c-profile__head">
             <span class="c-tag c-tag--green">${esc(p.role || '宣教師')}</span>
@@ -327,7 +329,7 @@
         if (!all.length) return;
         peopleEls.filter((el) => el.dataset.page === page).forEach((el) => {
           const g = el.dataset.group;
-          const list = all.filter((p) => p.group === g);
+          const list = all.filter((p) => p.group === g && !/〇〇|○○/.test(p.name || ''));   // 名前未定のカードは表示しない
           if (!list.length) return;
           const html = list.map(PEOPLE_VIEW[g]).join('');
           el.innerHTML = g === 'member' ? `<div class="c-grid" style="--grid-min: 340px">${html}</div>` : html;
@@ -371,7 +373,7 @@
   });
   const tile = (it, i) => `
     <figure class="c-photo-tile"><button type="button" data-i="${i}">
-      <img src="${it.thumb}" alt="${esc(it.title)}" loading="lazy">
+      <img src="${safeImg(it.thumb)}" alt="${esc(it.title)}" loading="lazy">
       <figcaption>${esc(it.title)}<span>${esc(it.sub)}</span></figcaption>
     </button></figure>`;
 

@@ -78,19 +78,19 @@ table { border-collapse: collapse; width: 100%; }
 .l-header__logo img { height: 44px; width: auto; }
 .l-header__toggle {
   display: none; position: relative; z-index: 3000;
-  width: 28px; height: 22px; background: none; border: 0; cursor: pointer;
+  width: 44px; height: 44px; margin-right: -8px; background: none; border: 0; cursor: pointer;  /* タップ領域 44px */
 }
 .l-header__toggle span {
-  position: absolute; left: 0; width: 100%; height: 2.5px;
+  position: absolute; left: 8px; width: 28px; height: 2.5px;
   background: var(--c-navy); border-radius: 2px;
   transition: transform .28s, top .28s, opacity .2s;
 }
-.l-header__toggle span:nth-child(1) { top: 2px; }
-.l-header__toggle span:nth-child(2) { top: 10px; }
-.l-header__toggle span:nth-child(3) { top: 18px; }
-.is-drawer-open .l-header__toggle span:nth-child(1) { top: 10px; transform: rotate(45deg); }
+.l-header__toggle span:nth-child(1) { top: 13px; }
+.l-header__toggle span:nth-child(2) { top: 21px; }
+.l-header__toggle span:nth-child(3) { top: 29px; }
+.is-drawer-open .l-header__toggle span:nth-child(1) { top: 21px; transform: rotate(45deg); }
 .is-drawer-open .l-header__toggle span:nth-child(2) { opacity: 0; }
-.is-drawer-open .l-header__toggle span:nth-child(3) { top: 10px; transform: rotate(-45deg); }
+.is-drawer-open .l-header__toggle span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
 
 /* global nav (PC) */
 .l-gnav__list { display: flex; gap: 8px; height: var(--header-h); }
@@ -482,7 +482,8 @@ a.c-linklist__item:hover { background: #EEF2F6; }
 .c-account dd { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; padding: 4px 0; color: var(--c-text-body); }
 .c-account dd span { min-width: 64px; font-size: .78rem; font-weight: 700; color: var(--c-text-sub); }
 .c-account__num { font-size: 1.15rem; letter-spacing: .06em; color: var(--c-navy); }
-.c-account__copy { padding: 2px 10px; border: 1px solid var(--c-blue); border-radius: 99px; background: #fff; color: var(--c-blue); font-size: .74rem; font-weight: 700; cursor: pointer; }
+.c-account__pending { padding: 16px 18px; border: 1px dashed var(--c-border); border-radius: var(--radius-s); background: var(--c-bg); font-size: .9rem; text-align: center; }
+.c-account__copy { min-height: 36px; padding: 6px 14px; border: 1px solid var(--c-blue); border-radius: 99px; background: #fff; color: var(--c-blue); font-size: .74rem; font-weight: 700; cursor: pointer; }
 .c-account__note { margin-top: 12px; font-size: .84rem; color: var(--c-text-sub); }
 
 
@@ -612,6 +613,8 @@ a.c-linklist__item:hover { background: #EEF2F6; }
 .u-skip { position: absolute; left: -9999px; }
 .u-skip:focus { left: 12px; top: 12px; z-index: 5000; padding: 8px 14px; background: #fff; }
 .u-center { text-align: center; }
+.u-nowrap { white-space: nowrap; }
+.c-person.is-placeholder { display: none; }  /* 名前が未定（〇〇）のカード：管理画面で正式に登録するまで非表示 */
 .u-mt-0 { margin-top: 0 !important; }
 .u-mb-0 { margin-bottom: 0 !important; }
 .u-draft { display: block; margin-bottom: 18px; padding: 12px 16px; border: 1px dashed #F59E0B; border-radius: 8px; background: #FFFBEB; color: #92400E; font-size: .88rem; font-weight: 600; text-align: center; }

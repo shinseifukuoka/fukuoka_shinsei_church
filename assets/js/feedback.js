@@ -73,6 +73,8 @@
 
         <label class="c-fb__label" for="fbName">お名前（任意）</label>
         <input id="fbName" name="name" maxlength="50" autocomplete="name">
+        <!-- スパム対策：人には見えない入力欄（ロボットだけが入力する） -->
+        <input class="c-fb__hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <button type="submit" class="c-btn c-btn--navy c-btn--block js-fb-submit">送信する</button>
         <p class="c-fb__status js-fb-status" role="status"></p>
@@ -138,6 +140,14 @@
     const message = form.message.value.trim();
     if (!message) return;
     const btn = $('.js-fb-submit');
+    // スパム対策：①見えない欄に入力がある（ロボット）→ 送ったふり ②連続送信は30秒あける
+    if (form.website.value) { status.textContent = '送信しました。ご協力ありがとうございます！'; return; }
+    let last = 0; try { last = Number(localStorage.getItem('fb-last') || 0); } catch (err) {}
+    if (Date.now() - last < 30000) {
+      status.className = 'c-fb__status js-fb-status is-error';
+      status.textContent = '続けて送信する場合は、30秒ほどお待ちください。';
+      return;
+    }
     btn.disabled = true;
     status.className = 'c-fb__status js-fb-status';
     status.textContent = '送信中…';
@@ -154,7 +164,7 @@
         status: 'new',
         createdAt: fs.serverTimestamp(),
       });
-      try { localStorage.setItem('fb-name', name); } catch (err) {}
+      try { localStorage.setItem('fb-name', name); localStorage.setItem('fb-last', String(Date.now())); } catch (err) {}
       status.classList.add('is-ok');
       status.textContent = '送信しました。ご協力ありがとうございます！';
       form.message.value = '';

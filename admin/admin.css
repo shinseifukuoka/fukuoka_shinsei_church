@@ -131,3 +131,13 @@ body.a-body { background: #EEF2F6; }
 [hidden] { display: none !important; }
 .a-info-row .a-field { margin-bottom: 8px; }
 .a-info-val { display: flex; gap: 6px; }
+
+/* 設定エラーの案内 */
+.a-alert { border: 2px solid var(--c-yt); background: #fff5f5; color: #7a1020; font-size: .9rem; line-height: 1.7; }
+.a-alert b { margin-right: 4px; }
+.a-alert p { margin: 0; }
+.a-alert p + p { margin-top: 10px; }
+.a-alert--top { max-width: 1168px; margin: 20px auto 0; padding: 14px 18px; border-radius: 12px; }
+.a-alert--top[hidden] { display: none; }
+@media (max-width: 1200px) { .a-alert--top { margin: 16px 16px 0; } }
+.a-alert__btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }

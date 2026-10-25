@@ -137,6 +137,8 @@ ADMIN.register({
       const data = {};
       F.forEach((k) => { data[k] = field(k).value.trim(); });
       if (!data.date || !data.title) return A.toast('日付と説教題を入力してください', true);
+      const badUrl = ['youtube', 'slides'].find((k) => data[k] && !/^https?:\/\//i.test(data[k]));
+      if (badUrl) return A.toast(`${badUrl === 'youtube' ? 'YouTube' : 'スライド'}のURLは https:// から始まるアドレスを貼り付けてください`, true);
       const exists = sermons.find((x) => x.id === data.date);
       if (!editing && exists && !confirm(`${A.fmtDate(data.date)} はすでに登録されています。上書きしますか？`)) return;
       try {

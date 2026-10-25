@@ -63,3 +63,5 @@
   .c-fb-open { left: 12px; right: auto; bottom: calc(76px + env(safe-area-inset-bottom)); padding: 8px 12px; font-size: .76rem; }
 }
 
+
+.c-fb__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }

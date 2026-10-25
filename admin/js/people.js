@@ -155,7 +155,8 @@ ADMIN.register({
       const html = await (await fetch(url)).text();
       const dom = new DOMParser().parseFromString(html, 'text/html');
       const base = new URL(url, location.href);
-      const abs = (img) => (img ? new URL(img.getAttribute('src'), base).href : '');
+      // 仮のシルエット画像は取り込まない（空欄＝サイト側で自動的にシルエット表示）
+      const abs = (img) => (img && !/placeholder-person/.test(img.getAttribute('src')) ? new URL(img.getAttribute('src'), base).href : '');
       const out = [];
       if (view === 'staff') {
         dom.querySelectorAll('[data-group="pastor"] .c-profile').forEach((c) => {

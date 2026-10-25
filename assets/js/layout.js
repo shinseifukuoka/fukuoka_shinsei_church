@@ -28,7 +28,8 @@
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   // 로컬(file://) 미리보기에서는 폴더 링크에 index.html을 붙여 줌
   const url = (path) => ROOT + path + (IS_FILE && path.endsWith('/') ? 'index.html' : '');
-  const ext = (href) => (href ? `href="${href}" target="_blank" rel="noopener"` : '');
+  // 外部リンク：http(s) 以外（javascript: など）は無視する
+  const ext = (href) => (/^https?:\/\//i.test(href || '') ? `href="${esc(href)}" target="_blank" rel="noopener"` : '');
   const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   const WEEK = ['日', '月', '火', '水', '木', '金', '土'];
@@ -99,7 +100,7 @@
       <div class="l-footer__inner">
         <ul class="l-footer__nav">${NAV.map((n) => `<li><a href="${url(n.path)}">${n.label}</a></li>`).join('')}</ul>
         <p class="l-footer__name">${SITE.fullName}</p>
-        <p>${SITE.zip} ${SITE.address}｜TEL <a href="tel:${SITE.tel}">${SITE.tel}</a></p>
+        <p><span class="u-nowrap">${SITE.zip}</span> ${esc(SITE.address).replace(/([^\s区市町村]*\d[\d-]*)$/, '<span class="u-nowrap">$1</span>')}｜<span class="u-nowrap">TEL <a href="tel:${SITE.tel}">${SITE.tel}</a></span></p>
         <p class="l-footer__copy">© ${SITE.nameEn}. All Rights Reserved.</p>
       </div>
     </footer>
@@ -116,6 +117,9 @@
      <a data-site-href="tel">             → 링크 삽입 (tel/line/youtube/map)
      LINE URL이 비어 있으면 data-site-href="line" 요소는 숨김 */
   $$('[data-site]').forEach((el) => { el.textContent = SITE[el.dataset.site] ?? ''; });
+  // 住所・電話番号が「3-33-/1」「092-/562」のように途中で改行されないように
+  $$('[data-site="address"]').forEach((el) => { el.innerHTML = esc(SITE.address).replace(/([^\s区市町村]*\d[\d-]*)$/, '<span class="u-nowrap">$1</span>'); });
+  $$('[data-site="tel"], [data-site="telPastor"], [data-site="zip"]').forEach((el) => el.classList.add('u-nowrap'));
   const HREF = { tel: `tel:${SITE.tel}`, telPastor: `tel:${SITE.telPastor}`, line: SITE.lineUrl, youtube: SITE.youtubeUrl, map: SITE.mapUrl };
   $$('[data-site-href]').forEach((el) => {
     const href = HREF[el.dataset.siteHref];
@@ -186,8 +190,12 @@
   R.offering = (o) => $$('.js-offering').forEach((el) => {
     if (!o || !o.accounts || !o.accounts.length) { el.hidden = true; return; }
     el.hidden = false;
+    // 準備中（draft）の間は口座番号を出さない — 仮の番号への誤送金を防ぐため
+    if (o.draft) {
+      el.innerHTML = `<p class="c-account__pending">口座のご案内は準備中です。お振込みをご希望の方は、教会受付または LINE でお問い合わせください。</p>`;
+      return;
+    }
     el.innerHTML = `
-      ${o.draft ? '<span class="u-draft">※ 現在は仮の情報です。正式な口座は後日掲載いたします。</span>' : ''}
       <div class="c-grid">${o.accounts.map((a) => `
         <dl class="c-account">
           <dt class="c-account__label">${esc(a.label)}</dt>

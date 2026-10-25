@@ -1,19 +1,19 @@
 rules_version = '2';
 
-// Firestore security rules
+// Firestore security rules  (v2026-10-25 : 3 admins / email verification required)
 // Firebase console > Firestore Database > Rules : delete everything, paste this, then Publish.
 // - Anyone : read public content (bulletins, shokudo, album) / create feedback only
 // - Admins : write public content, read & manage feedback
-//   Admin = email below AND (password sign-in OR verified Google account)
 
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Admin = email in this list AND email verified
+    // (verification is required, so nobody else can register the same address and become admin)
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email in ['donkah16@gmail.com', 'knockj.pla@gmail.com']
-        && (request.auth.token.firebase.sign_in_provider == 'password'
-            || request.auth.token.email_verified == true);
+        && request.auth.token.email in ['donkah16@gmail.com', 'knockj.pla@gmail.com', 'shinsei.fukuoka.media@gmail.com']
+        && request.auth.token.email_verified == true;
     }
 
     function isStr(v, max) {

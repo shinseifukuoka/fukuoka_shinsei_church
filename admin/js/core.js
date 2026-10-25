@@ -32,10 +32,16 @@ window.ADMIN = (() => {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { t.hidden = true; }, isError ? 5000 : 2500);
   };
+  // firestore.rules の管理者リストと同じにしておくこと
+  A.ADMIN_EMAILS = ['donkah16@gmail.com', 'knockj.pla@gmail.com', 'shinsei.fukuoka.media@gmail.com'];
+  A.isPerm = (e) => /permission|insufficient/i.test(e && (e.code || e.message));
+  A.errBox = (el, e) => {
+    el.innerHTML = `<div class="a-card a-alert"><b>${A.isPerm(e) ? '読み込む権限がありません' : '読み込みに失敗しました'}</b><p>${A.isPerm(e) ? '画面上部の案内をご確認ください。' : String(e.message || e)}</p></div>`;
+  };
   A.fail = (e) => {
     console.error(e);
-    const perm = /permission|insufficient/i.test(e && (e.code || e.message));
-    A.toast(perm ? '権限がありません（管理者に登録されていないアカウントです）' : '保存できませんでした：' + (e.message || e), true);
+    const perm = A.isPerm(e);
+    A.toast(perm ? '権限がありません（画面上部の案内をご確認ください）' : '保存できませんでした：' + (e.message || e), true);
   };
 
   /* ---------- 画像の圧縮 ----------
@@ -142,13 +148,53 @@ window.ADMIN = (() => {
       A.user = user;
       $('.js-login-view').hidden = !!user;
       $('.js-admin-view').hidden = !user;
-      if (!user) return;
+      if (!user) { if (started) location.reload(); return; }   // ログアウト時は画面をリセット
       $('.js-user').textContent = user.email;
       if (!started) { started = true; start(); }
     });
   });
 
+  /* ---------- 設定チェック（保存できない原因を画面上部に表示） ----------
+     1) 管理者リストに入っているか  2) メール確認済みか  3) 実際に書き込めるか */
+  async function diagnose() {
+    const box = $('.js-alert');
+    const u = A.user;
+    const email = (u.email || '').toLowerCase();
+    const msgs = [];
+    const show = () => { box.innerHTML = msgs.map((m) => `<p>${m}</p>`).join(''); box.hidden = !msgs.length; };
+
+    if (!A.ADMIN_EMAILS.includes(email)) {
+      msgs.push(`⚠️ <b>${A.esc(email)} は管理者に登録されていません。</b>管理者を追加する場合は、制作担当にご連絡ください（firestore.rules の変更が必要です）。`);
+      return show();
+    }
+    if (!u.emailVerified) {
+      msgs.push(`📧 <b>最初に一度だけ、メールアドレスの確認が必要です。</b>下のボタンを押すと ${A.esc(email)} に確認メールが届きます。メール内のリンクを開いたあと、「確認しました」を押してください。<br>
+        <span class="a-alert__btns"><button type="button" class="c-btn c-btn--navy c-btn--sm js-verify-send">確認メールを送る</button>
+        <button type="button" class="c-btn c-btn--outline c-btn--sm js-verify-done">確認しました</button></span>`);
+      show();
+      $('.js-verify-send').onclick = async () => {
+        try { await A.au.sendEmailVerification(u); A.toast('確認メールを送信しました。受信トレイ（迷惑メール）をご確認ください'); }
+        catch (e) { A.toast('送信できませんでした：' + (e.code || e.message), true); }
+      };
+      $('.js-verify-done').onclick = async () => {
+        await u.reload(); await u.getIdToken(true);
+        if (A.auth.currentUser.emailVerified) { A.toast('確認できました'); location.reload(); }
+        else A.toast('まだ確認されていません。メールのリンクを開いてから押してください', true);
+      };
+      return;
+    }
+    // 実際に書き込めるかテスト（settings/_check に日時だけ書く）
+    try {
+      await A.fs.setDoc(A.fs.doc(A.db, 'settings', '_check'), { by: email, at: A.fs.serverTimestamp() });
+    } catch (e) {
+      if (A.isPerm(e)) msgs.push('⚠️ <b>保存の権限がありません。</b>Firebase コンソール → Firestore Database → ルール に、最新の firestore.rules を貼り付けて「公開」してください。');
+      else msgs.push('⚠️ <b>Firebase に接続できません。</b>通信環境を確認してください：' + A.esc(e.message || ''));
+    }
+    show();
+  }
+
   function start() {
+    diagnose();
     const tabBox = $('.js-tabs');
     const panels = $('.js-panels');
     tabBox.innerHTML = tabs.map((t) => `<button type="button" class="a-tabs__btn" data-tab="${t.id}">${t.label}<b hidden></b></button>`).join('');
